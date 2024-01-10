@@ -6,24 +6,9 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
-    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-    // Further reading:
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-    url      = env("DATABASE_URL")
-}
-
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
-
-    @@index([name])
+    provider  = "postgresql"
+    url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+    directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 // Necessary for Next auth
@@ -61,7 +46,10 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    posts         Post[]
+    pets          Pet[]
+    petTags       PetTag[]
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @default(now()) @updatedAt
 }
 
 model VerificationToken {
@@ -70,4 +58,45 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Pet {
+    id          String   @id @default(cuid())
+    userId      String // Foreign key referencing the User model
+    name        String
+    type        String
+    breed       String
+    birthdate   DateTime
+    description String?
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @default(now()) @updatedAt
+
+    tags PetTag[] // A list of tags associated with the pet
+    // Other fields related to the pet
+    user User     @relation(fields: [userId], references: [id])
+}
+
+model PetTag {
+    id             String        @id @default(cuid())
+    petId          String // Foreign key referencing the Pet model
+    userId         String // Foreign key referencing the User model
+    serialNumber   String        @unique
+    qrCode         String
+    isActive       Boolean
+    registeredDate DateTime
+    createdAt      DateTime      @default(now())
+    updatedAt      DateTime      @default(now()) @updatedAt
+    // Other fields related to the pet tag
+    pet            Pet           @relation(fields: [petId], references: [id])
+    user           User          @relation(fields: [userId], references: [id])
+    scanHistories  ScanHistory[]
+}
+
+model ScanHistory {
+    id          String   @id @default(cuid())
+    tagId       String // Foreign key referencing the PetTag model
+    scanDate    DateTime
+    scannerInfo String?
+    // Other fields related to the scan history
+    petTag      PetTag   @relation(fields: [tagId], references: [id])
 }

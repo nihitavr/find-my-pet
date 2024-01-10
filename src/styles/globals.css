@@ -1,3 +1,48 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.text-primary {
+  @apply text-[#333333];
+}
+
+.text-primary-light {
+  @apply text-[#FDF6E9];
+}
+
+.text-primary-dark {
+  @apply text-[#4A3020];
+}
+
+.header-bg-color {
+  @apply bg-white;
+}
+
+.bg-primary {
+  @apply bg-[#fffbf5];
+}
+
+.border-primary {
+  @apply border-[#FDF7ED];
+}
+
+.button-dark {
+  @apply bg-[#4A3020] text-[#ffffff] px-3 py-2 rounded-md hover:scale-105;
+}
+
+.button-light {
+  @apply border border-[#4A3020] text-primary px-3 py-2 rounded-md hover:scale-105;
+}
+
+
+@keyframes rainbow-text {
+  0%,100% { color: white; }
+  33% { color: yellow; }
+  66% { color: orange; }
+  /* 75% { color: green; } */
+}
+
+.rainbow-text-animation {
+  animation: rainbow-text 3s linear infinite;
+}
