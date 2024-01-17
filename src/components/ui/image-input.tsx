@@ -7,7 +7,7 @@ import {
 } from "react-hook-form";
 import Image from "next/image";
 import { cn } from "~/lib/utils";
-import { Plus, PlusCircle, X } from "lucide-react";
+import { PlusCircle, X } from "lucide-react";
 import { Fragment } from "react";
 
 const MAX_FILE_SIZE = 1000000;

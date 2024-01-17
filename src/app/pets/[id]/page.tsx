@@ -3,7 +3,7 @@ import Image from "next/image";
 import NotFound from "~/components/ui/not-found";
 import { api } from "~/lib/trpc/server";
 
-const Tags = {
+const Tags: any = {
   Neat: "bg-green-100 text-green-800",
   Friendly: "bg-blue-100 text-blue-800",
   Cute: "bg-yellow-100 text-yellow-800",
@@ -30,7 +30,6 @@ const Tags = {
   "Good with other pets": "bg-blue-100 text-blue-800",
   "Good with other dogs": "bg-blue-100 text-blue-800",
   "Bad with other dogs": "bg-red-100 text-red-800",
-  
 };
 
 export default async function PetProfileForm({
