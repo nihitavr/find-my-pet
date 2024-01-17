@@ -24,6 +24,7 @@ import { useEffect } from "react";
 import { api } from "~/lib/trpc/react";
 import ProfileLoadingSkeleton from "./profile-loading-skeleton";
 import { ImageInput, ImageInputDisplay } from "../ui/image-input";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 
 const petProfileFormSchema = z.object({
   profileImages: z.array(z.string().url()),
@@ -160,7 +161,7 @@ export function PetProfileForm({ id }: Props) {
         />
 
         {/* Pet Type */}
-        <FormField
+        {/* <FormField
           control={form.control}
           name="type"
           render={({ field }) => (
@@ -168,6 +169,37 @@ export function PetProfileForm({ id }: Props) {
               <FormLabel>Type</FormLabel>
               <FormControl>
                 <Input placeholder="Cat, Dog, etc." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        /> */}
+
+        <FormField
+          control={form.control}
+          name="type"
+          render={({ field }) => (
+            <FormItem className="space-y-2 py-1">
+              <FormLabel>Type</FormLabel>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  value={field.value}
+                  className="flex flex-row items-center gap-3"
+                >
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="dog" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Dog</FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="cat" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Cat</FormLabel>
+                  </FormItem>
+                </RadioGroup>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -193,7 +225,7 @@ export function PetProfileForm({ id }: Props) {
         />
 
         {/* Pet Gender */}
-        <FormField
+        {/* <FormField
           control={form.control}
           name="gender"
           render={({ field }) => (
@@ -205,8 +237,41 @@ export function PetProfileForm({ id }: Props) {
               <FormMessage />
             </FormItem>
           )}
+        /> */}
+
+        {/* Pet Gender 1 */}
+        <FormField
+          control={form.control}
+          name="gender"
+          render={({ field }) => (
+            <FormItem className="space-y-2 py-1">
+              <FormLabel>Gender</FormLabel>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  value={field.value}
+                  className="flex flex-row items-center gap-3"
+                >
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="male" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Male</FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="female" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Female</FormLabel>
+                  </FormItem>
+                </RadioGroup>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
 
+        {/* Pet Birth Date */}
         <FormField
           control={form.control}
           name="birthdate"
@@ -248,6 +313,8 @@ export function PetProfileForm({ id }: Props) {
             </FormItem>
           )}
         />
+
+        {/* Pet Description */}
         <FormField
           control={form.control}
           name="description"
@@ -256,6 +323,7 @@ export function PetProfileForm({ id }: Props) {
               <FormLabel>Description</FormLabel>
               <FormControl>
                 <Textarea
+                  className="h-44"
                   placeholder="Description about your pet."
                   {...field}
                 />
@@ -265,9 +333,15 @@ export function PetProfileForm({ id }: Props) {
           )}
         />
 
-        <Button type="submit" disabled={!form.formState.isDirty}>
-          Submit
-        </Button>
+        <div className="flex w-full justify-end">
+          <Button
+            className="w-full"
+            type="submit"
+            disabled={!form.formState.isDirty}
+          >
+            Submit
+          </Button>
+        </div>
       </form>
     </Form>
   );

@@ -1,7 +1,9 @@
-import { Instagram, Share } from "lucide-react";
+import { Instagram } from "lucide-react";
 import Image from "next/image";
+import { Share } from "~/components/ui/icons";
 import NotFound from "~/components/ui/not-found";
 import { api } from "~/lib/trpc/server";
+import { getTimePassed, titleCase } from "~/lib/utils";
 
 const Tags: any = {
   Neat: "bg-green-100 text-green-800",
@@ -76,10 +78,14 @@ export default async function PetProfileForm({
             <span className="text-2xl font-semibold text-primary">
               {data?.name}
             </span>
-            <span className="text-sm text-primary/80">
-              {data?.gender} | {data?.birthdate?.getDate()}
-            </span>
+            <div className="flex items-center gap-2 text-sm text-primary/80">
+              <span>{titleCase(data?.gender)}</span>
+              <div className="h-1.5 w-1.5 rounded-full bg-[#999999]"></div>
+              <span>{getTimePassed(data?.birthdate)}</span>
+            </div>
           </div>
+
+          {/* Insta and Share button */}
 
           <div className="flex items-center gap-2">
             <Instagram className="cursor-pointer text-primary/50 hover:text-primary" />
