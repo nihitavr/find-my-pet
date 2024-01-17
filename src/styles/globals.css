@@ -4,15 +4,7 @@
 
 
 .text-primary {
-  @apply text-[#333333];
-}
-
-.text-primary-light {
-  @apply text-[#FDF6E9];
-}
-
-.text-primary-dark {
-  @apply text-[#4A3020];
+  @apply !text-[#333333];
 }
 
 .header-bg-color {
@@ -20,29 +12,33 @@
 }
 
 .bg-primary {
-  @apply bg-[#fffbf5];
+  @apply bg-primary-light;
 }
 
-.border-primary {
-  @apply border-[#FDF7ED];
+.button-primary-1 {
+  @apply bg-primary-dark text-[#ffffff] px-3 py-2 rounded-md hover:bg-primary-dark/80;
 }
 
-.button-dark {
-  @apply bg-[#4A3020] text-[#ffffff] px-3 py-2 rounded-md hover:scale-105;
+.button-primary-2 {
+  @apply bg-[#FBEAC6] text-[#4A3020] px-3 py-2 rounded-md hover:bg-[#FBEAC6]/80 font-semibold;
 }
+
 
 .button-light {
-  @apply border border-[#4A3020] text-primary px-3 py-2 rounded-md hover:scale-105;
+  @apply border border-primary-dark text-primary-dark px-3 py-2 bg-white rounded-md hover:bg-primary-light;
 }
 
 
 @keyframes rainbow-text {
   0%,100% { color: white; }
-  33% { color: yellow; }
-  66% { color: orange; }
-  /* 75% { color: green; } */
+  33% { color: rgb(255, 219, 142); }
+  66% { color: rgb(255, 179, 37); }
 }
 
 .rainbow-text-animation {
   animation: rainbow-text 3s linear infinite;
+}
+
+input[type="file"] {
+  display: none;
 }

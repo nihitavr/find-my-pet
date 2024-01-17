@@ -38,11 +38,25 @@ model Session {
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+// roles enum
+enum UserRole {
+    user
+    admin
+}
+
+// 
+enum Gender {
+    male
+    female
+}
+
 model User {
     id            String    @id @default(cuid())
     name          String?
     email         String?   @unique
     emailVerified DateTime?
+    role          UserRole  @default(user)
+    phoneNumber   String?
     image         String?
     accounts      Account[]
     sessions      Session[]
@@ -61,15 +75,17 @@ model VerificationToken {
 }
 
 model Pet {
-    id          String   @id @default(cuid())
-    userId      String // Foreign key referencing the User model
-    name        String
-    type        String
-    breed       String
-    birthdate   DateTime
-    description String?
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @default(now()) @updatedAt
+    id            String   @id @default(cuid())
+    userId        String // Foreign key referencing the User model
+    name          String
+    type          String
+    gender        Gender   @default(male)
+    breed         String
+    profileImages String[]
+    birthdate     DateTime
+    description   String?
+    createdAt     DateTime @default(now())
+    updatedAt     DateTime @default(now()) @updatedAt
 
     tags PetTag[] // A list of tags associated with the pet
     // Other fields related to the pet
@@ -77,19 +93,19 @@ model Pet {
 }
 
 model PetTag {
-    id             String        @id @default(cuid())
-    petId          String // Foreign key referencing the Pet model
-    userId         String // Foreign key referencing the User model
-    serialNumber   String        @unique
-    qrCode         String
-    isActive       Boolean
-    registeredDate DateTime
-    createdAt      DateTime      @default(now())
-    updatedAt      DateTime      @default(now()) @updatedAt
+    id               String        @id @default(cuid())
+    petId            String? // Foreign key referencing the Pet model
+    userId           String? // Foreign key referencing the User model
+    registrationCode String
+    qrCode           String        @unique
+    isActive         Boolean       @default(true)
+    registeredDate   DateTime?
+    createdAt        DateTime      @default(now())
+    updatedAt        DateTime      @default(now()) @updatedAt
     // Other fields related to the pet tag
-    pet            Pet           @relation(fields: [petId], references: [id])
-    user           User          @relation(fields: [userId], references: [id])
-    scanHistories  ScanHistory[]
+    pet              Pet?          @relation(fields: [petId], references: [id])
+    user             User?         @relation(fields: [userId], references: [id])
+    scanHistories    ScanHistory[]
 }
 
 model ScanHistory {
