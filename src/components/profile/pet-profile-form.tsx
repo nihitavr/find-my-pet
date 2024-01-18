@@ -18,18 +18,22 @@ import {
 import { Input } from "~/components/ui/input";
 import { Textarea } from "../ui/textarea";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { cn } from "~/lib/utils";
+import { cn, getInstagramUrl, getInstagramUsername } from "~/lib/utils";
 import { Calendar } from "../ui/calendar";
 import { useEffect } from "react";
 import { api } from "~/lib/trpc/react";
 import ProfileLoadingSkeleton from "./profile-loading-skeleton";
 import { ImageInput, ImageInputDisplay } from "../ui/image-input";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { REGEX } from "~/lib/constants";
 
 const petProfileFormSchema = z.object({
   profileImages: z.array(z.string().url()),
   name: z.string().min(1, {
     message: "Pet name must be at least 1 characters.",
+  }),
+  instagramUsername: z.string().regex(REGEX.instagramUsername, {
+    message: "Invalid Instagram username.",
   }),
   gender: z.string().min(1, {
     message: "Gender must be male or female.",
@@ -57,6 +61,7 @@ export function PetProfileForm({ id }: Props) {
     defaultValues: {
       name: "",
       gender: "",
+      instagramUsername: "",
       profileImages: [],
       type: "",
       breed: "",
@@ -79,6 +84,9 @@ export function PetProfileForm({ id }: Props) {
       form.reset({
         profileImages: data.profileImages,
         name: data.name,
+        instagramUsername: getInstagramUsername(
+          (data.socialMediaLinks as any)?.instagram,
+        ),
         gender: data.gender,
         type: data.type,
         breed: data.breed,
@@ -93,6 +101,9 @@ export function PetProfileForm({ id }: Props) {
       id: id,
       name: values.name,
       gender: values.gender,
+      socialMediaLinks: {
+        instagram: getInstagramUrl(values.instagramUsername),
+      },
       profileImages: values.profileImages,
       type: values.type,
       breed: values.breed,
@@ -113,7 +124,10 @@ export function PetProfileForm({ id }: Props) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col space-y-3"
+      >
         <div>
           <h1 className="text-xl font-semibold">
             {id ? `So what's new about ` : "Tell us about your "}
@@ -123,124 +137,131 @@ export function PetProfileForm({ id }: Props) {
           </h1>
         </div>
 
-        {/* Profile Images */}
-        <FormField
-          control={form.control}
-          name="profileImages"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Profile Photos</FormLabel>
-              <div className="flex items-center gap-2">
-                <ImageInputDisplay field={field} className="h-28 w-28" />
+        <h1 className="font-semibold">Basic Info</h1>
+        <div className="flex flex-col gap-5">
+          {/* Profile Images */}
+          <FormField
+            control={form.control}
+            name="profileImages"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Profile Photos</FormLabel>
+                <div className="flex items-center gap-2">
+                  <ImageInputDisplay field={field} className="h-28 w-28" />
+                  <FormControl>
+                    <ImageInput
+                      form={form}
+                      field={field}
+                      handleUploadUrl="/api/profile-image/upload"
+                    />
+                  </FormControl>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Pet Name */}
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <ImageInput
-                    form={form}
-                    field={field}
-                    handleUploadUrl="/api/profile-image/upload"
+                  <Input placeholder="Pet Name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <div className="flex gap-16">
+            {/* Pet Type */}
+            <FormField
+              control={form.control}
+              name="type"
+              render={({ field }) => (
+                <FormItem className="space-y-2 py-1">
+                  <FormLabel>Type</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      className="flex flex-row items-center gap-3"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="dog" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Dog</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="cat" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Cat</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* Pet Gender */}
+            <FormField
+              control={form.control}
+              name="gender"
+              render={({ field }) => (
+                <FormItem className="space-y-2 py-1">
+                  <FormLabel>Gender</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      className="flex flex-row items-center gap-3"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="male" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Male</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="female" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Female</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          {/* Pet Breed */}
+          <FormField
+            control={form.control}
+            name="breed"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Breed</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Persian, Indie, Labrador, German Shepherd etc."
+                    {...field}
                   />
                 </FormControl>
-              </div>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        {/* Pet Name */}
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Pet Name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {/* Pet Type */}
-        {/* <FormField
-          control={form.control}
-          name="type"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Type</FormLabel>
-              <FormControl>
-                <Input placeholder="Cat, Dog, etc." {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-
-        <FormField
-          control={form.control}
-          name="type"
-          render={({ field }) => (
-            <FormItem className="space-y-2 py-1">
-              <FormLabel>Type</FormLabel>
-              <FormControl>
-                <RadioGroup
-                  onValueChange={field.onChange}
-                  value={field.value}
-                  className="flex flex-row items-center gap-3"
-                >
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="dog" />
-                    </FormControl>
-                    <FormLabel className="font-normal">Dog</FormLabel>
-                  </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="cat" />
-                    </FormControl>
-                    <FormLabel className="font-normal">Cat</FormLabel>
-                  </FormItem>
-                </RadioGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {/* Pet Breed */}
-        <FormField
-          control={form.control}
-          name="breed"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Breed</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Persian, Indie, Labrador, German Shepherd etc."
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {/* Pet Gender */}
-        {/* <FormField
-          control={form.control}
-          name="gender"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Gender</FormLabel>
-              <FormControl>
-                <Input placeholder="Male/Female" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-
-        {/* Pet Gender 1 */}
-        <FormField
+          {/* Pet Gender */}
+          {/* <FormField
           control={form.control}
           name="gender"
           render={({ field }) => (
@@ -269,71 +290,91 @@ export function PetProfileForm({ id }: Props) {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
 
-        {/* Pet Birth Date */}
-        <FormField
-          control={form.control}
-          name="birthdate"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Date of birth</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-[240px] pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground",
-                      )}
-                    >
-                      {field.value ? (
-                        format(field.value, "PPP")
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date("1900-01-01")
-                    }
-                    initialFocus
+          {/* Pet Birth Date */}
+          <FormField
+            control={form.control}
+            name="birthdate"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Date of birth</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "w-[240px] pl-3 text-left font-normal",
+                          !field.value && "text-muted-foreground",
+                        )}
+                      >
+                        {field.value ? (
+                          format(field.value, "PPP")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={field.value}
+                      onSelect={field.onChange}
+                      disabled={(date) =>
+                        date > new Date() || date < new Date("1900-01-01")
+                      }
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Pet Description */}
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Description</FormLabel>
+                <FormControl>
+                  <Textarea
+                    className="h-44"
+                    placeholder="Description about your pet."
+                    {...field}
                   />
-                </PopoverContent>
-              </Popover>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
-        {/* Pet Description */}
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Description</FormLabel>
-              <FormControl>
-                <Textarea
-                  className="h-44"
-                  placeholder="Description about your pet."
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <h1 className="pt-10 font-semibold">Social Media Info</h1>
 
-        <div className="flex w-full justify-end">
+        <div>
+          {/* Instagram Link with name socialMediaLinks.instagram*/}
+          <FormField
+            control={form.control}
+            name="instagramUsername"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Instagram Username</FormLabel>
+                <FormControl>
+                  <Input placeholder="Instagram Username" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="flex w-full justify-end pt-10">
           <Button
             className="w-full"
             type="submit"

@@ -19,7 +19,7 @@ export default async function Pets() {
     <div>
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold">All Pets</h1>
-        <Link href={"/profile/pets/add"}>
+        <Link href={"/dashboard/pets/add"}>
           <Button variant="outline">Add Pet</Button>
         </Link>
       </div>
@@ -39,7 +39,7 @@ export default async function Pets() {
               <TableCell className="font-medium">
                 <Link
                   className="cursor-pointer hover:underline"
-                  href={`/profile/pets/${pet.id}`}
+                  href={`/dashboard/pets/${pet.id}`}
                 >
                   {pet.name}
                 </Link>

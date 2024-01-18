@@ -82,6 +82,7 @@ export function ImageInput({
         id="file-upload"
         placeholder="Image"
         type="file"
+        accept="image/*"
         className="file:cursor-pointer file:rounded-md file:hover:bg-slate-200"
         multiple
         onChange={async (e) => {

@@ -1,6 +1,6 @@
 import { createTRPCRouter } from "~/lib/trpc/trpc";
-import { petRouter } from "./pets/pets.router";
-import { userProfileRouter } from "./user-profile/user-profile.router";
+import { petRouter } from "./pet/pet.router";
+import { userProfileRouter } from "./user/user.router";
 import { adminRouter } from "./admin/admin.router";
 
 /**

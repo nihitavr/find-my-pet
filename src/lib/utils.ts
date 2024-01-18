@@ -28,3 +28,12 @@ export function titleCase(str: string) {
     .map((word) => word[0]!.toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
 }
+
+export function getInstagramUsername(url?: string) {
+  if (!url) return "";
+  const username = url.split("/")[3];
+  return username;
+}
+export function getInstagramUrl(username: string) {
+  return `https://www.instagram.com/${username}`;
+}

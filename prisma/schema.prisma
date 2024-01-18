@@ -75,17 +75,18 @@ model VerificationToken {
 }
 
 model Pet {
-    id            String   @id @default(cuid())
-    userId        String // Foreign key referencing the User model
-    name          String
-    type          String
-    gender        Gender   @default(male)
-    breed         String
-    profileImages String[]
-    birthdate     DateTime
-    description   String?
-    createdAt     DateTime @default(now())
-    updatedAt     DateTime @default(now()) @updatedAt
+    id               String   @id @default(cuid())
+    userId           String // Foreign key referencing the User model
+    name             String
+    type             String
+    gender           Gender   @default(male)
+    breed            String
+    profileImages    String[]
+    birthdate        DateTime
+    socialMediaLinks Json?    @default("{}")
+    description      String?
+    createdAt        DateTime @default(now())
+    updatedAt        DateTime @default(now()) @updatedAt
 
     tags PetTag[] // A list of tags associated with the pet
     // Other fields related to the pet

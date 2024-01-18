@@ -1,16 +1,20 @@
 "use client";
 
-import { Instagram, Share as ShareLucid } from "lucide-react";
+import { Share as ShareLucid } from "lucide-react";
 import React from "react";
-export type DivProps = React.HTMLAttributes<HTMLDivElement>;
 
-export const Share = ({ className, ...props }: any) => {
-  const shareInfo = {
-    title: "Web Share Example",
-    text: "Check out this web share example!",
-    url: "https://findmypet.in",
-  };
+interface ShareInfo {
+  title: string;
+  url: string;
+  text: string;
+}
 
+interface Props {
+  className: string;
+  shareInfo: ShareInfo;
+}
+
+export const Share = ({ className, shareInfo, ...props }: Props) => {
   const handleShare = async () => {
     if (navigator.share) {
       try {

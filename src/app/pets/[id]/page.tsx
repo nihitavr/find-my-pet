@@ -5,6 +5,10 @@ import NotFound from "~/components/ui/not-found";
 import { api } from "~/lib/trpc/server";
 import { getTimePassed, titleCase } from "~/lib/utils";
 
+export const metadata = {
+  title: "Find My Pet - Pet Profile",
+};
+
 const Tags: any = {
   Neat: "bg-green-100 text-green-800",
   Friendly: "bg-blue-100 text-blue-800",
@@ -39,9 +43,9 @@ export default async function PetProfileForm({
 }: {
   params: { id: string };
 }) {
-  const data = await api.pet.getPet.query({ id: params.id });
+  const pet = await api.pet.getPet.query({ id: params.id });
 
-  if (!data) return <NotFound />;
+  if (!pet) return <NotFound />;
 
   // Pick random five elements from the Tags object
   const tags = Object.keys(Tags)
@@ -54,16 +58,16 @@ export default async function PetProfileForm({
       <div className="relative aspect-square w-full md:w-2/5">
         <Image
           src={
-            data.profileImages[0]
-              ? data.profileImages[0]
-              : data.type === "dog"
+            pet.profileImages[0]
+              ? pet.profileImages[0]
+              : pet.type === "dog"
                 ? "/dog-avatar.jpeg"
                 : "/cat-avatar.jpeg"
           }
           alt="Profile Image"
           fill
           style={{ objectFit: "cover" }}
-          className="md:rounded-3xl"
+          className="md:rounded-t-3xl"
         />
       </div>
 
@@ -73,23 +77,31 @@ export default async function PetProfileForm({
         <div className="flex items-start justify-between">
           <div className="flex flex-col gap-1">
             <span className="text-sm  text-primary/80">
-              {data?.breed} ({data?.type})
+              {pet?.breed} ({titleCase(pet?.type)})
             </span>
             <span className="text-2xl font-semibold text-primary">
-              {data?.name}
+              {pet?.name}
             </span>
             <div className="flex items-center gap-2 text-sm text-primary/80">
-              <span>{titleCase(data?.gender)}</span>
+              <span>{titleCase(pet?.gender)}</span>
               <div className="h-1.5 w-1.5 rounded-full bg-[#999999]"></div>
-              <span>{getTimePassed(data?.birthdate)}</span>
+              <span>{getTimePassed(pet?.birthdate)}</span>
             </div>
           </div>
 
           {/* Insta and Share button */}
-
           <div className="flex items-center gap-2">
-            <Instagram className="cursor-pointer text-primary/50 hover:text-primary" />
-            <Share className="cursor-pointer text-primary/50 hover:text-primary" />
+            <a href={(pet.socialMediaLinks as any).instagram} target="_blank">
+              <Instagram className="cursor-pointer text-primary/50 hover:text-primary" />
+            </a>
+            <Share
+              className="cursor-pointer text-primary/50 hover:text-primary"
+              shareInfo={{
+                title: `${pet.name}: A Furry Friend to Love!`,
+                text: "From playful pups to curious kittens, your ideal pet is just a click away. Check out their profiles now!",
+                url: `https://findmypet.in/pt/${params.id}`,
+              }}
+            />
           </div>
         </div>
 
@@ -104,7 +116,7 @@ export default async function PetProfileForm({
           ))}
         </div>
 
-        <div className="text-primary/80">{data?.description}</div>
+        <div className="text-primary/80">{pet?.description}</div>
       </div>
     </div>
   );
