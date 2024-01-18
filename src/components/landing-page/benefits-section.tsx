@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import React from "react";
 import { Button } from "../ui/button";
 
@@ -10,7 +9,7 @@ export default async function BenefitsSection() {
       <div className="flex flex-1 justify-start">
         <Image
           className="rounded-lg"
-          src="/pet-found.png"
+          src="/pet-found.jpg"
           alt="dog with collar tag"
           width={575}
           height={575}

@@ -26,7 +26,7 @@ export default async function HeroSection() {
       <div className="flex flex-1 justify-end">
         <Image
           className="rounded-lg"
-          src="/dog-with-pet-collar.png"
+          src="/dog-with-pet-collar.jpg"
           alt="dog with collar tag"
           width={575}
           height={575}
