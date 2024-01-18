@@ -98,8 +98,8 @@ export default async function PetProfileForm({
               className="cursor-pointer text-primary/50 hover:text-primary"
               shareInfo={{
                 title: `${pet.name}: A Furry Friend to Love!`,
-                text: "From playful pups to curious kittens, your ideal pet is just a click away. Check out their profiles now!",
-                url: `https://findmypet.in/pt/${params.id}`,
+                text: `Ready to meet your new adorable four-legged family member? Checkout ${pet.name}'s profile here!`,
+                url: `https://findmypet.in/pet/${pet.id}`,
               }}
             />
           </div>

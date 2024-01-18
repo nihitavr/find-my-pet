@@ -7,7 +7,14 @@ await import("./src/env.js");
 /** @type {import("next").NextConfig} */
 const config = {
   images: {
-    domains: ["0iyjucr8bv6c0ziv.public.blob.vercel-storage.com"],
+    remotePatterns:[
+      {
+        protocol: 'https',
+        hostname: '0iyjucr8bv6c0ziv.public.blob.vercel-storage.com',
+        pathname: '**',
+      }
+    ],
+    // domains: ["0iyjucr8bv6c0ziv.public.blob.vercel-storage.com"],
   },
 };
 
