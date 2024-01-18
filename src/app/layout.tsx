@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "~/lib/trpc/react";
 import Navbar from "../components/navbar";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({
           <Navbar />
           {children}
         </TRPCReactProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
