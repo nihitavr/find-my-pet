@@ -30,7 +30,7 @@ export const petTagRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input: { petTagId, petId } }) => {
       const petTag = await ctx.db.petTag.update({
-        where: { id: petTagId },
+        where: { id: petTagId, petId: null },
         data: {
           userId: ctx.session.user.id,
           petId: petId,

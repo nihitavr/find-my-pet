@@ -34,6 +34,6 @@ export function getInstagramUsername(url?: string) {
   const username = url.split("/")[3];
   return username;
 }
-export function getInstagramUrl(username: string) {
+export function getInstagramUrl(username?: string) {
   return `https://www.instagram.com/${username}`;
 }

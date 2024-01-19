@@ -22,21 +22,24 @@ import { cn, getInstagramUrl, getInstagramUsername } from "~/lib/utils";
 import { Calendar } from "../ui/calendar";
 import { useEffect, useState } from "react";
 import { api } from "~/lib/trpc/react";
-import ProfileFormLoadingSkeleton from "../ui/profile-form-loading-skeleton";
 import { ImageInput, ImageInputDisplay } from "../ui/image-input";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { REGEX } from "~/lib/constants";
 import { useToast } from "../ui/use-toast";
 import Loader from "../ui/loader";
+import { useRouter } from "next/navigation";
 
 const petProfileFormSchema = z.object({
   profileImages: z.array(z.string().url()),
   name: z.string().min(1, {
     message: "Pet name must be at least 1 characters.",
   }),
-  instagramUsername: z.string().regex(REGEX.instagramUsername, {
-    message: "Invalid Instagram username.",
-  }),
+  instagramUsername: z
+    .string()
+    .regex(REGEX.instagramUsername, {
+      message: "Invalid Instagram username.",
+    })
+    .or(z.string().regex(REGEX.emptyString)),
   gender: z.string().min(1, {
     message: "Gender must be male or female.",
   }),
@@ -58,7 +61,8 @@ type Props = {
 };
 
 export function PetProfileForm({ id, petTagId }: Props) {
-  // 1. Define your form.
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof petProfileFormSchema>>({
     resolver: zodResolver(petProfileFormSchema),
     defaultValues: {
@@ -116,13 +120,14 @@ export function PetProfileForm({ id, petTagId }: Props) {
       breed: values.breed,
       birthdate: values.birthdate.toISOString(),
       description: values.description,
+      petTagId: petTagId,
     };
 
     setIsSubmitting(true);
 
     if (id) {
       await updatePet.mutateAsync(data, {
-        onSuccess: () => {
+        onSuccess: (data) => {
           form.reset({
             profileImages: data.profileImages,
             name: data.name,
@@ -139,15 +144,29 @@ export function PetProfileForm({ id, petTagId }: Props) {
             variant: "success",
             description: "Pet profile updated successfully!",
           });
+
+          router.push("dashboard/pets");
         },
       });
     } else {
       await addPet.mutateAsync(data, {
         onSuccess: () => {
+          let toastMessage = "Pet profile created successfully!";
+          let nextUrl = `/dashboard/pets`;
+
+          if (petTagId) {
+            toastMessage =
+              "Pet profile created successfully and registeted it to tha tag!";
+            nextUrl = `/pt/${petTagId}`;
+          }
+
           toast({
             variant: "success",
-            description: "Pet profile created successfully!",
+            description: toastMessage,
           });
+
+          router.push(nextUrl);
+          router.refresh();
         },
       });
     }
@@ -209,7 +228,7 @@ export function PetProfileForm({ id, petTagId }: Props) {
             )}
           />
 
-          <div className="flex gap-16">
+          <div className="flex gap-8">
             {/* Pet Type */}
             <FormField
               control={form.control}

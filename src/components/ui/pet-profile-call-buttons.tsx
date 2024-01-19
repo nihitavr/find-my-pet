@@ -14,14 +14,14 @@ export default function PetProfileCallButtons({
   return (
     <div className="flex gap-3">
       <Button
-        className="flex-1 space-x-2 border border-green-700 bg-white text-green-900 hover:bg-green-50"
+        className="w-1/2 flex-1 space-x-2 border border-green-700 bg-white text-green-900 hover:bg-green-50"
         onClick={() => {
           window.open(
             `${WHATSAPP_URL}${phoneNumber}?text=Hi, I found your pet!`,
           );
         }}
       >
-        <span>WhatsApp Owner</span>
+        <span>WhatsApp</span>
         <div className="relative h-7 w-7">
           <Image
             src={"/whatsapp-icon.svg"}
@@ -34,7 +34,7 @@ export default function PetProfileCallButtons({
         </div>
       </Button>
       <Button
-        className="flex-1 space-x-2"
+        className="w-1/2 flex-1 space-x-2"
         onClick={() => {
           window.open(`tel:${phoneNumber}`);
         }}
