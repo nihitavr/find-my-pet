@@ -12,36 +12,41 @@ export default function PetProfileCallButtons({
   phoneNumber?: string;
 }) {
   return (
-    <div className="flex gap-3">
-      <Button
-        className="w-1/2 flex-1 space-x-2 border border-green-700 bg-white text-green-900 hover:bg-green-50"
-        onClick={() => {
-          window.open(
-            `${WHATSAPP_URL}${phoneNumber}?text=Hi, I found your pet!`,
-          );
-        }}
-      >
-        <span>WhatsApp</span>
-        <div className="relative h-7 w-7">
-          <Image
-            src={"/whatsapp-icon.svg"}
-            alt="WhatsApp Icon"
-            fill
-            style={{
-              objectFit: "contain",
-            }}
-          />
-        </div>
-      </Button>
-      <Button
-        className="w-1/2 flex-1 space-x-2"
-        onClick={() => {
-          window.open(`tel:${phoneNumber}`);
-        }}
-      >
-        <span>Call Owner</span>
-        <PhoneOutgoing className="h-5 w-5" />
-      </Button>
+    <div className="pt-2">
+      <span className="text-xs font-semibold">
+        Found Pet? WhatsApp or Call Owner.*
+      </span>
+      <div className="flex gap-3">
+        <Button
+          className="w-1/2 flex-1 space-x-2 border border-green-700 bg-white text-green-900 hover:bg-green-50"
+          onClick={() => {
+            window.open(
+              `${WHATSAPP_URL}${phoneNumber}?text=Hi, I found your pet!`,
+            );
+          }}
+        >
+          <span>WhatsApp</span>
+          <div className="relative h-7 w-7">
+            <Image
+              src={"/whatsapp-icon.svg"}
+              alt="WhatsApp Icon"
+              fill
+              style={{
+                objectFit: "contain",
+              }}
+            />
+          </div>
+        </Button>
+        <Button
+          className="w-1/2 flex-1 space-x-2"
+          onClick={() => {
+            window.open(`tel:${phoneNumber}`);
+          }}
+        >
+          <span>Call Owner</span>
+          <PhoneOutgoing className="h-5 w-5" />
+        </Button>
+      </div>
     </div>
   );
 }

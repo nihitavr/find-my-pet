@@ -1,6 +1,5 @@
-import { Instagram, PhoneOutgoing } from "lucide-react";
+import { Instagram } from "lucide-react";
 import Image from "next/image";
-import { Fragment } from "react";
 import { Share } from "~/components/ui/icons";
 import NotFound from "~/components/ui/not-found";
 import { api } from "~/lib/trpc/server";
@@ -96,9 +95,11 @@ export default async function PetProfile({ id, user }: Props) {
 
           {/* Insta and Share button */}
           <div className="flex items-center gap-2">
-            <a href={(pet.socialMediaLinks as any).instagram} target="_blank">
-              <Instagram className="cursor-pointer text-primary/50 hover:text-primary" />
-            </a>
+            {(pet.socialMediaLinks as any).instagram && (
+              <a href={(pet.socialMediaLinks as any).instagram} target="_blank">
+                <Instagram className="cursor-pointer text-primary/50 hover:text-primary" />
+              </a>
+            )}
             <Share
               className="cursor-pointer text-primary/50 hover:text-primary"
               shareInfo={{
