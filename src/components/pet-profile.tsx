@@ -39,11 +39,11 @@ const Tags: any = {
 
 type Props = {
   id: string;
-  user: {
-    name: string;
-    email: string;
-    phoneNumber: string;
-  };
+  user?: {
+    name: string | null;
+    email: string | null;
+    phoneNumber: string | null;
+  } | null;
 };
 
 export default async function PetProfile({ id, user }: Props) {
@@ -123,7 +123,9 @@ export default async function PetProfile({ id, user }: Props) {
 
         <div className="text-primary/80">{pet?.description}</div>
 
-        <PetProfileCallButtons phoneNumber={user.phoneNumber} />
+        {user?.phoneNumber && (
+          <PetProfileCallButtons phoneNumber={user.phoneNumber} />
+        )}
       </div>
     </div>
   );

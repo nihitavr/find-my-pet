@@ -9,7 +9,7 @@ const WHATSAPP_URL = "https://wa.me/";
 export default function PetProfileCallButtons({
   phoneNumber,
 }: {
-  phoneNumber: string;
+  phoneNumber?: string;
 }) {
   return (
     <div className="flex gap-3">
