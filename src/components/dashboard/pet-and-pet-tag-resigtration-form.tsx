@@ -28,12 +28,6 @@ export default async function PetAndPetTagRegistrationForm({
           return { name: pet.name, id: pet.id };
         })}
       />
-
-      {/* <div className="flex w-full flex-col items-center justify-center">
-        <hr className="border-1 w-full" />
-        <span className="font-semibold">OR</span>
-        <hr className="border-1 w-full" />
-      </div> */}
     </div>
   );
 }
