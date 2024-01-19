@@ -1,5 +1,6 @@
 import { type Gender } from "@prisma/client";
 import { z } from "zod";
+import { api } from "~/lib/trpc/server";
 
 import {
   createTRPCRouter,
@@ -19,13 +20,14 @@ export const petProfileFormSchema = z.object({
   breed: z.string(),
   birthdate: z.string(),
   description: z.string().optional(),
+  petTagId: z.string().cuid().optional(),
 });
 
 export const petRouter = createTRPCRouter({
   addPetProfile: protectedProcedure
     .input(petProfileFormSchema)
     .mutation(async ({ ctx, input }) => {
-      return ctx.db.pet.create({
+      const pet = await ctx.db.pet.create({
         data: {
           name: input.name,
           userId: ctx.session.user.id,
@@ -38,6 +40,18 @@ export const petRouter = createTRPCRouter({
           description: input.description,
         },
       });
+
+      if (input.petTagId) {
+        await ctx.db.petTag.update({
+          where: { id: input.petTagId, petId: null },
+          data: {
+            userId: ctx.session.user.id,
+            petId: pet.id,
+          },
+        });
+      }
+
+      return pet;
     }),
   updatePetProfile: protectedProcedure
     .input(petProfileFormSchema)

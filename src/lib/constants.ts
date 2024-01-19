@@ -8,4 +8,5 @@ export const REGEX = {
   instagramUsername: /^[A-Za-z0-9._]{1,30}$/,
   facebookURL: /^https:\/\/www.facebook.com\/|^https:\/\/facebook.com\/|^$/,
   githubURL: /^https:\/\/www.github.com\/|^https:\/\/github.com\/|^$/,
+  emptyString: /^$/,
 };
