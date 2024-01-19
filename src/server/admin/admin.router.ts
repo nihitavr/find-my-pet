@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { v4 as uuidv4 } from "uuid";
 
 import { adminProcedure, createTRPCRouter } from "~/lib/trpc/trpc";
 
@@ -18,9 +17,9 @@ export const adminRouter = createTRPCRouter({
         });
       }
 
-      const newRecords = await ctx.db.petTag.createMany({
-        data: petTags,
-      });
+      // const newRecords = await ctx.db.petTag.createMany({
+      //   data: petTags,
+      // });
 
       return petTags;
     }),

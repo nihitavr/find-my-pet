@@ -1,7 +1,7 @@
 import { api } from "~/lib/trpc/server";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { PetSelectionForm } from "./pet-selection-dropdown";
+import { PetSelectionForm } from "./pet-selection-form";
 
 export default async function PetAndPetTagRegistrationForm({
   petTagId,

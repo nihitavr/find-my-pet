@@ -9,7 +9,7 @@ export const userProfileFormSchema = z.object({
 });
 
 export const userProfileRouter = createTRPCRouter({
-  getUserProfile: protectedProcedure.query(({ ctx, input }) => {
+  getUserProfile: protectedProcedure.query(({ ctx }) => {
     return ctx.db.user.findFirst({
       where: { id: ctx.session.user.id },
       select: { id: true, name: true, phoneNumber: true, email: true },
