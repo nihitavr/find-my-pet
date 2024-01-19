@@ -56,10 +56,8 @@ export function PetSelectionForm({
             description: "Pet Tag has been registered successfully.",
           });
 
-          setTimeout(() => {
-            router.push(`/pt/${petTagId}`);
-            router.refresh();
-          }, 1000);
+          router.push(`/pt/${petTagId}`);
+          router.refresh();
         },
       },
     );

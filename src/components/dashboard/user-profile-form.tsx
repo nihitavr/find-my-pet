@@ -78,12 +78,14 @@ export function UserProfileForm() {
           phoneNumber: userData.phoneNumber!,
         });
 
-        toast({
-          variant: "success",
-          description: "Profile updated successfully!",
-        });
+        if (!petTagId) {
+          toast({
+            variant: "success",
+            description: "Owner Profile updated successfully!",
+          });
 
-        if (!petTagId) return;
+          return;
+        }
 
         router.push(`/dashboard/pet-tag/pet-selection?petTagId=${petTagId}`);
       },

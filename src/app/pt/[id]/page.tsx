@@ -9,6 +9,7 @@ import { api } from "~/lib/trpc/server";
 export default async function PetTag({ params }: { params: { id: string } }) {
   const auth = await getServerAuthSession();
   const petTag = await api.petTag.getPetTag.mutate({ id: params.id });
+  const user = await api.user.getUser.query({ id: auth?.user?.id! });
 
   if (!petTag) return <NotFound />;
 
@@ -38,5 +39,5 @@ export default async function PetTag({ params }: { params: { id: string } }) {
       </div>
     );
 
-  return <PetProfile id={petTag.petId!} />;
+  return <PetProfile id={petTag.petId!} user={user} />;
 }

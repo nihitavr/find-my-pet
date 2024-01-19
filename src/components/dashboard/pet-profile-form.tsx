@@ -54,9 +54,10 @@ const petProfileFormSchema = z.object({
 
 type Props = {
   id?: string;
+  petTagId?: string;
 };
 
-export function PetProfileForm({ id }: Props) {
+export function PetProfileForm({ id, petTagId }: Props) {
   // 1. Define your form.
   const form = useForm<z.infer<typeof petProfileFormSchema>>({
     resolver: zodResolver(petProfileFormSchema),
@@ -141,15 +142,18 @@ export function PetProfileForm({ id }: Props) {
         },
       });
     } else {
-      await addPet.mutateAsync(data);
+      await addPet.mutateAsync(data, {
+        onSuccess: () => {
+          toast({
+            variant: "success",
+            description: "Pet profile created successfully!",
+          });
+        },
+      });
     }
 
     setIsSubmitting(false);
   };
-
-  // if (isInitialLoading) {
-  //   return <ProfileFormLoadingSkeleton />;
-  // }
 
   return (
     <Form {...form}>
@@ -377,7 +381,7 @@ export function PetProfileForm({ id }: Props) {
             type="submit"
             disabled={!form.formState.isDirty || isSubmitting}
           >
-            <span>Submit</span>
+            <span>{petTagId ? "Create Pet & Register Tag" : "Submit"}</span>
             <div>
               <Loader className="h-5 w-5 border-2" show={isSubmitting} />
             </div>
