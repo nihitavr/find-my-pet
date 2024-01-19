@@ -9,6 +9,7 @@ import Image from "next/image";
 import { cn } from "~/lib/utils";
 import { PlusCircle, X } from "lucide-react";
 import { Fragment } from "react";
+import Loader from "./loader";
 
 const MAX_FILE_SIZE = 1000000;
 const ACCEPTED_IMAGE_TYPES = [
@@ -98,6 +99,9 @@ export function ImageInput({
             return;
           }
 
+          const emptyArray = Array.from(e.target.files).map(() => "");
+
+          field.onChange([...field.value, ...emptyArray]);
           const imageUrls = await onFilesUpload(e, handleUploadUrl);
 
           if (imageUrls) {
@@ -124,22 +128,30 @@ export function ImageInputDisplay({
     <div className="flex flex-row gap-2">
       {(field.value as unknown as string[])?.map((image, idx) => (
         <div key={idx} className={cn("relative h-20 w-20", className)}>
-          <Image
-            src={image}
-            fill
-            style={{ objectFit: "cover" }}
-            className="rounded-md"
-            alt={`image ${idx + 1}`}
-          />
-          <X
-            className="hover: absolute right-1 top-1 cursor-pointer rounded-full bg-slate-300 p-1 text-primary opacity-70 hover:opacity-100"
-            onClick={() => {
-              const newImages = (field.value as unknown as string[]).filter(
-                (_, index) => index !== idx,
-              );
-              field.onChange(newImages);
-            }}
-          />
+          {image ? (
+            <div>
+              <Image
+                src={image}
+                fill
+                style={{ objectFit: "cover" }}
+                className="rounded-md"
+                alt={`image ${idx + 1}`}
+              />
+              <X
+                className="hover: absolute right-1 top-1 cursor-pointer rounded-full bg-slate-300 p-1 text-primary opacity-70 hover:opacity-100"
+                onClick={() => {
+                  const newImages = (field.value as unknown as string[]).filter(
+                    (_, index) => index !== idx,
+                  );
+                  field.onChange(newImages);
+                }}
+              />
+            </div>
+          ) : (
+            <div className="flex h-full w-full items-center justify-center rounded-md bg-slate-200">
+              <Loader show={true} />
+            </div>
+          )}
         </div>
       ))}
     </div>

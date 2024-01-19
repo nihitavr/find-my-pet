@@ -15,11 +15,10 @@ export const adminRouter = createTRPCRouter({
       for (let i = 0; i < numberOfQrCodes; i++) {
         petTags.push({
           registrationCode: "1234567890",
-          qrCode: uuidv4(),
         });
       }
 
-      await ctx.db.petTag.createMany({
+      const newRecords = await ctx.db.petTag.createMany({
         data: petTags,
       });
 

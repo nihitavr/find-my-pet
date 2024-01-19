@@ -20,12 +20,14 @@ import { Textarea } from "../ui/textarea";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { cn, getInstagramUrl, getInstagramUsername } from "~/lib/utils";
 import { Calendar } from "../ui/calendar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { api } from "~/lib/trpc/react";
-import ProfileLoadingSkeleton from "./profile-loading-skeleton";
+import ProfileLoadingSkeleton from "../ui/profile-loading-skeleton";
 import { ImageInput, ImageInputDisplay } from "../ui/image-input";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { REGEX } from "~/lib/constants";
+import { useToast } from "../ui/use-toast";
+import Loader from "../ui/loader";
 
 const petProfileFormSchema = z.object({
   profileImages: z.array(z.string().url()),
@@ -70,6 +72,10 @@ export function PetProfileForm({ id }: Props) {
     },
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const { toast } = useToast();
+
   const { data, isInitialLoading } = api.pet.getPetProfile.useQuery(
     { id: id! },
     { enabled: !!id, staleTime: 0, cacheTime: 0 },
@@ -111,11 +117,34 @@ export function PetProfileForm({ id }: Props) {
       description: values.description,
     };
 
+    setIsSubmitting(true);
+
     if (id) {
-      updatePet.mutate(data);
+      await updatePet.mutateAsync(data, {
+        onSuccess: () => {
+          form.reset({
+            profileImages: data.profileImages,
+            name: data.name,
+            instagramUsername: getInstagramUsername(
+              (data.socialMediaLinks as any)?.instagram,
+            ),
+            gender: data.gender,
+            type: data.type,
+            breed: data.breed,
+            birthdate: new Date(data.birthdate),
+            description: !data.description ? "" : data.description,
+          });
+          toast({
+            variant: "success",
+            description: "Pet profile updated successfully!",
+          });
+        },
+      });
     } else {
-      addPet.mutate(data);
+      await addPet.mutateAsync(data);
     }
+
+    setIsSubmitting(false);
   };
 
   if (isInitialLoading) {
@@ -260,38 +289,6 @@ export function PetProfileForm({ id }: Props) {
             )}
           />
 
-          {/* Pet Gender */}
-          {/* <FormField
-          control={form.control}
-          name="gender"
-          render={({ field }) => (
-            <FormItem className="space-y-2 py-1">
-              <FormLabel>Gender</FormLabel>
-              <FormControl>
-                <RadioGroup
-                  onValueChange={field.onChange}
-                  value={field.value}
-                  className="flex flex-row items-center gap-3"
-                >
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="male" />
-                    </FormControl>
-                    <FormLabel className="font-normal">Male</FormLabel>
-                  </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="female" />
-                    </FormControl>
-                    <FormLabel className="font-normal">Female</FormLabel>
-                  </FormItem>
-                </RadioGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-
           {/* Pet Birth Date */}
           <FormField
             control={form.control}
@@ -374,15 +371,31 @@ export function PetProfileForm({ id }: Props) {
           />
         </div>
 
-        <div className="flex w-full justify-end pt-10">
+        <div className={`w-full pt-5`}>
           <Button
-            className="w-full"
+            className="flex w-full items-center justify-center gap-2"
             type="submit"
             disabled={!form.formState.isDirty}
           >
-            Submit
+            <span>Submit</span>
+            <div>
+              <Loader className="h-5 w-5 border-2" show={isSubmitting} />
+            </div>
           </Button>
         </div>
+
+        {/* <div className={`fixed bottom-3 right-0 w-full px-6 py-3`}>
+          <Button
+            className="flex w-full items-center justify-center gap-2"
+            type="submit"
+            disabled={!form.formState.isDirty}
+          >
+            <span>Submit</span>
+            <div>
+              <Loader className="h-5 w-5 border-2" show={isSubmitting} />
+            </div>
+          </Button>
+        </div> */}
       </form>
     </Form>
   );

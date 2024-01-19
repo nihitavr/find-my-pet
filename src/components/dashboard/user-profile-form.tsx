@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Button } from "~/components/ui/button";
 import { api } from "~/lib/trpc/react";
-import ProfileLoadingSkeleton from "./profile-loading-skeleton";
+import ProfileLoadingSkeleton from "../ui/profile-loading-skeleton";
 import {
   Form,
   FormControl,
@@ -15,7 +15,10 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import Loader from "../ui/loader";
+import { useToast } from "../ui/use-toast";
 
 const userProfileFormSchema = z.object({
   name: z.string().min(1, {
@@ -28,6 +31,13 @@ const userProfileFormSchema = z.object({
 });
 
 export function UserProfileForm() {
+  const router = useRouter();
+  const petTagId = useSearchParams().get("petTagId");
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const { toast } = useToast();
+
   const form = useForm<z.infer<typeof userProfileFormSchema>>({
     resolver: zodResolver(userProfileFormSchema),
     defaultValues: {
@@ -59,7 +69,32 @@ export function UserProfileForm() {
       phoneNumber: values.phoneNumber,
     };
 
-    updateUser.mutate(data);
+    setIsSubmitting(true);
+    await updateUser.mutateAsync(data, {
+      onSuccess: (userData) => {
+        form.reset({
+          name: userData.name!,
+          email: userData.email!,
+          phoneNumber: userData.phoneNumber!,
+        });
+
+        toast({
+          variant: "success",
+          description: "Profile updated successfully!",
+        });
+
+        if (!petTagId) return;
+
+        router.push(`/dashboard/pet-tag/pet-selection?petTagId=${petTagId}`);
+      },
+      onError: (error) => {
+        toast({
+          variant: "failure",
+          description: error.message,
+        });
+      },
+    });
+    setIsSubmitting(false);
   };
 
   if (isInitialLoading) {
@@ -115,7 +150,20 @@ export function UserProfileForm() {
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <div className="flex w-full justify-end pt-7">
+          <Button
+            className="flex gap-2"
+            type="submit"
+            disabled={
+              (form.formState.isDirty || petTagId) && !isSubmitting
+                ? false
+                : true
+            }
+          >
+            <span>{petTagId ? "Next" : "Submit"}</span>
+            <Loader className="h-5 w-5 border-2" show={isSubmitting} />
+          </Button>
+        </div>
       </form>
     </Form>
   );

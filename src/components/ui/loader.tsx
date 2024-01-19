@@ -1,15 +1,21 @@
+import { cn } from "~/lib/utils";
+
 export default function Loader({
+  className,
   show,
   flexible,
 }: {
+  className?: string;
   show: boolean;
   flexible?: boolean;
 }) {
   return show ? (
     !flexible ? (
       <div
-        className="mx-auto h-10 w-10 animate-spin
-        rounded-full border-4 border-black border-t-white "
+        className={cn(
+          "mx-auto h-10 w-10 animate-spin rounded-full border-4 border-black border-t-white ",
+          className,
+        )}
       ></div>
     ) : (
       <div

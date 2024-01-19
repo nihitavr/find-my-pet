@@ -98,7 +98,7 @@ model PetTag {
     petId            String? // Foreign key referencing the Pet model
     userId           String? // Foreign key referencing the User model
     registrationCode String
-    qrCode           String        @unique
+    qrCode           String?       @unique
     isActive         Boolean       @default(true)
     registeredDate   DateTime?
     createdAt        DateTime      @default(now())

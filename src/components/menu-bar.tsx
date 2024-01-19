@@ -7,7 +7,7 @@ export default function Menubar() {
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   return (
-    <Link className="hover:scale-105 hover:text-primary-dark" href="/profile">
+    <Link className="hover:scale-105 hover:text-primary-dark" href="/dashboard">
       {/* {isDesktop ? "Desktop" : "Mobile"} */}
     </Link>
   );

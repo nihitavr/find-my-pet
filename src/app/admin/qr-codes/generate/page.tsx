@@ -20,9 +20,7 @@ import { MyDocument } from "~/components/admin/qr-code.pdf";
 
 export default function GenerateQrcode() {
   const [numberOfQrCodes, setNumberOfQrCodes] = useState(4);
-  const [petTags, setPetTags] = useState<
-    { registrationCode: string; qrCode: string }[]
-  >([]);
+  const [petTags, setPetTags] = useState<{ registrationCode: string }[]>([]);
   const generateQrCodes = api.admin.generateQrCodes.useMutation();
 
   const onClickGenerate = async () => {
@@ -68,10 +66,10 @@ export default function GenerateQrcode() {
             <TableRow key={idx}>
               <TableCell>{idx + 1}</TableCell>
               <TableCell>{petTag.registrationCode}</TableCell>
-              <TableCell>{petTag.qrCode}</TableCell>
+              {/* <TableCell>{petTag.qrCode}</TableCell> */}
               <TableCell>
                 <QRCodeCanvas
-                  value={"https://findmypet.in/pet-tag/" + petTag.qrCode}
+                  value={"https://findmypet.in/pt/" + petTag.registrationCode}
                   size={100}
                   bgColor={"#ffffff"}
                   fgColor={"#000000"}

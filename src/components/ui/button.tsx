@@ -14,10 +14,10 @@ const buttonVariants = cva(
           "bg-primary-dark text-[#ffffff] px-3 py-2 rounded-md hover:bg-primary-dark/80",
         outline:
           "border border-primary-dark text-primary-dark px-3 py-2 bg-white rounded-md hover:bg-primary-light",
+        secondary:
+          "bg-[#FBEAC6] text-[#4A3020] px-3 py-2 rounded-md hover:bg-[#FBEAC6]/80 font-semibold",
         destructive:
           "bg-red-500 text-slate-50 hover:bg-red-500/90 dark:bg-red-900 dark:text-slate-50 dark:hover:bg-red-900/90",
-        secondary:
-          "bg-slate-100 text-slate-900 hover:bg-slate-100/80 dark:bg-slate-800 dark:text-slate-50 dark:hover:bg-slate-800/80",
         ghost:
           "hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50",
         link: "bg-primary-dark text-[#ffffff] px-3 py-2 rounded-md hover:bg-primary-dark/80",

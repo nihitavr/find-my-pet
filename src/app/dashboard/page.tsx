@@ -1,4 +1,4 @@
-import { UserProfileForm } from "~/components/profile/user-profile-form";
+import { UserProfileForm } from "~/components/dashboard/user-profile-form";
 
 export default function UserProfile() {
   return <UserProfileForm />;

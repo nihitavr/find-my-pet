@@ -2,6 +2,7 @@ import { createTRPCRouter } from "~/lib/trpc/trpc";
 import { petRouter } from "./pet/pet.router";
 import { userProfileRouter } from "./user/user.router";
 import { adminRouter } from "./admin/admin.router";
+import { petTagRouter } from "./pet-tag/pet-tag.router";
 
 /**
  * This is the primary router for your server.
@@ -12,6 +13,7 @@ export const appRouter = createTRPCRouter({
   pet: petRouter,
   user: userProfileRouter,
   admin: adminRouter,
+  petTag: petTagRouter,
 });
 
 // export type definition of API
