@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { api } from "~/lib/trpc/react";
-import { QRCodeCanvas, QRCodeSVG } from "qrcode.react";
+import { QRCodeCanvas } from "qrcode.react";
 
 import {
   Table,
@@ -15,8 +15,6 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
-import ReactPDF from "@react-pdf/renderer";
-import { MyDocument } from "~/components/admin/qr-code.pdf";
 
 export default function GenerateQrcode() {
   const [numberOfQrCodes, setNumberOfQrCodes] = useState(4);
@@ -27,7 +25,7 @@ export default function GenerateQrcode() {
     const petTags = await generateQrCodes.mutateAsync({ numberOfQrCodes });
     setPetTags(petTags);
 
-    const qrCodeCanvas = document.querySelector("canvas");
+    // const qrCodeCanvas = document.querySelector("canvas");
 
     // const qrCodeDataUri = qrCodeCanvas.toDataURL("image/jpg", 0.3);
   };

@@ -1,5 +1,4 @@
 import { Instagram } from "lucide-react";
-import Head from "next/head";
 import Image from "next/image";
 import { Fragment } from "react";
 import { Share } from "~/components/ui/icons";
@@ -47,77 +46,72 @@ export default async function PetProfile({ id }: { id: string }) {
     .slice(0, 7);
 
   return (
-    <>
-      <Head>
-        <title>Page Title Fuck</title>
-      </Head>
-      <div className="flex flex-col items-center">
-        {/* Image Section */}
-        <div className="relative aspect-square w-full md:w-2/5">
-          <Image
-            src={
-              pet.profileImages[0]
-                ? pet.profileImages[0]
-                : pet.type === "dog"
-                  ? "/dog-avatar.jpeg"
-                  : "/cat-avatar.jpeg"
-            }
-            alt="Profile Image"
-            fill
-            style={{ objectFit: "cover" }}
-            className="md:rounded-t-3xl"
-            loading="lazy"
-          />
-        </div>
-
-        {/* Details Section */}
-        <div className="-mt-5 flex w-full -translate-y-0 flex-col gap-4 rounded-t-3xl bg-white p-6 md:w-2/5">
-          {/* Breed, Type, Name, Gender, Birthdate */}
-          <div className="flex items-start justify-between">
-            <div className="flex flex-col gap-1">
-              <span className="text-sm  text-primary/80">
-                {pet?.breed} ({titleCase(pet?.type)})
-              </span>
-              <span className="text-2xl font-semibold text-primary">
-                {pet?.name}
-              </span>
-              <div className="flex items-center gap-2 text-sm text-primary/80">
-                <span>{titleCase(pet?.gender)}</span>
-                <div className="h-1.5 w-1.5 rounded-full bg-[#999999]"></div>
-                <span>{getTimePassed(pet?.birthdate)}</span>
-              </div>
-            </div>
-
-            {/* Insta and Share button */}
-            <div className="flex items-center gap-2">
-              <a href={(pet.socialMediaLinks as any).instagram} target="_blank">
-                <Instagram className="cursor-pointer text-primary/50 hover:text-primary" />
-              </a>
-              <Share
-                className="cursor-pointer text-primary/50 hover:text-primary"
-                shareInfo={{
-                  title: `${pet.name}: A Furry Friend to Love!`,
-                  text: `Ready to meet your new adorable four-legged family member? Checkout ${pet.name}'s profile here!`,
-                  url: `https://findmypet.in/pet/${pet.id}`,
-                }}
-              />
-            </div>
-          </div>
-
-          <div className="flex flex-wrap gap-2">
-            {tags.map((tag) => (
-              <span
-                key={tag}
-                className={`mr-1 rounded-full px-2 py-1 text-xs font-semibold ${Tags[tag]}`}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          <div className="text-primary/80">{pet?.description}</div>
-        </div>
+    <div className="flex flex-col items-center">
+      {/* Image Section */}
+      <div className="relative aspect-square w-full md:w-2/5">
+        <Image
+          src={
+            pet.profileImages[0]
+              ? pet.profileImages[0]
+              : pet.type === "dog"
+                ? "/dog-avatar.jpeg"
+                : "/cat-avatar.jpeg"
+          }
+          alt="Profile Image"
+          fill
+          style={{ objectFit: "cover" }}
+          className="md:rounded-t-3xl"
+          loading="lazy"
+        />
       </div>
-    </>
+
+      {/* Details Section */}
+      <div className="-mt-5 flex w-full -translate-y-0 flex-col gap-4 rounded-t-3xl bg-white p-6 md:w-2/5">
+        {/* Breed, Type, Name, Gender, Birthdate */}
+        <div className="flex items-start justify-between">
+          <div className="flex flex-col gap-1">
+            <span className="text-sm  text-primary/80">
+              {pet?.breed} ({titleCase(pet?.type)})
+            </span>
+            <span className="text-2xl font-semibold text-primary">
+              {pet?.name}
+            </span>
+            <div className="flex items-center gap-2 text-sm text-primary/80">
+              <span>{titleCase(pet?.gender)}</span>
+              <div className="h-1.5 w-1.5 rounded-full bg-[#999999]"></div>
+              <span>{getTimePassed(pet?.birthdate)}</span>
+            </div>
+          </div>
+
+          {/* Insta and Share button */}
+          <div className="flex items-center gap-2">
+            <a href={(pet.socialMediaLinks as any).instagram} target="_blank">
+              <Instagram className="cursor-pointer text-primary/50 hover:text-primary" />
+            </a>
+            <Share
+              className="cursor-pointer text-primary/50 hover:text-primary"
+              shareInfo={{
+                title: `${pet.name}: A Furry Friend to Love!`,
+                text: `Ready to meet your new adorable four-legged family member? Checkout ${pet.name}'s profile here!`,
+                url: `https://findmypet.in/pet/${pet.id}`,
+              }}
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <span
+              key={tag}
+              className={`mr-1 rounded-full px-2 py-1 text-xs font-semibold ${Tags[tag]}`}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <div className="text-primary/80">{pet?.description}</div>
+      </div>
+    </div>
   );
 }

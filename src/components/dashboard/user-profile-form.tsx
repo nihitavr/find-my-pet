@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Button } from "~/components/ui/button";
 import { api } from "~/lib/trpc/react";
-import ProfileLoadingSkeleton from "../ui/profile-loading-skeleton";
+import ProfileFormLoadingSkeleton from "../ui/profile-form-loading-skeleton";
 import {
   Form,
   FormControl,
@@ -98,7 +98,7 @@ export function UserProfileForm() {
   };
 
   if (isInitialLoading) {
-    return <ProfileLoadingSkeleton />;
+    return <ProfileFormLoadingSkeleton />;
   }
 
   return (

@@ -1,11 +1,4 @@
-import {
-  Page,
-  Text,
-  View,
-  Document,
-  Svg,
-  StyleSheet,
-} from "@react-pdf/renderer";
+import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 import { QRCodeSVG } from "qrcode.react";
 import { PDFViewer } from "@react-pdf/renderer";
 

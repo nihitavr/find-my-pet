@@ -13,6 +13,7 @@ import Link from "next/link";
 import { Button } from "~/components/ui/button";
 
 export default async function Pets() {
+  // const data: any[] = [];
   const data = await api.pet.getPetProfiles.query();
 
   return (

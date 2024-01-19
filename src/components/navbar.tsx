@@ -15,7 +15,7 @@ export default async function Navbar() {
         <Link href="/">
           <div className="relative h-12 w-48">
             <Image
-              src="/find-my-pet-logo-dark-brown.svg"
+              src="/find-my-pet-logo-dark-long.svg"
               alt="Logo"
               className="rounded-lg"
               fill

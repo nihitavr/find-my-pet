@@ -22,7 +22,7 @@ import { cn, getInstagramUrl, getInstagramUsername } from "~/lib/utils";
 import { Calendar } from "../ui/calendar";
 import { useEffect, useState } from "react";
 import { api } from "~/lib/trpc/react";
-import ProfileLoadingSkeleton from "../ui/profile-loading-skeleton";
+import ProfileFormLoadingSkeleton from "../ui/profile-form-loading-skeleton";
 import { ImageInput, ImageInputDisplay } from "../ui/image-input";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { REGEX } from "~/lib/constants";
@@ -147,9 +147,9 @@ export function PetProfileForm({ id }: Props) {
     setIsSubmitting(false);
   };
 
-  if (isInitialLoading) {
-    return <ProfileLoadingSkeleton />;
-  }
+  // if (isInitialLoading) {
+  //   return <ProfileFormLoadingSkeleton />;
+  // }
 
   return (
     <Form {...form}>
@@ -375,7 +375,7 @@ export function PetProfileForm({ id }: Props) {
           <Button
             className="flex w-full items-center justify-center gap-2"
             type="submit"
-            disabled={!form.formState.isDirty}
+            disabled={!form.formState.isDirty || isSubmitting}
           >
             <span>Submit</span>
             <div>

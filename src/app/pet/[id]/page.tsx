@@ -9,5 +9,5 @@ export default async function PetProfilePage({
 }: {
   params: { id: string };
 }) {
-  <PetProfile id={params.id} />;
+  return <PetProfile id={params.id} />;
 }

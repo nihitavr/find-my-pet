@@ -1,6 +1,7 @@
 "use client";
 
 import { signOut } from "next-auth/react";
+import { Button } from "./ui/button";
 
 export default function SignOut() {
   const handleSignIn = async () => {
@@ -8,8 +9,8 @@ export default function SignOut() {
   };
 
   return (
-    <button className="button-primary-2" onClick={handleSignIn}>
+    <Button variant="secondary" onClick={handleSignIn}>
       Sign Out
-    </button>
+    </Button>
   );
 }

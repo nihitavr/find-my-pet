@@ -15,7 +15,7 @@ const inter = Inter({
 
 export const metadata = {
   title: "Find My Pet - QR Code Collar Tags for Pets",
-  icons: [{ rel: "icon", url: "/find-my-pet-logo.svg" }],
+  icons: [{ rel: "icon", url: "/find-my-pet-logo-dark.svg" }],
 };
 
 export default function RootLayout({

@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 
 import { cn } from "~/lib/utils";
@@ -21,6 +20,7 @@ import Loader from "../ui/loader";
 import { api } from "~/lib/trpc/react";
 import { useRouter } from "next/navigation";
 import { useToast } from "../ui/use-toast";
+import { useState } from "react";
 
 export function PetSelectionForm({
   pets,
@@ -36,12 +36,14 @@ export function PetSelectionForm({
 
   const { toast } = useToast();
 
-  const [open, setOpen] = React.useState(false);
-  const [petId, setPetId] = React.useState("");
+  const [open, setOpen] = useState(false);
+  const [petId, setPetId] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const registerPetTag = api.petTag.registerPetTag.useMutation();
 
   const onSubmit = async () => {
+    setIsSubmitting(true);
     await registerPetTag.mutateAsync(
       {
         petId,
@@ -61,6 +63,8 @@ export function PetSelectionForm({
         },
       },
     );
+
+    setIsSubmitting(false);
   };
 
   return (
@@ -111,12 +115,12 @@ export function PetSelectionForm({
         <Button
           className="flex w-full items-center justify-center gap-2"
           type="submit"
-          disabled={!petId}
+          disabled={!petId || isSubmitting}
           onClick={onSubmit}
         >
-          <span>Submit</span>
+          <span>Register Tag</span>
           <div>
-            <Loader className="h-5 w-5 border-2" show={false} />
+            <Loader className="h-5 w-5 border-2" show={isSubmitting} />
           </div>
         </Button>
       </div>
