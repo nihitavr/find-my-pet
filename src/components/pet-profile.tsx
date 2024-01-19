@@ -1,10 +1,12 @@
-import { Instagram } from "lucide-react";
+import { Instagram, PhoneOutgoing } from "lucide-react";
 import Image from "next/image";
 import { Fragment } from "react";
 import { Share } from "~/components/ui/icons";
 import NotFound from "~/components/ui/not-found";
 import { api } from "~/lib/trpc/server";
 import { getTimePassed, titleCase } from "~/lib/utils";
+import { Button } from "./ui/button";
+import PetProfileCallButtons from "./ui/pet-profile-call-buttons";
 
 const Tags: any = {
   Neat: "bg-green-100 text-green-800",
@@ -35,7 +37,16 @@ const Tags: any = {
   "Bad with other dogs": "bg-red-100 text-red-800",
 };
 
-export default async function PetProfile({ id }: { id: string }) {
+type Props = {
+  id: string;
+  user?: {
+    name: string | null;
+    email: string | null;
+    phoneNumber: string | null;
+  } | null;
+};
+
+export default async function PetProfile({ id, user }: Props) {
   const pet = await api.pet.getPet.query({ id });
 
   if (!pet) return <NotFound />;
@@ -111,6 +122,10 @@ export default async function PetProfile({ id }: { id: string }) {
         </div>
 
         <div className="text-primary/80">{pet?.description}</div>
+
+        {user?.phoneNumber && (
+          <PetProfileCallButtons phoneNumber={user.phoneNumber} />
+        )}
       </div>
     </div>
   );

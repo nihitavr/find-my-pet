@@ -38,5 +38,7 @@ export default async function PetTag({ params }: { params: { id: string } }) {
       </div>
     );
 
-  return <PetProfile id={petTag.petId!} />;
+  const user = await api.user.getUser.query({ id: petTag.userId! });
+
+  return <PetProfile id={petTag.petId!} user={user} />;
 }
