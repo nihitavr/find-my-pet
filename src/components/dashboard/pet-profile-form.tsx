@@ -383,19 +383,6 @@ export function PetProfileForm({ id }: Props) {
             </div>
           </Button>
         </div>
-
-        {/* <div className={`fixed bottom-3 right-0 w-full px-6 py-3`}>
-          <Button
-            className="flex w-full items-center justify-center gap-2"
-            type="submit"
-            disabled={!form.formState.isDirty}
-          >
-            <span>Submit</span>
-            <div>
-              <Loader className="h-5 w-5 border-2" show={isSubmitting} />
-            </div>
-          </Button>
-        </div> */}
       </form>
     </Form>
   );
