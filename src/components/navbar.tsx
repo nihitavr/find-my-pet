@@ -31,12 +31,6 @@ export default async function Navbar() {
         <Menubar />
 
         {session?.user ? <SignOut /> : <SignIn />}
-        {/* <Link
-          href={session?.user ? "/api/auth/signout" : "/api/auth/signin"}
-          className="button-primary-2"
-        >
-          {session?.user ? "Sign Out" : "Sign In"}
-        </Link> */}
       </div>
     </nav>
   );

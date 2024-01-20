@@ -11,7 +11,7 @@ import { PlusCircle, X } from "lucide-react";
 import { Fragment } from "react";
 import Loader from "./loader";
 
-const MAX_FILE_SIZE = 1000000;
+const MAX_FILE_SIZE = 5000000;
 const ACCEPTED_IMAGE_TYPES = [
   "image/jpeg",
   "image/jpg",
