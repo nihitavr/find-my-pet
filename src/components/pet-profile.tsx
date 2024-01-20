@@ -1,11 +1,10 @@
 import { Instagram } from "lucide-react";
-import Image from "next/image";
 import { Share } from "~/components/ui/icons";
 import NotFound from "~/components/ui/not-found";
 import { api } from "~/lib/trpc/server";
 import { getTimePassed, titleCase } from "~/lib/utils";
-import { Button } from "./ui/button";
 import PetProfileCallButtons from "./ui/pet-profile-call-buttons";
+import PetProfileCasousel from "./pet-profile-carousel";
 
 const Tags: any = {
   Neat: "bg-green-100 text-green-800",
@@ -55,10 +54,16 @@ export default async function PetProfile({ id, user }: Props) {
     .sort(() => Math.random() - Math.random())
     .slice(0, 7);
 
+  if (pet.profileImages.length === 0) pet.profileImages.push("");
+
   return (
     <div className="flex flex-col items-center">
       {/* Image Section */}
-      <div className="relative aspect-square w-full md:w-2/5">
+      <PetProfileCasousel
+        profileImages={pet.profileImages}
+        petType={pet.type}
+      />
+      {/* <div className="relative aspect-square w-full md:w-2/5">
         <Image
           src={
             pet.profileImages[0]
@@ -73,7 +78,7 @@ export default async function PetProfile({ id, user }: Props) {
           className="md:rounded-t-3xl"
           loading="lazy"
         />
-      </div>
+      </div> */}
 
       {/* Details Section */}
       <div className="-mt-5 flex w-full -translate-y-0 flex-col gap-4 rounded-t-3xl bg-white p-6 md:w-2/5">

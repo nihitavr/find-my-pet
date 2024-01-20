@@ -33,7 +33,7 @@ export default async function PetTag({ params }: { params: { id: string } }) {
           to register the pet tag.
         </div>
         <Link href={`/dashboard/pet-tag/pet-selection?petTagId=${petTag.id}`}>
-          <Button variant="secondary">Select Pet</Button>
+          <Button variant="secondary">Select or Create New Pet</Button>
         </Link>
       </div>
     );
