@@ -59,10 +59,10 @@ export default async function PetProfile({ id, user }: Props) {
   return (
     <div className="flex flex-col items-center">
       {/* Image Section */}
-      <PetProfileCasousel
+      {/* <PetProfileCasousel
         profileImages={pet.profileImages}
         petType={pet.type}
-      />
+      /> */}
       {/* <div className="relative aspect-square w-full md:w-2/5">
         <Image
           src={
