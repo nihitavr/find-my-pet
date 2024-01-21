@@ -1,4 +1,6 @@
-import { api } from "~/lib/trpc/server";
+"use client";
+
+import { api } from "~/lib/trpc/react";
 
 import {
   Table,
@@ -12,9 +14,8 @@ import {
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
 
-export default async function Pets() {
-  // const data: any[] = [];
-  const data = await api.pet.getPetProfiles.query();
+export default function Pets() {
+  const { data } = api.pet.getPetProfiles.useQuery();
 
   return (
     <div>
