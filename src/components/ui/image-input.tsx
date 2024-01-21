@@ -45,7 +45,15 @@ const onFilesUpload = async (
   }
 };
 
-const validateFiles = (files: File[]) => {
+const validateFiles = (files: File[], maxFiles: number) => {
+  if (files?.length > maxFiles) {
+    return {
+      error: `You can only upload ${maxFiles} more file${
+        maxFiles == 1 ? "." : "s."
+      }`,
+    };
+  }
+
   const isFileTooLarge = files.some((file) => file.size > MAX_FILE_SIZE);
   if (isFileTooLarge) {
     return {
@@ -66,15 +74,17 @@ const validateFiles = (files: File[]) => {
 export function ImageInput({
   form,
   field,
+  maxFiles,
   handleUploadUrl,
 }: {
   form: UseFormReturn<any>;
   field: ControllerRenderProps<any, any>;
+  maxFiles: number;
   handleUploadUrl: string;
 }) {
   return (
     <Fragment>
-      {(field.value as string[]).length < 3 && (
+      {(field.value as string[]).length < maxFiles && (
         <label htmlFor="file-upload">
           <PlusCircle className="brightness- h-14 w-14 cursor-pointer text-gray-300 hover:text-gray-400" />
         </label>
@@ -91,7 +101,10 @@ export function ImageInput({
             return;
           }
 
-          const { error } = validateFiles(Array.from(e.target.files));
+          const { error } = validateFiles(
+            Array.from(e.target.files),
+            maxFiles - (field.value as string[]).length,
+          );
 
           if (error) {
             form.setError(field.name, { message: error });
@@ -125,7 +138,7 @@ export function ImageInputDisplay({
   className?: string;
 }) {
   return field.value && (field.value as unknown as string[]).length > 0 ? (
-    <div className="flex flex-row gap-2">
+    <div className="flex flex-row flex-wrap gap-2">
       {(field.value as unknown as string[])?.map((image, idx) => (
         <div key={idx} className={cn("relative h-20 w-20", className)}>
           {image ? (

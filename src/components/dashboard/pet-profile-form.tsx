@@ -204,6 +204,7 @@ export function PetProfileForm({ id, petTagId }: Props) {
                     <ImageInput
                       form={form}
                       field={field}
+                      maxFiles={3}
                       handleUploadUrl="/api/profile-image/upload"
                     />
                   </FormControl>
