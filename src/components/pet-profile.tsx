@@ -59,26 +59,10 @@ export default async function PetProfile({ id, user }: Props) {
   return (
     <div className="flex flex-col items-center">
       {/* Image Section */}
-      {/* <PetProfileCasousel
+      <PetProfileCasousel
         profileImages={pet.profileImages}
         petType={pet.type}
-      /> */}
-      {/* <div className="relative aspect-square w-full md:w-2/5">
-        <Image
-          src={
-            pet.profileImages[0]
-              ? pet.profileImages[0]
-              : pet.type === "dog"
-                ? "/dog-avatar.jpeg"
-                : "/cat-avatar.jpeg"
-          }
-          alt="Profile Image"
-          fill
-          style={{ objectFit: "cover" }}
-          className="md:rounded-t-3xl"
-          loading="lazy"
-        />
-      </div> */}
+      />
 
       {/* Details Section */}
       <div className="-mt-5 flex w-full -translate-y-0 flex-col gap-4 rounded-t-3xl bg-white p-6 md:w-2/5">
