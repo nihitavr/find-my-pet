@@ -68,7 +68,7 @@ export default function PetProfileCasousel({
             return (
               <div
                 className={`h-2 w-2 rounded-full ${
-                  idx + 1 === current ? "bg-slate-500" : "bg-slate-300"
+                  idx + 1 === current ? "bg-gray-500" : "bg-gray-300"
                 }`}
                 key={idx}
               />
