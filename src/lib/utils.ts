@@ -37,3 +37,8 @@ export function getInstagramUsername(url?: string) {
 export function getInstagramUrl(username?: string) {
   return `https://www.instagram.com/${username}`;
 }
+
+export function removeLastSlash(url?: string) {
+  if (!url) return "";
+  return url.replace(/\/$/, "");
+}

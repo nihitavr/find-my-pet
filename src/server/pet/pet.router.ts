@@ -104,4 +104,16 @@ export const petRouter = createTRPCRouter({
         where: { id: input.id },
       });
     }),
+  getPets: publicProcedure
+    .input(
+      z.object({
+        userId: z.string().cuid(),
+      }),
+    )
+    .query(({ ctx, input }) => {
+      return ctx.db.pet.findMany({
+        orderBy: { createdAt: "desc" },
+        where: { userId: input.userId },
+      });
+    }),
 });
