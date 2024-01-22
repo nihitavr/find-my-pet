@@ -34,8 +34,7 @@ export const Share = ({ className, shareInfo, children, ...props }: Props) => {
       onClick={handleShare}
       className="flex items-center justify-center gap-2"
     >
-      {children}
-      <ShareLucid className={className} />
+      {children ? children : <ShareLucid className={className} />}
     </div>
   );
 };

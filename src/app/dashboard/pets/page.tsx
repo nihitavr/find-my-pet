@@ -15,6 +15,7 @@ import { Share } from "~/components/ui/icons";
 import { env } from "~/env";
 import { ArrowUpRight } from "lucide-react";
 import { titleCase } from "~/lib/utils";
+import { Share as ShareLucid } from "lucide-react";
 
 export default async function Pets() {
   const session = await getServerAuthSession();
@@ -25,22 +26,28 @@ export default async function Pets() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <h1 className="text-xl font-semibold">All Pets</h1>
-          <Link
-            className="flex items-center text-sm text-blue-700 hover:underline"
-            target="_blank"
-            href={`/user/${session?.user.id}/pets`}
-          >
-            (<span>View Profile</span> <ArrowUpRight size={15} />)
-          </Link>
         </div>
         <Link href={"/dashboard/pets/add"}>
-          <Button variant="outline">Add Pet</Button>
+          <Button>Add Pet</Button>
         </Link>
       </div>
 
       <Table className="mt-3">
         <TableCaption>
-          <Button className="flex items-center justify-center gap-2">
+          <div className="flex items-center justify-center gap-3">
+            <Link
+              className="flex items-center text-sm "
+              target="_blank"
+              href={`/user/${session?.user.id}/pets`}
+            >
+              <Button
+                className="flex items-center justify-center gap-2"
+                variant="outline"
+              >
+                <span>View Pets List</span> <ArrowUpRight size={15} />
+              </Button>
+            </Link>
+
             <Share
               className="h-5 w-5"
               shareInfo={{
@@ -49,9 +56,12 @@ export default async function Pets() {
                 url: `${env.SERVER_URL}/user/${session?.user.id}/pets`,
               }}
             >
-              Share Pets List
+              <Button className="flex items-center justify-center gap-2">
+                <span>Share Pets List</span>
+                <ShareLucid className="h-5 w-5" />
+              </Button>
             </Share>
-          </Button>
+          </div>
         </TableCaption>
         <TableHeader>
           <TableRow>
