@@ -87,7 +87,7 @@ export function UserProfileForm() {
           return;
         }
 
-        router.push(`/dashboard/pet-tag/pet-selection?petTagId=${petTagId}`);
+        router.push(`/dashboard/pet-tags/pet-selection?petTagId=${petTagId}`);
       },
       onError: (error) => {
         toast({

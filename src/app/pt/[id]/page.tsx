@@ -32,7 +32,7 @@ export default async function PetTag({ params }: { params: { id: string } }) {
           This qr code is not associated with any pet. Please add/select a pet
           to register the pet tag.
         </div>
-        <Link href={`/dashboard/pet-tag/pet-selection?petTagId=${petTag.id}`}>
+        <Link href={`/dashboard/pet-tags/pet-selection?petTagId=${petTag.id}`}>
           <Button variant="secondary">Select or Create New Pet</Button>
         </Link>
       </div>
