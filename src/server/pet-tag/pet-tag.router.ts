@@ -39,4 +39,14 @@ export const petTagRouter = createTRPCRouter({
 
       return petTag;
     }),
+
+  getPetTags: protectedProcedure.query(({ ctx }) => {
+    return ctx.db.petTag.findMany({
+      orderBy: { createdAt: "desc" },
+      where: { userId: ctx.session.user.id },
+      include: {
+        pet: true,
+      },
+    });
+  }),
 });

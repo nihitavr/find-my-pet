@@ -8,23 +8,19 @@ import {
   TableRow,
 } from "~/components/ui/table";
 import Link from "next/link";
-import { Button } from "~/components/ui/button";
 import { api } from "~/lib/trpc/server";
 import { getServerAuthSession } from "~/lib/auth";
-import { Share } from "~/components/ui/icons";
-import { env } from "~/env";
-import { ArrowUpRight } from "lucide-react";
-import { titleCase } from "~/lib/utils";
+import { ArrowUpRight, Pencil } from "lucide-react";
 
-export default async function Pets() {
+export default async function PetTags() {
   const session = await getServerAuthSession();
-  const pets = await api.pet.getPetProfiles.query();
+  const petTags = await api.petTag.getPetTags.query();
 
   return (
     <div>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <h1 className="text-xl font-semibold">All Pets</h1>
+          <h1 className="text-xl font-semibold">All Pet Tags</h1>
           <Link
             className="flex items-center text-sm text-blue-700 hover:underline"
             target="_blank"
@@ -33,57 +29,48 @@ export default async function Pets() {
             (<span>View Profile</span> <ArrowUpRight size={15} />)
           </Link>
         </div>
-        <Link href={"/dashboard/pets/add"}>
-          <Button variant="outline">Add Pet</Button>
-        </Link>
       </div>
 
       <Table className="mt-3">
-        <TableCaption>
-          <Button className="flex items-center justify-center gap-2">
-            <Share
-              className="h-5 w-5"
-              shareInfo={{
-                title: "My Pet Family",
-                text: `${session?.user.name}'s pet family!`,
-                url: `${env.SERVER_URL}/user/${session?.user.id}/pets`,
-              }}
-            >
-              Share Pets List
-            </Share>
-          </Button>
-        </TableCaption>
+        <TableCaption>A list of all pet tags.</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">Name</TableHead>
-            <TableHead>Type</TableHead>
-            <TableHead className="cursor-pointer text-right">Profile</TableHead>
+            <TableHead className="w-[100px]">Index</TableHead>
+            <TableHead>Registered Pet</TableHead>
+            <TableHead className="cursor-pointer text-right">
+              Tag View
+            </TableHead>
             <TableHead className="cursor-pointer text-right">Edit</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {pets?.map((pet, idx) => (
+          {petTags?.map((petTag, idx) => (
             <TableRow key={idx}>
               <TableCell className="font-medium">
                 <Link
                   className="cursor-pointer hover:underline"
-                  href={`/dashboard/pets/${pet.id}`}
+                  href={`/dashboard/pets/${petTag.id}`}
                 >
-                  {pet.name}
+                  {idx + 1}
                 </Link>
               </TableCell>
-              <TableCell>{titleCase(pet.type)}</TableCell>
+              <TableCell>{petTag?.pet?.name}</TableCell>
               <TableCell className="text-right">
                 <Link
-                  href={`/pet/${pet.id}`}
+                  href={`/pt/${petTag.id}`}
                   target="_blank"
                   className="flex items-center justify-end text-sm text-blue-700 hover:underline"
                 >
                   <span>View</span> <ArrowUpRight size={15} />
                 </Link>
               </TableCell>
-              <TableCell className="text-right text-sm text-blue-700 hover:underline">
-                <Link href={`/dashboard/pets/${pet.id}`}>Edit</Link>
+              <TableCell>
+                <Link
+                  href={`/dashboard/pet-tags/${petTag.id}`}
+                  className="flex justify-end opacity-70 hover:opacity-50"
+                >
+                  <Pencil strokeWidth={3} size={18} />
+                </Link>
               </TableCell>
             </TableRow>
           ))}

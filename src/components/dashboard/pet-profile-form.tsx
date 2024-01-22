@@ -191,6 +191,9 @@ export function PetProfileForm({ id, petTagId }: Props) {
               {id ? `${form.getValues()?.name}?` : `Pet!`}
             </span>
           </h1>
+        </div>
+        <div className="flex items-center justify-start gap-2">
+          <h1 className="font-semibold">Basic Info</h1>
           {id && (
             <Link
               href={`/pet/${id}`}
@@ -202,7 +205,6 @@ export function PetProfileForm({ id, petTagId }: Props) {
           )}
         </div>
 
-        <h1 className="font-semibold">Basic Info</h1>
         <div className="flex flex-col gap-5">
           {/* Profile Images */}
           <FormField
