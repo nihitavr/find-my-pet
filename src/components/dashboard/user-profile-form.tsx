@@ -162,7 +162,7 @@ export function UserProfileForm() {
                 : true
             }
           >
-            <span>{petTagId ? "Next" : "Submit"}</span>
+            <span>{petTagId ? "Next" : "Save"}</span>
             <Loader className="h-5 w-5 border-2" show={isSubmitting} />
           </Button>
         </div>

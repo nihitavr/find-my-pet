@@ -13,7 +13,7 @@ import { api } from "~/lib/trpc/server";
 import { getServerAuthSession } from "~/lib/auth";
 import { Share } from "~/components/ui/icons";
 import { env } from "~/env";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Pencil } from "lucide-react";
 import { titleCase } from "~/lib/utils";
 import { Share as ShareLucid } from "lucide-react";
 
@@ -41,10 +41,10 @@ export default async function Pets() {
               href={`/user/${session?.user.id}/pets`}
             >
               <Button
-                className="flex items-center justify-center gap-2"
+                className="flex items-center justify-center gap-2 "
                 variant="outline"
               >
-                <span>View Pets List</span> <ArrowUpRight size={15} />
+                <span>View Pets</span> <ArrowUpRight size={15} />
               </Button>
             </Link>
 
@@ -57,7 +57,7 @@ export default async function Pets() {
               }}
             >
               <Button className="flex items-center justify-center gap-2">
-                <span>Share Pets List</span>
+                <span>Share Pets</span>
                 <ShareLucid className="h-5 w-5" />
               </Button>
             </Share>
@@ -65,35 +65,33 @@ export default async function Pets() {
         </TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">Name</TableHead>
+            <TableHead className="w-[20px]"></TableHead>
+            <TableHead className="min-w-[100px]">Profile</TableHead>
             <TableHead>Type</TableHead>
-            <TableHead className="cursor-pointer text-right">Profile</TableHead>
             <TableHead className="cursor-pointer text-right">Edit</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {pets?.map((pet, idx) => (
             <TableRow key={idx}>
+              <TableCell className="w-[20px] font-medium">{idx + 1}</TableCell>
               <TableCell className="font-medium">
-                <Link
-                  className="cursor-pointer hover:underline"
-                  href={`/dashboard/pets/${pet.id}`}
-                >
-                  {pet.name}
-                </Link>
-              </TableCell>
-              <TableCell>{titleCase(pet.type)}</TableCell>
-              <TableCell className="text-right">
                 <Link
                   href={`/pet/${pet.id}`}
                   target="_blank"
-                  className="flex items-center justify-end text-sm text-blue-700 hover:underline"
+                  className="flex items-center justify-start text-sm text-blue-700 hover:underline"
                 >
-                  <span>View</span> <ArrowUpRight size={15} />
+                  <span>{pet.name}</span> <ArrowUpRight size={15} />
                 </Link>
               </TableCell>
-              <TableCell className="text-right text-sm text-blue-700 hover:underline">
-                <Link href={`/dashboard/pets/${pet.id}`}>Edit</Link>
+              <TableCell>{titleCase(pet.type)}</TableCell>
+              <TableCell>
+                <Link
+                  href={`/dashboard/pets/${pet.id}`}
+                  className="flex justify-end opacity-70 hover:opacity-50"
+                >
+                  <Pencil strokeWidth={3} size={18} />
+                </Link>
               </TableCell>
             </TableRow>
           ))}

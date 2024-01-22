@@ -26,12 +26,10 @@ export default async function PetTags() {
         <TableCaption>A list of all pet tags.</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">Index</TableHead>
-            <TableHead>Registered Pet</TableHead>
-            <TableHead className="cursor-pointer text-right">
-              Tag View
-            </TableHead>
-            <TableHead className="cursor-pointer text-right">Edit</TableHead>
+            <TableHead className="w-[20px]"></TableHead>
+            <TableHead className="min-w-[100px]">Registered Pet</TableHead>
+            <TableHead className="">Tag View</TableHead>
+            <TableHead className="text-right">Edit</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -50,7 +48,7 @@ export default async function PetTags() {
                 <Link
                   href={`/pt/${petTag.id}`}
                   target="_blank"
-                  className="flex items-center justify-end text-sm text-blue-700 hover:underline"
+                  className="flex items-center justify-start text-sm text-blue-700 hover:underline"
                 >
                   <span>View</span> <ArrowUpRight size={15} />
                 </Link>
