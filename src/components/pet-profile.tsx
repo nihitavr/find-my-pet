@@ -70,13 +70,13 @@ export default async function PetProfile({ id, user }: Props) {
           {/* Breed, Type, Name, Gender, Birthdate */}
           <div className="flex items-start justify-between">
             <div className="flex flex-col gap-1">
-              <span className="text-foreground/80  text-sm">
+              <span className="text-sm  text-foreground/80">
                 {pet?.breed} ({titleCase(pet?.type)})
               </span>
-              <span className="text-foreground text-2xl font-semibold">
+              <span className="text-2xl font-semibold text-foreground">
                 {pet?.name}
               </span>
-              <div className="text-foreground/80 flex items-center gap-2 text-sm">
+              <div className="flex items-center gap-2 text-sm text-foreground/80">
                 <span>{titleCase(pet?.gender)}</span>
                 <div className="h-1.5 w-1.5 rounded-full bg-[#999999]"></div>
                 <span>{getTimePassed(pet?.birthdate)}</span>
@@ -90,11 +90,11 @@ export default async function PetProfile({ id, user }: Props) {
                   href={(pet.socialMediaLinks as any).instagram}
                   target="_blank"
                 >
-                  <Instagram className="text-foreground/50 hover:text-foreground cursor-pointer" />
+                  <Instagram className="cursor-pointer text-foreground/50 hover:text-foreground" />
                 </a>
               )}
               <Share
-                className="text-foreground/50 hover:text-foreground cursor-pointer"
+                className="cursor-pointer text-foreground/50 hover:text-foreground"
                 shareInfo={{
                   title: `${pet.name}: A Furry Friend to Love!`,
                   text: `Ready to meet your new adorable four-legged family member? Checkout ${pet.name}'s profile here!`,

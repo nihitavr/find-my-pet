@@ -10,21 +10,47 @@ import {
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
 import { api } from "~/lib/trpc/server";
+import { getServerAuthSession } from "~/lib/auth";
+import { Share } from "~/components/ui/icons";
+import { env } from "~/env";
+import { ArrowUpRight } from "lucide-react";
 
 export default async function Pets() {
+  const session = await getServerAuthSession();
   const data = await api.pet.getPetProfiles.query();
 
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold">All Pets</h1>
+        <div className="flex items-center gap-3">
+          <h1 className="text-xl font-semibold">All Pets</h1>
+          <Link
+            className="flex items-center text-sm text-blue-700 hover:underline"
+            target="_blank"
+            href={`/user/${session?.user.id}/pets`}
+          >
+            <span>View Pets</span> <ArrowUpRight size={20} textAnchor="asda" />
+          </Link>
+        </div>
         <Link href={"/dashboard/pets/add"}>
-          <Button variant="default">Add Pet</Button>
+          <Button variant="outline">Add Pet</Button>
         </Link>
       </div>
 
       <Table className="mt-3">
-        <TableCaption>A list of your pets.</TableCaption>
+        <TableCaption>
+          <Button className="flex items-center justify-center gap-2">
+            Share Pets List
+            <Share
+              className="h-5 w-5"
+              shareInfo={{
+                title: "My Pet Family",
+                text: `${session?.user.name}'s pet family!`,
+                url: `${env.SERVER_URL}/user/${session?.user.id}/pets`,
+              }}
+            />
+          </Button>
+        </TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">Name</TableHead>
