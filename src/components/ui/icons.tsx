@@ -12,9 +12,10 @@ interface ShareInfo {
 interface Props {
   className: string;
   shareInfo: ShareInfo;
+  children?: React.ReactNode;
 }
 
-export const Share = ({ className, shareInfo, ...props }: Props) => {
+export const Share = ({ className, shareInfo, children, ...props }: Props) => {
   const handleShare = async () => {
     if (navigator.share) {
       try {
@@ -28,7 +29,12 @@ export const Share = ({ className, shareInfo, ...props }: Props) => {
     }
   };
   return (
-    <div {...props} onClick={handleShare}>
+    <div
+      {...props}
+      onClick={handleShare}
+      className="flex items-center justify-center gap-2"
+    >
+      {children}
       <ShareLucid className={className} />
     </div>
   );

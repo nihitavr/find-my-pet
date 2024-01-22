@@ -49,15 +49,21 @@ export function MobileSideNavSheet({
           />
           <span className="text-xl font-semibold">Find My Pet</span>
         </SheetHeader>
-        <div className="mt-5 flex flex-col gap-8 p-3">
+        <div className="mt-10 flex flex-col gap-5">
           <SheetClose asChild>
-            <Link href="/dashboard" className="flex items-center gap-3">
+            <Link
+              href="/dashboard"
+              className="flex items-center gap-3 rounded-md p-2 hover:bg-secondary"
+            >
               <SquareUserRound className="h-8 w-8" strokeWidth={1.3} />
               <span>Owner Profile</span>
             </Link>
           </SheetClose>
           <SheetClose asChild>
-            <Link href="/dashboard/pets" className="flex items-center gap-3">
+            <Link
+              href="/dashboard/pets"
+              className="flex items-center gap-3 rounded-md p-2 hover:bg-secondary"
+            >
               <Dog className="h-8 w-8" strokeWidth={1.3} />
               <span>Pets</span>
             </Link>
@@ -66,7 +72,7 @@ export function MobileSideNavSheet({
           <SheetClose asChild>
             <Link
               href="/dashboard/pet-tags"
-              className="flex items-center gap-3"
+              className="flex items-center gap-3 rounded-md p-2 hover:bg-secondary"
             >
               <Tags className="h-8 w-8" strokeWidth={1.3} />
               <span>Pet Tags</span>
