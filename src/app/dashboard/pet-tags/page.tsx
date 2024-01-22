@@ -9,11 +9,9 @@ import {
 } from "~/components/ui/table";
 import Link from "next/link";
 import { api } from "~/lib/trpc/server";
-import { getServerAuthSession } from "~/lib/auth";
 import { ArrowUpRight, Pencil } from "lucide-react";
 
 export default async function PetTags() {
-  const session = await getServerAuthSession();
   const petTags = await api.petTag.getPetTags.query();
 
   return (
@@ -21,13 +19,6 @@ export default async function PetTags() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <h1 className="text-xl font-semibold">All Pet Tags</h1>
-          <Link
-            className="flex items-center text-sm text-blue-700 hover:underline"
-            target="_blank"
-            href={`/user/${session?.user.id}/pets`}
-          >
-            (<span>View Profile</span> <ArrowUpRight size={15} />)
-          </Link>
         </div>
       </div>
 
