@@ -147,7 +147,7 @@ export function PetProfileForm({ id, petTagId }: Props) {
             description: "Pet profile updated successfully!",
           });
 
-          router.push("dashboard/pets");
+          router.push("/dashboard/pets");
         },
       });
     } else {
@@ -416,7 +416,7 @@ export function PetProfileForm({ id, petTagId }: Props) {
             type="submit"
             disabled={!form.formState.isDirty || isSubmitting}
           >
-            <span>{petTagId ? "Create Pet & Register Tag" : "Submit"}</span>
+            <span>{petTagId ? "Create Pet & Register Tag" : "Save"}</span>
             <div>
               <Loader className="h-5 w-5 border-2" show={isSubmitting} />
             </div>
