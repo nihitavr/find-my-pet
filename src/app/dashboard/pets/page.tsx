@@ -14,10 +14,11 @@ import { getServerAuthSession } from "~/lib/auth";
 import { Share } from "~/components/ui/icons";
 import { env } from "~/env";
 import { ArrowUpRight } from "lucide-react";
+import { titleCase } from "~/lib/utils";
 
 export default async function Pets() {
   const session = await getServerAuthSession();
-  const data = await api.pet.getPetProfiles.query();
+  const pets = await api.pet.getPetProfiles.query();
 
   return (
     <div>
@@ -29,7 +30,7 @@ export default async function Pets() {
             target="_blank"
             href={`/user/${session?.user.id}/pets`}
           >
-            <span>View Pets</span> <ArrowUpRight size={20} textAnchor="asda" />
+            <span>View Pets</span> <ArrowUpRight size={15} />
           </Link>
         </div>
         <Link href={"/dashboard/pets/add"}>
@@ -40,7 +41,6 @@ export default async function Pets() {
       <Table className="mt-3">
         <TableCaption>
           <Button className="flex items-center justify-center gap-2">
-            Share Pets List
             <Share
               className="h-5 w-5"
               shareInfo={{
@@ -48,18 +48,21 @@ export default async function Pets() {
                 text: `${session?.user.name}'s pet family!`,
                 url: `${env.SERVER_URL}/user/${session?.user.id}/pets`,
               }}
-            />
+            >
+              Share Pets List
+            </Share>
           </Button>
         </TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">Name</TableHead>
             <TableHead>Type</TableHead>
-            <TableHead className="cursor-pointer text-right">Breed</TableHead>
+            <TableHead className="cursor-pointer text-right">Profile</TableHead>
+            <TableHead className="cursor-pointer text-right">Edit</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data?.map((pet, idx) => (
+          {pets?.map((pet, idx) => (
             <TableRow key={idx}>
               <TableCell className="font-medium">
                 <Link
@@ -69,8 +72,19 @@ export default async function Pets() {
                   {pet.name}
                 </Link>
               </TableCell>
-              <TableCell>{pet.type}</TableCell>
-              <TableCell className="text-right">{pet.breed}</TableCell>
+              <TableCell>{titleCase(pet.type)}</TableCell>
+              <TableCell className="text-right">
+                <Link
+                  href={`/pet/${pet.id}`}
+                  target="_blank"
+                  className="flex items-center justify-end text-sm text-blue-700 hover:underline"
+                >
+                  <span>View</span> <ArrowUpRight size={15} />
+                </Link>
+              </TableCell>
+              <TableCell className="text-right text-sm text-blue-700 hover:underline">
+                <Link href={`/dashboard/pets/${pet.id}`}>Edit</Link>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { ArrowUpRight, CalendarIcon } from "lucide-react";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -28,6 +28,8 @@ import { REGEX } from "~/lib/constants";
 import { useToast } from "../ui/use-toast";
 import Loader from "../ui/loader";
 import { useRouter } from "next/navigation";
+import ProfileFormLoadingSkeleton from "../ui/profile-form-loading-skeleton";
+import Link from "next/link";
 
 const petProfileFormSchema = z.object({
   profileImages: z.array(z.string().url()),
@@ -174,19 +176,30 @@ export function PetProfileForm({ id, petTagId }: Props) {
     setIsSubmitting(false);
   };
 
+  if (isInitialLoading) return <ProfileFormLoadingSkeleton />;
+
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col space-y-3"
       >
-        <div>
+        <div className="flex items-center justify-start gap-2">
           <h1 className="text-xl font-semibold">
             {id ? `So what's new about ` : "Tell us about your "}
             <span className="text-primary/90">
               {id ? `${form.getValues()?.name}?` : `Pet!`}
             </span>
           </h1>
+          {id && (
+            <Link
+              href={`/pet/${id}`}
+              target="_blank"
+              className="flex items-center justify-end text-sm text-blue-700 hover:underline"
+            >
+              (<span>View Profile</span> <ArrowUpRight size={15} />)
+            </Link>
+          )}
         </div>
 
         <h1 className="font-semibold">Basic Info</h1>
@@ -395,7 +408,7 @@ export function PetProfileForm({ id, petTagId }: Props) {
           />
         </div>
 
-        <div className={`w-full pt-5`}>
+        <div className={`flex w-full justify-end pt-5`}>
           <Button
             className="flex w-full items-center justify-center gap-2"
             type="submit"

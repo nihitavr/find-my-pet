@@ -7,8 +7,10 @@ export default function RootLayout({
 }) {
   return (
     <AuthCheck>
-      <div className="p-2 md:p-5">
-        <div className="rounded-md border bg-white p-4">{children}</div>
+      <div className="flex flex-col items-center p-2 md:p-5">
+        <div className="w-full rounded-md border bg-white p-4 md:w-2/3">
+          {children}
+        </div>
       </div>
     </AuthCheck>
   );
