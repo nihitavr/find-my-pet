@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`font-sans ${inter.variable} bg-primary-light text-primary`}
+        className={`font-sans ${inter.variable} bg-background text-foreground`}
       >
         <TRPCReactProvider cookies={cookies().toString()}>
           <Navbar />

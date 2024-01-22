@@ -15,7 +15,7 @@ export default async function PetTag({ params }: { params: { id: string } }) {
   if (!petTag.petId && !auth?.user)
     return (
       <div className="flex h-[90vh] w-full flex-col items-center justify-center">
-        <div className="p-5 font-semibold text-primary">
+        <div className="text-foreground p-5 font-semibold">
           This qr code is not associated with any pet. Please sign in to
           register the pet tag with your pet.
         </div>
@@ -28,7 +28,7 @@ export default async function PetTag({ params }: { params: { id: string } }) {
   if (!petTag.petId && auth?.user)
     return (
       <div className="flex h-[90vh] w-full flex-col items-center justify-center">
-        <div className="p-5 font-semibold text-primary">
+        <div className="text-foreground p-5 font-semibold">
           This qr code is not associated with any pet. Please add/select a pet
           to register the pet tag.
         </div>

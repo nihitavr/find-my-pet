@@ -1,7 +1,3 @@
-"use client";
-
-import { api } from "~/lib/trpc/react";
-
 import {
   Table,
   TableBody,
@@ -13,16 +9,17 @@ import {
 } from "~/components/ui/table";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
+import { api } from "~/lib/trpc/server";
 
-export default function Pets() {
-  const { data } = api.pet.getPetProfiles.useQuery();
+export default async function Pets() {
+  const data = await api.pet.getPetProfiles.query();
 
   return (
     <div>
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold">All Pets</h1>
         <Link href={"/dashboard/pets/add"}>
-          <Button variant="outline">Add Pet</Button>
+          <Button variant="default">Add Pet</Button>
         </Link>
       </div>
 

@@ -7,7 +7,7 @@ export default async function HeroSection() {
     <div className="flex flex-col-reverse items-center justify-center gap-5 px-5 py-5 md:flex-row md:gap-5 md:px-28 md:py-16">
       {/* Left Text */}
       <div className="flex flex-1 flex-col items-start gap-2 md:gap-8">
-        <span className="whitespace-normal text-4xl font-bold text-primary-dark md:text-7xl">
+        <span className="whitespace-normal text-4xl font-bold md:text-7xl">
           Scan & Reunite
         </span>
         <span>

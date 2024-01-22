@@ -24,7 +24,7 @@ export default function SignIn({
   return (
     <Button
       className="flex items-center justify-center gap-2"
-      variant="secondary"
+      variant="default"
       disabled={isSigningIn}
       onClick={handleSignIn}
       {...props}
