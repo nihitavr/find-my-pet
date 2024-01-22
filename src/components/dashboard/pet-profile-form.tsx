@@ -183,7 +183,7 @@ export function PetProfileForm({ id, petTagId }: Props) {
         <div>
           <h1 className="text-xl font-semibold">
             {id ? `So what's new about ` : "Tell us about your "}
-            <span className="text-primary-dark/90">
+            <span className="text-primary/90">
               {id ? `${form.getValues()?.name}?` : `Pet!`}
             </span>
           </h1>

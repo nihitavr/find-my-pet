@@ -151,7 +151,7 @@ export function ImageInputDisplay({
                 alt={`image ${idx + 1}`}
               />
               <X
-                className="hover: absolute right-1 top-1 cursor-pointer rounded-full bg-slate-300 p-1 text-primary opacity-70 hover:opacity-100"
+                className="hover: absolute right-1 top-1 cursor-pointer rounded-full bg-slate-300 p-1 text-black opacity-70 hover:opacity-100"
                 onClick={() => {
                   const newImages = (field.value as unknown as string[]).filter(
                     (_, index) => index !== idx,

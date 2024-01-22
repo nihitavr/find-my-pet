@@ -5,7 +5,7 @@ export default async function Features() {
   return (
     <div className="flex flex-col items-center justify-center gap-5 bg-white px-5 py-16 md:gap-10 md:px-40">
       {/* Left Text */}
-      <h1 className="text-center text-4xl font-bold tracking-tight text-primary-dark sm:text-[4rem]">
+      <h1 className="text-center text-4xl font-bold tracking-tight sm:text-[4rem]">
         Features
       </h1>
       <div className="flex w-full flex-col justify-between gap-10 md:flex-row md:gap-20">

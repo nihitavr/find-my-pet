@@ -10,7 +10,7 @@ export default function SignOut() {
 
   const handleSignIn = async () => {
     setIsSigningIn(true);
-    await signOut();
+    await signOut({ callbackUrl: "/" });
     setIsSigningIn(false);
   };
 
@@ -18,7 +18,7 @@ export default function SignOut() {
     <Button
       className="flex items-center justify-center gap-2"
       disabled={isSigningIn}
-      variant="secondary"
+      variant="default"
       onClick={handleSignIn}
     >
       <span>Sign Out</span>

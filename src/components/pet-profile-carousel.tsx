@@ -34,13 +34,13 @@ export default function PetProfileCasousel({
   }, [carouselApi]);
 
   return (
-    <Carousel setApi={setCarouselApi} className="relative w-full md:w-2/5">
+    <Carousel setApi={setCarouselApi} className="relative w-full">
       <CarouselContent>
         {profileImages.map((imageUrl, index) => (
           <CarouselItem key={index}>
             <div>
-              <Card className="md:rounded-t-3xl">
-                <CardContent className="relative aspect-square w-full md:w-2/5">
+              <Card className="md:rounded-t-md">
+                <CardContent className="relative aspect-square w-full">
                   <Image
                     src={
                       imageUrl
@@ -52,7 +52,7 @@ export default function PetProfileCasousel({
                     alt="Profile Image"
                     fill
                     style={{ objectFit: "cover" }}
-                    className="md:rounded-t-3xl"
+                    className="md:rounded-t-md"
                     loading="lazy"
                   />
                 </CardContent>

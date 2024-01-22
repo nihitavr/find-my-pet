@@ -57,65 +57,70 @@ export default async function PetProfile({ id, user }: Props) {
   if (pet.profileImages.length === 0) pet.profileImages.push("");
 
   return (
-    <div className="flex flex-col items-center">
-      {/* Image Section */}
-      <PetProfileCasousel
-        profileImages={pet.profileImages}
-        petType={pet.type}
-      />
+    <div className="flex w-full flex-col items-center">
+      <div className="lg:w-2/5">
+        {/* Image Section */}
+        <PetProfileCasousel
+          profileImages={pet.profileImages}
+          petType={pet.type}
+        />
 
-      {/* Details Section */}
-      <div className="-mt-5 flex w-full -translate-y-0 flex-col gap-4 rounded-t-3xl bg-white p-6 md:w-2/5">
-        {/* Breed, Type, Name, Gender, Birthdate */}
-        <div className="flex items-start justify-between">
-          <div className="flex flex-col gap-1">
-            <span className="text-sm  text-primary/80">
-              {pet?.breed} ({titleCase(pet?.type)})
-            </span>
-            <span className="text-2xl font-semibold text-primary">
-              {pet?.name}
-            </span>
-            <div className="flex items-center gap-2 text-sm text-primary/80">
-              <span>{titleCase(pet?.gender)}</span>
-              <div className="h-1.5 w-1.5 rounded-full bg-[#999999]"></div>
-              <span>{getTimePassed(pet?.birthdate)}</span>
+        {/* Details Section */}
+        <div className="-mt-5 flex w-full -translate-y-0 flex-col gap-4 rounded-t-3xl bg-white p-6">
+          {/* Breed, Type, Name, Gender, Birthdate */}
+          <div className="flex items-start justify-between">
+            <div className="flex flex-col gap-1">
+              <span className="text-foreground/80  text-sm">
+                {pet?.breed} ({titleCase(pet?.type)})
+              </span>
+              <span className="text-foreground text-2xl font-semibold">
+                {pet?.name}
+              </span>
+              <div className="text-foreground/80 flex items-center gap-2 text-sm">
+                <span>{titleCase(pet?.gender)}</span>
+                <div className="h-1.5 w-1.5 rounded-full bg-[#999999]"></div>
+                <span>{getTimePassed(pet?.birthdate)}</span>
+              </div>
+            </div>
+
+            {/* Insta and Share button */}
+            <div className="flex items-center gap-2">
+              {(pet.socialMediaLinks as any).instagram && (
+                <a
+                  href={(pet.socialMediaLinks as any).instagram}
+                  target="_blank"
+                >
+                  <Instagram className="text-foreground/50 hover:text-foreground cursor-pointer" />
+                </a>
+              )}
+              <Share
+                className="text-foreground/50 hover:text-foreground cursor-pointer"
+                shareInfo={{
+                  title: `${pet.name}: A Furry Friend to Love!`,
+                  text: `Ready to meet your new adorable four-legged family member? Checkout ${pet.name}'s profile here!`,
+                  url: `https://findmypet.in/pet/${pet.id}`,
+                }}
+              />
             </div>
           </div>
 
-          {/* Insta and Share button */}
-          <div className="flex items-center gap-2">
-            {(pet.socialMediaLinks as any).instagram && (
-              <a href={(pet.socialMediaLinks as any).instagram} target="_blank">
-                <Instagram className="cursor-pointer text-primary/50 hover:text-primary" />
-              </a>
-            )}
-            <Share
-              className="cursor-pointer text-primary/50 hover:text-primary"
-              shareInfo={{
-                title: `${pet.name}: A Furry Friend to Love!`,
-                text: `Ready to meet your new adorable four-legged family member? Checkout ${pet.name}'s profile here!`,
-                url: `https://findmypet.in/pet/${pet.id}`,
-              }}
-            />
+          <div className="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className={`mr-1 rounded-full px-2 py-1 text-xs font-semibold ${Tags[tag]}`}
+              >
+                {tag}
+              </span>
+            ))}
           </div>
+
+          <div className="text-foreground/80">{pet?.description}</div>
+
+          {user?.phoneNumber && (
+            <PetProfileCallButtons phoneNumber={user.phoneNumber} />
+          )}
         </div>
-
-        <div className="flex flex-wrap gap-2">
-          {tags.map((tag) => (
-            <span
-              key={tag}
-              className={`mr-1 rounded-full px-2 py-1 text-xs font-semibold ${Tags[tag]}`}
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        <div className="text-primary/80">{pet?.description}</div>
-
-        {user?.phoneNumber && (
-          <PetProfileCallButtons phoneNumber={user.phoneNumber} />
-        )}
       </div>
     </div>
   );

@@ -37,16 +37,55 @@ const config = {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
       colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
         primary: {
-          // DEFAULT: "#4A3020",
-          // dark: "#4A3020",
-          // light: "#fcfaf4"
-          DEFAULT: "#4A3020",
-          dark: "#023A00",
-          // dark: "#3E012E",
-          light: { DEFAULT: "#FDFAF1", 100: "#FDFAF1", 500: "#ffe38e", 900: "#ffbf00" },
-          // light: "#292929",
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive) / <alpha-value>)",
+          foreground: "hsl(var(--destructive-foreground) / <alpha-value>)",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+
+        // primary: {
+        //   // DEFAULT: "#4A3020",
+        //   // dark: "#4A3020",
+        //   // light: "#fcfaf4"
+        //   // dark: "#3E012E",
+        //   // light: "#292929",
+        //   DEFAULT: "#222222",
+        //   dark: "#222222",
+        //   light: {
+        //     DEFAULT: "#FDFAF1",
+        //     100: "#FDFAF1",
+        //     500: "#ffe38e",
+        //     900: "#ffbf00",
+        //   },
+        // },
       },
     },
   },

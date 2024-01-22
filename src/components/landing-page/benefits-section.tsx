@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 
 export default async function BenefitsSection() {
   return (
-    <div className="flex flex-col items-center justify-center gap-10 bg-white px-5 py-16 md:flex-row md:gap-5 md:px-28">
+    <div className="bg-secondary text-secondary-foreground flex flex-col items-center justify-center gap-10 px-5 py-16 md:flex-row md:gap-5 md:px-28">
       {/* Benefits Image */}
       <div className="flex flex-1 justify-start">
         <Image
@@ -18,7 +18,7 @@ export default async function BenefitsSection() {
 
       {/* Right Text */}
       <div className="flex flex-1 flex-col items-start gap-8">
-        <h1 className="text-3xl font-bold tracking-tight text-primary-dark md:text-6xl">
+        <h1 className="text-3xl font-bold tracking-tight md:text-6xl">
           Lost Pet? Scan Our QR Code Tag for Instant Contact!
         </h1>
         <span>

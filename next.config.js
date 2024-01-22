@@ -12,6 +12,11 @@ const config = {
         protocol: 'https',
         hostname: '0iyjucr8bv6c0ziv.public.blob.vercel-storage.com',
         pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        pathname: '**',
       }
     ],
     // domains: ["0iyjucr8bv6c0ziv.public.blob.vercel-storage.com"],
