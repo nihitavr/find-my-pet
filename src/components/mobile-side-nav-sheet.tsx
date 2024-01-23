@@ -52,7 +52,7 @@ export function MobileSideNavSheet({
         <div className="mt-10 flex flex-col gap-5">
           <SheetClose asChild>
             <Link
-              href="/dashboard"
+              href="/dashboard/owner-profile"
               className="flex items-center gap-3 rounded-md p-2 hover:bg-secondary"
             >
               <SquareUserRound className="h-8 w-8" strokeWidth={1.3} />

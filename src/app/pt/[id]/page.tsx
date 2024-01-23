@@ -20,7 +20,7 @@ export default async function PetTag({ params }: { params: { id: string } }) {
           register the pet tag with your pet.
         </div>
         <SignIn
-          callbackUrl={`/dashboard?petTagRegistration=true&petTagId=${petTag.id}`}
+          callbackUrl={`/dashboard/owner-profile?petTagRegistration=true&petTagId=${petTag.id}`}
         />
       </div>
     );

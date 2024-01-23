@@ -2,13 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { getServerAuthSession } from "~/lib/auth";
-import Menubar from "./menu-bar";
-import SignIn from "./sign-in";
-import SignOut from "./sign-out";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { MobileSideNavSheet } from "./mobile-side-nav-sheet";
 
-export default async function Navbar() {
+export default async function Header() {
   const session = await getServerAuthSession();
 
   return (
@@ -25,30 +21,13 @@ export default async function Navbar() {
             />
           </div>
         </Link>
-        {/* <span className="text-base font-semibold text-black md:inline md:text-lg">
-          Find My Pet
-        </span> */}
       </div>
       <div className="flex items-center space-x-5">
-        {/* <Menubar /> */}
         <MobileSideNavSheet
           isSignedIn={!!session?.user}
           image={session?.user?.image}
           fallbackLetter={session?.user?.name?.[0] ?? "A"}
         />
-        {/* <Avatar>
-          {session?.user?.image ? (
-            <Image
-              src={session.user.image}
-              alt="Avatar"
-              width={50}
-              height={50}
-            />
-          ) : (
-            <AvatarFallback>{session?.user?.name?.[0] ?? "A"}</AvatarFallback>
-          )}
-        </Avatar> */}
-        {/* {session?.user ? <SignOut /> : <SignIn />} */}
       </div>
     </nav>
   );
