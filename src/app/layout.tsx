@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "~/lib/trpc/react";
-import Navbar from "../components/navbar";
+import Header from "../components/header";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "~/components/ui/toaster";
 
@@ -29,7 +29,7 @@ export default function RootLayout({
         className={`font-sans ${inter.variable} bg-background text-foreground`}
       >
         <TRPCReactProvider cookies={cookies().toString()}>
-          <Navbar />
+          <Header />
           {children}
         </TRPCReactProvider>
         <SpeedInsights />

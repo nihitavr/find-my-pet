@@ -18,24 +18,37 @@ import {
 import { Input } from "~/components/ui/input";
 import { Textarea } from "../ui/textarea";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { cn, getInstagramUrl, getInstagramUsername } from "~/lib/utils";
+import {
+  cn,
+  getInstagramUrl,
+  getInstagramUsername,
+  titleCase,
+} from "~/lib/utils";
 import { Calendar } from "../ui/calendar";
 import { useEffect, useState } from "react";
 import { api } from "~/lib/trpc/react";
 import { ImageInput, ImageInputDisplay } from "../ui/image-input";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { REGEX } from "~/lib/constants";
+import { PetBehaviourTagsOptions, REGEX } from "~/lib/constants";
 import { useToast } from "../ui/use-toast";
 import Loader from "../ui/loader";
 import { useRouter } from "next/navigation";
 import ProfileFormLoadingSkeleton from "../ui/profile-form-loading-skeleton";
 import Link from "next/link";
+import MultipleSelector, { Option } from "~/components/ui/multiple-selector";
 
 const petProfileFormSchema = z.object({
   profileImages: z.array(z.string().url()),
   name: z.string().min(1, {
     message: "Pet name must be at least 1 characters.",
   }),
+  behaviorTags: z.array(
+    z.object({
+      label: z.string(),
+      value: z.string(),
+      disable: z.boolean().optional(),
+    }),
+  ),
   instagramUsername: z
     .string()
     .regex(REGEX.instagramUsername, {
@@ -70,6 +83,7 @@ export function PetProfileForm({ id, petTagId }: Props) {
     defaultValues: {
       name: "",
       gender: "",
+      behaviorTags: [],
       instagramUsername: "",
       profileImages: [],
       type: "",
@@ -94,9 +108,15 @@ export function PetProfileForm({ id, petTagId }: Props) {
   useEffect(() => {
     if (id && !isInitialLoading && data) {
       // 4. Set the data to the form.
+      console.log("data.behaviorTags", data.behaviourTags);
+
       form.reset({
         profileImages: data.profileImages,
         name: data.name,
+        behaviorTags: data.behaviourTags.map((tag) => ({
+          label: titleCase(tag.split("_").join(" ")),
+          value: tag,
+        })),
         instagramUsername: getInstagramUsername(
           (data.socialMediaLinks as any)?.instagram,
         ),
@@ -110,6 +130,8 @@ export function PetProfileForm({ id, petTagId }: Props) {
   }, [id, isInitialLoading]);
 
   const onSubmit = async (values: z.infer<typeof petProfileFormSchema>) => {
+    console.log("values", values);
+
     const data = {
       id: id,
       name: values.name,
@@ -120,6 +142,7 @@ export function PetProfileForm({ id, petTagId }: Props) {
       profileImages: values.profileImages,
       type: values.type,
       breed: values.breed,
+      behaviourTags: values.behaviorTags.map((tag) => tag.value),
       birthdate: values.birthdate.toISOString(),
       description: values.description,
       petTagId: petTagId,
@@ -139,6 +162,10 @@ export function PetProfileForm({ id, petTagId }: Props) {
             gender: data.gender,
             type: data.type,
             breed: data.breed,
+            behaviorTags: data.behaviourTags.map((tag) => ({
+              label: titleCase(tag.split("_").join(" ")),
+              value: tag,
+            })),
             birthdate: new Date(data.birthdate),
             description: !data.description ? "" : data.description,
           });
@@ -321,6 +348,31 @@ export function PetProfileForm({ id, petTagId }: Props) {
                   <Input
                     placeholder="Persian, Indie, Labrador, German Shepherd etc."
                     {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="behaviorTags"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Tags</FormLabel>
+                <FormControl>
+                  <MultipleSelector
+                    value={field.value}
+                    onChange={field.onChange}
+                    defaultOptions={PetBehaviourTagsOptions}
+                    maxSelected={10}
+                    placeholder="Select tags that describes you pet..."
+                    emptyIndicator={
+                      <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
+                        no results found.
+                      </p>
+                    }
                   />
                 </FormControl>
                 <FormMessage />

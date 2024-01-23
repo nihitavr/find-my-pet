@@ -81,6 +81,7 @@ model Pet {
     type             String
     gender           Gender   @default(male)
     breed            String
+    behaviourTags    String[] @default([])
     profileImages    String[]
     birthdate        DateTime
     socialMediaLinks Json?    @default("{}")
@@ -88,9 +89,9 @@ model Pet {
     createdAt        DateTime @default(now())
     updatedAt        DateTime @default(now()) @updatedAt
 
-    tags PetTag[] // A list of tags associated with the pet
+    petTags PetTag[] // A list of tags associated with the pet
     // Other fields related to the pet
-    user User     @relation(fields: [userId], references: [id])
+    user    User     @relation(fields: [userId], references: [id])
 }
 
 model PetTag {
