@@ -45,12 +45,16 @@ export default async function Dashboard() {
             <Pencil strokeWidth={3} size={18} />
           </Link>
         </div>
-        <div className="mt-4 flex flex-wrap gap-5">
+        <div className="mt-4 grid grid-cols-3 gap-5">
           {pets.map((pet, idx) => {
             return (
-              <Link href={`/dashboard/pets/${pet.id}`} key={idx}>
-                <div className="relative flex flex-col items-start gap-1">
-                  <div className="relative h-24 w-24 md:h-52 md:w-52">
+              <Link
+                href={`/dashboard/pets/${pet.id}`}
+                key={idx}
+                className="cols-1"
+              >
+                <div className="relative flex flex-col items-start">
+                  <div className="relative aspect-square w-full">
                     <Image
                       fill
                       style={{ objectFit: "cover" }}
@@ -65,7 +69,7 @@ export default async function Dashboard() {
                       className="rounded-lg"
                     />
                   </div>
-                  <div className="text-clip font-semibold text-foreground">
+                  <div className="font-semibold text-foreground">
                     {pet.name}
                   </div>
                 </div>
