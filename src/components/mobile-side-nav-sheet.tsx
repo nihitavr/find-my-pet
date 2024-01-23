@@ -12,7 +12,7 @@ import { Avatar, AvatarFallback } from "./ui/avatar";
 import Image from "next/image";
 import SignOut from "./sign-out";
 import Link from "next/link";
-import { Dog, SquareUserRound, Tags } from "lucide-react";
+import { Dog, LayoutDashboard, SquareUserRound, Tags } from "lucide-react";
 import SignIn from "./sign-in";
 
 export function MobileSideNavSheet({
@@ -50,6 +50,15 @@ export function MobileSideNavSheet({
           <span className="text-xl font-semibold">Find My Pet</span>
         </SheetHeader>
         <div className="mt-10 flex flex-col gap-5">
+          <SheetClose asChild>
+            <Link
+              href="/dashboard"
+              className="flex items-center gap-3 rounded-md p-2 hover:bg-secondary"
+            >
+              <LayoutDashboard className="h-8 w-8" strokeWidth={1.3} />
+              <span>Dashboard</span>
+            </Link>
+          </SheetClose>
           <SheetClose asChild>
             <Link
               href="/dashboard/owner-profile"

@@ -18,7 +18,7 @@ export default async function Dashboard() {
 
       {/* Owner Info */}
       <div className="flex w-full flex-col items-center gap-2">
-        <div className="mb-2 flex w-full items-center justify-center gap-4 font-semibold text-foreground/70">
+        <div className="mb-2 flex w-full items-center justify-center gap-4 font-semibold">
           <span>Owner Info</span>
           <Link href="/dashboard/owner-profile">
             <Pencil strokeWidth={3} size={18} />
@@ -39,7 +39,7 @@ export default async function Dashboard() {
       {/* Your Pets */}
       <hr />
       <div>
-        <div className="flex w-full items-center justify-center gap-4 font-semibold text-foreground/70">
+        <div className="flex w-full items-center justify-center gap-4 font-semibold">
           <span>Your Pets</span>
           <Link href="/dashboard/pets">
             <Pencil strokeWidth={3} size={18} />
@@ -50,7 +50,7 @@ export default async function Dashboard() {
             return (
               <Link href={`/dashboard/pets/${pet.id}`} key={idx}>
                 <div className="relative flex flex-col items-start gap-1">
-                  <div className="relative h-24 w-24">
+                  <div className="relative h-24 w-24 md:h-52 md:w-52">
                     <Image
                       fill
                       style={{ objectFit: "cover" }}
