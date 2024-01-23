@@ -25,7 +25,7 @@ export default async function PetProfile({ id, user }: Props) {
 
   return (
     <div className="flex w-full flex-col items-center">
-      <div className="lg:w-2/5">
+      <div className="w-full lg:w-2/5">
         {/* Image Section */}
         <PetProfileCasousel
           profileImages={pet.profileImages}
