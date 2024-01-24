@@ -25,6 +25,21 @@ export const petProfileFormSchema = z.object({
 });
 
 export const petRouter = createTRPCRouter({
+  updateAlertsEnabled: protectedProcedure
+    .input(
+      z.object({
+        alertsEnabled: z.boolean(),
+        petId: z.string().cuid(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      return ctx.db.pet.update({
+        where: { userId: ctx.session.user.id, id: input.petId },
+        data: {
+          alertsEnabled: input.alertsEnabled,
+        },
+      });
+    }),
   addPetProfile: protectedProcedure
     .input(petProfileFormSchema)
     .mutation(async ({ ctx, input }) => {

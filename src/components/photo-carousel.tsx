@@ -10,13 +10,20 @@ import {
 
 import { Card, CardContent } from "~/components/ui/card";
 import Image from "next/image";
+import { cn } from "~/lib/utils";
+import Autoplay from "embla-carousel-autoplay";
 
-export default function PetProfileCasousel({
-  profileImages,
-  petType,
+export default function PhotoCasousel({
+  images,
+  defaultImage,
+  className,
+  imageClassName,
 }: {
-  profileImages: string[];
-  petType: string;
+  images: string[];
+  defaultImage: string;
+  className?: string;
+  imageClassName?: string;
+  autoplay?: boolean;
 }) {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -34,25 +41,27 @@ export default function PetProfileCasousel({
   }, [carouselApi]);
 
   return (
-    <Carousel setApi={setCarouselApi} className="relative w-full">
+    <Carousel
+      plugins={[
+        Autoplay({
+          delay: 4000,
+        }),
+      ]}
+      className="h-full w-full"
+      setApi={setCarouselApi}
+    >
       <CarouselContent>
-        {profileImages.map((imageUrl, index) => (
+        {images.map((imageUrl, index) => (
           <CarouselItem key={index}>
             <div>
-              <Card className="md:rounded-t-md">
-                <CardContent className="relative aspect-square w-full">
+              <Card>
+                <CardContent className={cn("relative w-full", className)}>
                   <Image
-                    src={
-                      imageUrl
-                        ? imageUrl
-                        : petType === "dog"
-                          ? "/dog-avatar.jpeg"
-                          : "/cat-avatar.jpeg"
-                    }
+                    src={imageUrl ? imageUrl : defaultImage}
                     alt="Profile Image"
                     fill
                     style={{ objectFit: "cover" }}
-                    className="md:rounded-t-md"
+                    className={imageClassName}
                     loading="lazy"
                   />
                 </CardContent>
@@ -62,9 +71,9 @@ export default function PetProfileCasousel({
         ))}
       </CarouselContent>
 
-      <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 gap-2">
-        {profileImages.length > 1 &&
-          profileImages.map((_, idx) => {
+      <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-2">
+        {images.length > 1 &&
+          images.map((_, idx) => {
             return (
               <div
                 className={`h-2 w-2 rounded-full ${
