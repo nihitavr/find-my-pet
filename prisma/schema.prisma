@@ -81,6 +81,7 @@ model Pet {
     type             String
     gender           Gender   @default(male)
     breed            String
+    alertsEnabled    Boolean  @default(true)
     behaviourTags    String[] @default([])
     profileImages    String[]
     birthdate        DateTime

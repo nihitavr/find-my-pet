@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @keyframes rainbow-text {
   0%,100% { color: white; }
   33% { color: rgb(255, 219, 142); }
@@ -17,20 +16,18 @@ input[type="file"] {
   display: none;
 }
 
-
-
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 20 14.3% 4.1%;
+    --foreground: 0 0% 20%;
     --card: 0 0% 100%;
     --card-foreground: 20 14.3% 4.1%;
     --popover: 0 0% 100%;
     --popover-foreground: 20 14.3% 4.1%;
-    --header: 60 4.8% 95.9%
+    --header: 11 64% 88%;
     --header-foreground: 24 9.8% 10%;
-    --primary: 23, 100%, 14%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 38 100% 40%;
+    --primary-foreground: 0, 0%, 100%;
     --secondary: 60 4.8% 95.9%;
     --secondary-foreground: 24 9.8% 10%;
     --muted: 60 4.8% 95.9%;

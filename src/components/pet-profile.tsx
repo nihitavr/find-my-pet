@@ -4,7 +4,7 @@ import NotFound from "~/components/ui/not-found";
 import { api } from "~/lib/trpc/server";
 import { getTimePassed, titleCase } from "~/lib/utils";
 import PetProfileCallButtons from "./ui/pet-profile-call-buttons";
-import PetProfileCasousel from "./pet-profile-carousel";
+import PhotoCasousel from "./photo-carousel";
 import { PetBehaviourTagsOptions } from "~/lib/constants";
 
 type Props = {
@@ -27,9 +27,12 @@ export default async function PetProfile({ id, user }: Props) {
     <div className="flex w-full flex-col items-center">
       <div className="w-full lg:w-2/5">
         {/* Image Section */}
-        <PetProfileCasousel
-          profileImages={pet.profileImages}
-          petType={pet.type}
+        <PhotoCasousel
+          images={pet.profileImages}
+          className="aspect-square w-full"
+          defaultImage={
+            pet.type === "dog" ? "/dog-avatar.jpeg" : "/cat-avatar.jpeg"
+          }
         />
 
         {/* Details Section */}

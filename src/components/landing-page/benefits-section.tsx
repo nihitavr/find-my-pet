@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 
 export default async function BenefitsSection() {
   return (
-    <div className="bg-secondary text-secondary-foreground flex flex-col items-center justify-center gap-10 px-5 py-16 md:flex-row md:gap-5 md:px-28">
+    <div className="flex flex-col items-center justify-center gap-10 bg-secondary p-5 text-secondary-foreground md:flex-row md:gap-5 md:px-28">
       {/* Benefits Image */}
       <div className="flex flex-1 justify-start">
         <Image

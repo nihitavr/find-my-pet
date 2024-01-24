@@ -1,7 +1,7 @@
-import { Pencil } from "lucide-react";
+import { BellOff, BellRing, Pencil } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Share } from "~/components/ui/icons";
+import AlertsSwitch from "~/components/dashboard/alerts-switch";
 import NotFound from "~/components/ui/not-found";
 import { getServerAuthSession } from "~/lib/auth";
 import { api } from "~/lib/trpc/server";
@@ -13,18 +13,18 @@ export default async function Dashboard() {
   const pets = await api.pet.getPetProfiles.query();
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-5">
       <h1 className="text-xl font-semibold">Dashboard</h1>
 
       {/* Owner Info */}
       <div className="flex w-full flex-col items-center gap-2">
-        <div className="mb-2 flex w-full items-center justify-center gap-4 font-semibold">
+        <div className="mb-2 flex w-full items-center justify-start gap-4 font-semibold">
           <span>Owner Info</span>
           <Link href="/dashboard/owner-profile">
             <Pencil strokeWidth={3} size={18} />
           </Link>
         </div>
-        <div className="relative h-24 w-24">
+        <div className="relative h-20 w-20">
           <Image
             fill
             style={{ objectFit: "cover" }}
@@ -39,13 +39,13 @@ export default async function Dashboard() {
       {/* Your Pets */}
       <hr />
       <div>
-        <div className="flex w-full items-center justify-center gap-4 font-semibold">
+        <div className="flex w-full items-center justify-start gap-4 font-semibold">
           <span>Your Pets</span>
           <Link href="/dashboard/pets">
             <Pencil strokeWidth={3} size={18} />
           </Link>
         </div>
-        <div className="mt-4 grid grid-cols-3 gap-5">
+        <div className="mt-4 grid grid-cols-2 gap-5">
           {pets.map((pet, idx) => {
             return (
               <Link
@@ -54,6 +54,13 @@ export default async function Dashboard() {
                 className="cols-1"
               >
                 <div className="relative flex flex-col items-start">
+                  <div className="absolute right-2 top-2 z-[10] flex items-center justify-center rounded-md bg-secondary/70 p-2">
+                    <AlertsSwitch
+                      petId={pet.id}
+                      petName={pet.name}
+                      isAlertsEnabled={pet.alertsEnabled}
+                    />
+                  </div>
                   <div className="relative aspect-square w-full">
                     <Image
                       fill

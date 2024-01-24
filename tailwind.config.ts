@@ -35,6 +35,7 @@ const config = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
+        cedarville: ["Alex Brush", "cursive"],
       },
       colors: {
         border: "hsl(var(--border))",
