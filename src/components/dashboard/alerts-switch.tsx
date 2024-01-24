@@ -46,7 +46,7 @@ export default function AlertsSwitch({
 
           toast({
             title: "Alerts",
-            description: isEnabled ? (
+            description: !isEnabled ? (
               <span>
                 Email Alerts are now{" "}
                 <span className="font-semibold">enabled</span> for{" "}
