@@ -40,7 +40,6 @@ export function MobileSideNavSheet({
       <SheetContent>
         <SheetHeader className="flex flex-row gap-2">
           <div className="relative h-12 w-40">
-            {/* <div className="relative h-12 w-44"> */}
             <Image
               src="/find-my-pet-logo-dark-long.svg"
               alt="Logo"
@@ -49,14 +48,6 @@ export function MobileSideNavSheet({
               style={{ objectFit: "contain" }}
             />
           </div>
-
-          {/* <Image
-            src={"/find-my-pet-logo-dark.svg"}
-            alt="Logo"
-            width={50}
-            height={50}
-          /> */}
-          {/* <span className="text-xl font-semibold">Find My Pet</span> */}
         </SheetHeader>
         <div className="mt-8 flex flex-col gap-5">
           <SheetClose asChild>

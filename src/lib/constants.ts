@@ -1,3 +1,5 @@
+export const WHATSAPP_URL = "https://wa.me/";
+
 export const REGEX = {
   username: /^(?=[a-zA-Z0-9._]{3,15}$)(?!.*[_.]{2})[^_.].*[^_.]$/,
   slug: /^[A-Za-z0-9-_]+$/,

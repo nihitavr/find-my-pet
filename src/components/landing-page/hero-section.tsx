@@ -1,9 +1,9 @@
 import React from "react";
 import { Button } from "../ui/button";
 import PhotoCasousel from "../photo-carousel";
-import ButItemsCarousal from "./but-items-carousal";
+import BuyItemsCarousal from "./buy-items-carousal";
 
-const shopItemsPrefixes = ["bruni", "hope", "mars", "mini", "mush", "simba"];
+const shopItemsPrefixes = ["bruni", "hope", "mars", "mush", "simba"];
 
 export default async function HeroSection() {
   return (
@@ -25,7 +25,7 @@ export default async function HeroSection() {
           when someone scans your lost pet&apos;s QR tag.
         </span>
 
-        <ButItemsCarousal shopItemsPrefixes={shopItemsPrefixes} />
+        <BuyItemsCarousal shopItemsPrefixes={shopItemsPrefixes} />
         <div className="mt-5 flex justify-end">
           <Button className="mt-2 w-full">Buy Now</Button>
         </div>
@@ -36,8 +36,9 @@ export default async function HeroSection() {
         <PhotoCasousel
           images={["/dog-with-pet-collar.jpg", "/cat-with-pet-collar.jpg"]}
           className="aspect-[6/5] w-full"
-          imageClassName="rounded-lg"
+          imageClassName="rounded-xl"
           defaultImage="/dog-with-pet-collar.jpg"
+          autoplay={true}
         />
       </div>
     </div>

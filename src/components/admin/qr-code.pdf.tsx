@@ -28,7 +28,7 @@ export const MyDocument = (props: Props) => {
               <Text>Registration Code: {petTag.registrationCode}</Text>
               {/* <Svg style={{ width: 400, height: 400, backgroundColor: "red" }}> */}
               <QRCodeSVG
-                value={"https://findmypet.in/pet-tags/" + petTag.qrCode}
+                value={"https://findmypet.in/pt/" + petTag.qrCode}
                 size={200}
                 bgColor={"#ffffff"}
                 fgColor={"#000000"}

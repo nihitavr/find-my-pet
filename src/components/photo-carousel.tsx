@@ -18,12 +18,15 @@ export default function PhotoCasousel({
   defaultImage,
   className,
   imageClassName,
+  autoplay = false,
+  autoPlayDelay = 4000,
 }: {
   images: string[];
   defaultImage: string;
   className?: string;
   imageClassName?: string;
   autoplay?: boolean;
+  autoPlayDelay?: number;
 }) {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -42,11 +45,15 @@ export default function PhotoCasousel({
 
   return (
     <Carousel
-      plugins={[
-        Autoplay({
-          delay: 4000,
-        }),
-      ]}
+      plugins={
+        autoplay
+          ? [
+              Autoplay({
+                delay: autoPlayDelay,
+              }),
+            ]
+          : []
+      }
       className="h-full w-full"
       setApi={setCarouselApi}
     >
@@ -54,14 +61,14 @@ export default function PhotoCasousel({
         {images.map((imageUrl, index) => (
           <CarouselItem key={index}>
             <div>
-              <Card>
+              <Card className="rounded-xl">
                 <CardContent className={cn("relative w-full", className)}>
                   <Image
                     src={imageUrl ? imageUrl : defaultImage}
                     alt="Profile Image"
                     fill
                     style={{ objectFit: "cover" }}
-                    className={imageClassName}
+                    className={cn("rounded-xl", imageClassName)}
                     loading="lazy"
                   />
                 </CardContent>
@@ -71,7 +78,7 @@ export default function PhotoCasousel({
         ))}
       </CarouselContent>
 
-      <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-2">
+      <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 gap-2">
         {images.length > 1 &&
           images.map((_, idx) => {
             return (
