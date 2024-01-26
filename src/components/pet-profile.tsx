@@ -30,6 +30,7 @@ export default async function PetProfile({ id, user }: Props) {
         <PhotoCasousel
           images={pet.profileImages}
           className="aspect-square w-full"
+          imageClassName="rounded-none"
           defaultImage={
             pet.type === "dog" ? "/dog-avatar.jpeg" : "/cat-avatar.jpeg"
           }
