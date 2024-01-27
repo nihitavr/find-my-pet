@@ -173,7 +173,6 @@ export function PetProfileForm({ id, petTagId }: Props) {
             variant: "success",
             description: "Pet profile updated successfully!",
           });
-
           router.push("/dashboard/pets");
         },
       });

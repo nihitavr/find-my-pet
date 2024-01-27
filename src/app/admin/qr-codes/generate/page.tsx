@@ -41,12 +41,13 @@ export default function GenerateQrcode() {
   };
 
   return (
-    <div className="flex flex-col gap-5 md:px-80">
+    <div className="flex flex-col gap-5">
       <h1 className="text-center text-xl font-semibold">Generate QR Codes</h1>
       <div className="flex flex-col items-center gap-5">
         <div className="w-full">
           <Label>QR Count</Label>
           <Input
+            disabled={!!qrUrl}
             type="number"
             value={qrCount}
             onChange={(event) => setQrCount(+event.target.value)}
@@ -68,11 +69,13 @@ export default function GenerateQrcode() {
             onChange={(event) => setQrLevel(event.target.value)}
           />
         </div>
-        <div className="flex w-full flex-col items-start gap-2">
+        <div className="flex w-full flex-col items-center gap-2">
           <span className="text-sm">
-            By clicking generate you will generate N QR codes.
+            By clicking generate you will generate{" "}
+            <span className="font-semibold">{qrUrl ? 1 : qrCount}</span> QR
+            codes.
           </span>
-          <Button className="w-52" onClick={onClickGenerate}>
+          <Button className="!w-72" onClick={onClickGenerate}>
             Generate
           </Button>
         </div>

@@ -23,6 +23,7 @@ export default function BuyItemsCarousal({
     <Carousel
       className="relative w-[100%] pt-5 md:pt-8"
       setApi={setCarouselApi}
+      opts={{ dragFree: true }}
     >
       <CarouselContent className="">
         {shopItemsPrefixes.map((petName, index) => (
