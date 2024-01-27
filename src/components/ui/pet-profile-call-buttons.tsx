@@ -10,6 +10,7 @@ import {
 } from "~/components/ui/popover";
 
 import { WHATSAPP_URL } from "~/lib/constants";
+import { toast } from "./use-toast";
 
 export default function PetProfileCallButtons({
   phoneNumber,
@@ -21,21 +22,31 @@ export default function PetProfileCallButtons({
       <span className="text-xs font-semibold leading-3">
         Found Pet? Share your location or Call Owner.*
       </span>
-      <div className="flex gap-2">
+      <div className="grid grid-cols-12 gap-2">
         <Button
-          className="w-5/12 flex-1 space-x-2 border border-green-700 bg-white text-green-900 hover:bg-green-50"
+          variant={"outline"}
+          className="col-span-5 gap-1 text-green-900 hover:bg-green-50"
           onClick={() => {
             // Get geolocation
-            navigator.geolocation.getCurrentPosition((position) => {
-              const { latitude, longitude } = position.coords;
-              window.open(
-                `${WHATSAPP_URL}${phoneNumber}?text=Hi, I found your pet! I am currently at this location. %0A%0Ahttps://www.google.com/maps/search/${latitude},${longitude}`,
-              );
-            });
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                const { latitude, longitude } = position.coords;
+                window.open(
+                  `${WHATSAPP_URL}${phoneNumber}?text=Hi, I found your pet! I am currently at this location. %0A%0Ahttps://www.google.com/maps/search/${latitude},${longitude}`,
+                );
+              },
+              () => {
+                toast({
+                  variant: "failure",
+                  description: "Error getting geolocation.",
+                });
+              },
+              { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 },
+            );
           }}
         >
-          <span className="truncate">Share Location</span>
-          <div className="relative h-7 w-7">
+          <span className="truncate">Location </span>
+          <div className="relative h-3.5 w-3.5">
             <Image
               src={"/whatsapp-icon.svg"}
               alt="WhatsApp Icon"
@@ -47,17 +58,17 @@ export default function PetProfileCallButtons({
           </div>
         </Button>
         <Button
-          className="w-5/12 flex-1 space-x-2"
+          className="col-span-5 gap-1"
           onClick={() => {
             window.open(`tel:${phoneNumber}`);
           }}
         >
           <span>Call Owner</span>
-          <PhoneOutgoing className="h-5 w-5" />
+          <PhoneOutgoing className="h-3.5 w-3.5" />
         </Button>
 
         <Popover>
-          <PopoverTrigger asChild className="w-1/12">
+          <PopoverTrigger asChild className="col-span-2 w-full">
             <Button
               className="w-full p-2"
               onClick={async () => {

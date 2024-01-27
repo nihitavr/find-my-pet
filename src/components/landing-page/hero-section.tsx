@@ -14,7 +14,7 @@ export default async function HeroSection() {
       <div className="flex w-full flex-1 flex-col justify-center gap-2 md:gap-3">
         <span className="text-3xl font-semibold md:text-5xl">
           {/* Scan & Reunite */}
-          QR Pet Tags
+          QR Pet Collar Tags
         </span>
         <span className="text-xl font-semibold text-foreground/90 md:text-3xl">
           Every adventure leads Home!
