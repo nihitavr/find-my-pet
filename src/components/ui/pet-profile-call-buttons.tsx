@@ -28,21 +28,30 @@ export default function PetProfileCallButtons({
           className="col-span-5 gap-1 text-green-900 hover:bg-green-50"
           onClick={() => {
             // Get geolocation
-            navigator.geolocation.getCurrentPosition(
-              (position) => {
-                const { latitude, longitude } = position.coords;
-                window.open(
-                  `${WHATSAPP_URL}${phoneNumber}?text=Hi, I found your pet! I am currently at this location. %0A%0Ahttps://www.google.com/maps/search/${latitude},${longitude}`,
-                );
-              },
-              () => {
-                toast({
-                  variant: "failure",
-                  description: "Error getting geolocation.",
-                });
-              },
-              { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 },
-            );
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(
+                (position) => {
+                  const { latitude, longitude } = position.coords;
+                  window.open(
+                    `${WHATSAPP_URL}${phoneNumber}?text=Hi, I found your pet! I am currently at this location. %0A%0Ahttps://www.google.com/maps/search/${latitude},${longitude}`,
+                  );
+                },
+                () => {
+                  toast({
+                    variant: "failure",
+                    description:
+                      "Error getting geolocation on this browser. Please try another browser.",
+                  });
+                },
+                { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 },
+              );
+            } else {
+              toast({
+                variant: "failure",
+                description:
+                  "Geolocation is not supported by this browser. Please try another browser.",
+              });
+            }
           }}
         >
           <span className="truncate">Location </span>
