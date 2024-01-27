@@ -45,7 +45,7 @@ export default async function Dashboard() {
             <Pencil strokeWidth={3} size={18} />
           </Link>
         </div>
-        <div className="mt-4 grid grid-cols-2 gap-5">
+        <div className="mt-4 grid grid-cols-2 gap-5 md:grid-cols-4">
           {pets.map((pet, idx) => {
             return (
               <Link

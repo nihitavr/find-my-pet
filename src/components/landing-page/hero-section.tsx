@@ -2,8 +2,10 @@ import React from "react";
 import { Button } from "../ui/button";
 import PhotoCasousel from "../photo-carousel";
 import BuyItemsCarousal from "./buy-items-carousal";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 
-const shopItemsPrefixes = ["bruni", "hope", "mars", "mush", "simba"];
+const shopItemsPrefixes = ["bruni", "mini", "hope", "mars", "mush", "simba"];
 
 export default async function HeroSection() {
   return (
@@ -26,9 +28,11 @@ export default async function HeroSection() {
         </span>
 
         <BuyItemsCarousal shopItemsPrefixes={shopItemsPrefixes} />
-        <div className="mt-5 flex justify-end">
-          <Button className="mt-2 w-full">Buy Now</Button>
-        </div>
+        <Link href={"https://forms.gle/uQedFpbeEBM2m4NEA"} target="_blank">
+          <Button className="mt-2 w-full">
+            Buy Now <ArrowUpRight />
+          </Button>
+        </Link>
       </div>
 
       {/* Hero Image */}
