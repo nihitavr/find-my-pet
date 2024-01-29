@@ -11,12 +11,36 @@ import {
 
 import { WHATSAPP_URL } from "~/lib/constants";
 import { toast } from "./use-toast";
+import { useEffect } from "react";
+import { api } from "~/lib/trpc/react";
 
-export default function PetProfileCallButtons({
+export default function OnwerInfoButtons({
   phoneNumber,
+  petTagId,
 }: {
   phoneNumber?: string;
+  petTagId: string;
 }) {
+  const petTagMutate = api.petTag.recordScan.useMutation();
+
+  useEffect(() => {
+    if (navigator.geolocation && petTagId) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          petTagMutate.mutate({
+            petTagId,
+            geoCode: { latitude, longitude },
+          });
+        },
+        () => {
+          return;
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 },
+      );
+    }
+  }, []);
+
   return (
     <div className="pt-2">
       <span className="text-xs font-semibold leading-3">

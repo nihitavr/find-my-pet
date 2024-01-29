@@ -14,14 +14,16 @@ import { cn } from "~/lib/utils";
 
 export default function BuyItemsCarousal({
   shopItemsPrefixes,
+  className,
 }: {
   shopItemsPrefixes: string[];
+  className: string;
 }) {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
 
   return (
     <Carousel
-      className="relative w-[100%] pt-5 md:pt-8"
+      className={cn("relative", className)}
       setApi={setCarouselApi}
       opts={{ dragFree: true }}
     >
