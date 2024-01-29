@@ -35,6 +35,7 @@ export function getInstagramUsername(url?: string) {
   return username;
 }
 export function getInstagramUrl(username?: string) {
+  if (!username) return "";
   return `https://www.instagram.com/${username}`;
 }
 

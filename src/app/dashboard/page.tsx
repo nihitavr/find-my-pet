@@ -54,7 +54,7 @@ export default async function Dashboard() {
                 className="cols-1"
               >
                 <div className="relative flex flex-col items-start">
-                  <div className="absolute right-2 top-2 z-[10] flex items-center justify-center rounded-md bg-secondary/70 p-2">
+                  <div className="absolute right-2 top-2 z-[10] flex flex-col items-center justify-center gap-1 rounded-md bg-secondary/70 p-2">
                     <AlertsSwitch
                       petId={pet.id}
                       petName={pet.name}

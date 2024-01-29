@@ -53,6 +53,7 @@ export const petTagRouter = createTRPCRouter({
   recordScan: publicProcedure
     .input(
       z.object({
+        petId: z.string().cuid(),
         petTagId: z.string().cuid(),
         geoCode: z.object({
           latitude: z.number(),
@@ -63,6 +64,7 @@ export const petTagRouter = createTRPCRouter({
     .mutation(({ ctx, input }) => {
       return ctx.db.scanHistory.create({
         data: {
+          petId: input.petId,
           petTagId: input.petTagId,
           scannedAt: new Date(),
           geoCode: input.geoCode,

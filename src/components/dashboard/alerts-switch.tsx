@@ -23,12 +23,22 @@ export default function AlertsSwitch({
   const petAlerts = api.pet.updateAlertsEnabled.useMutation();
 
   return (
-    <div className={cn("flex items-center space-x-2", className)}>
-      <Label htmlFor="notification-switch">
+    <div
+      className={cn("flex items-center space-x-2", className)}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }}
+    >
+      <Label
+        htmlFor="notification-switch"
+        className="flex items-center gap-1 text-xs"
+      >
+        Alerts{" "}
         {isEnabled ? (
-          <BellRing className="h-4 w-4 text-slate-900" />
+          <BellRing className="h-3.5 w-3.5 text-slate-900" />
         ) : (
-          <BellOff className="h-4 w-4 text-slate-900" />
+          <BellOff className="h-3.5 w-3.5 text-slate-900" />
         )}
       </Label>
       <Switch

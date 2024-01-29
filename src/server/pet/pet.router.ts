@@ -134,4 +134,25 @@ export const petRouter = createTRPCRouter({
         where: { userId: input.userId },
       });
     }),
+  getPetScanHistory: protectedProcedure
+    .input(
+      z.object({
+        petId: z.string().cuid(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      if (
+        !(await ctx.db.pet.findFirst({
+          where: { id: input.petId, userId: ctx.session.user.id },
+        }))
+      ) {
+        throw new Error("You are not authorized to access this data");
+      }
+
+      return ctx.db.scanHistory.findMany({
+        orderBy: { scannedAt: "desc" },
+        where: { petId: input.petId },
+        take: 10,
+      });
+    }),
 });

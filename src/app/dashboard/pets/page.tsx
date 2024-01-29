@@ -13,7 +13,7 @@ import { api } from "~/lib/trpc/server";
 import { getServerAuthSession } from "~/lib/auth";
 import { Share } from "~/components/ui/icons";
 import { env } from "~/env";
-import { ArrowUpRight, Pencil } from "lucide-react";
+import { ArrowUpRight, FileClock, Pencil } from "lucide-react";
 import { titleCase } from "~/lib/utils";
 import { Share as ShareLucid } from "lucide-react";
 
@@ -34,40 +34,44 @@ export default async function Pets() {
 
       <Table className="mt-3">
         <TableCaption>
-          <div className="flex items-center justify-center gap-3">
-            <Link
-              className="flex items-center text-sm "
-              target="_blank"
-              href={`/user/${session?.user.id}/pets`}
-            >
-              <Button
-                className="flex items-center justify-center gap-2 "
-                variant="outline"
+          {pets.length ? (
+            <div className="flex items-center justify-center gap-3">
+              <Link
+                className="flex items-center text-sm "
+                target="_blank"
+                href={`/user/${session?.user.id}/pets`}
               >
-                <span>View Pets</span> <ArrowUpRight size={15} />
-              </Button>
-            </Link>
+                <Button
+                  className="flex items-center justify-center gap-2 "
+                  variant="outline"
+                >
+                  <span>View Pets</span> <ArrowUpRight size={15} />
+                </Button>
+              </Link>
 
-            <Share
-              className="h-5 w-5"
-              shareInfo={{
-                title: "My Pet Family",
-                text: `${session?.user.name}'s pet family!`,
-                url: `${env.SERVER_URL}/user/${session?.user.id}/pets`,
-              }}
-            >
-              <Button className="flex items-center justify-center gap-2">
-                <span>Share Pets</span>
-                <ShareLucid className="h-5 w-5" />
-              </Button>
-            </Share>
-          </div>
+              <Share
+                className="h-5 w-5"
+                shareInfo={{
+                  title: "My Pet Family",
+                  text: `${session?.user.name}'s pet family!`,
+                  url: `${env.SERVER_URL}/user/${session?.user.id}/pets`,
+                }}
+              >
+                <Button className="flex items-center justify-center gap-2">
+                  <span>Share Pets</span>
+                  <ShareLucid className="h-5 w-5" />
+                </Button>
+              </Share>
+            </div>
+          ) : (
+            <span>No pets added.</span>
+          )}
         </TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[20px]"></TableHead>
             <TableHead className="min-w-[100px]">Profile</TableHead>
-            <TableHead>Type</TableHead>
+            <TableHead>Scan History</TableHead>
             <TableHead className="cursor-pointer text-right">Edit</TableHead>
           </TableRow>
         </TableHeader>
@@ -84,7 +88,14 @@ export default async function Pets() {
                   <span>{pet.name}</span> <ArrowUpRight size={15} />
                 </Link>
               </TableCell>
-              <TableCell>{titleCase(pet.type)}</TableCell>
+              <TableCell>
+                <Link
+                  href={`/dashboard/pets/${pet.id}/scan-history`}
+                  className="flex  opacity-70 hover:opacity-50"
+                >
+                  <FileClock />
+                </Link>
+              </TableCell>
               <TableCell>
                 <Link
                   href={`/dashboard/pets/${pet.id}`}
