@@ -1,122 +1,115 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider  = "postgresql"
-    url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
-    directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-// Necessary for Next auth
 model Account {
-    id                String  @id @default(cuid())
-    userId            String
-    type              String
-    provider          String
-    providerAccountId String
-    refresh_token     String? // @db.Text
-    access_token      String? // @db.Text
-    expires_at        Int?
-    token_type        String?
-    scope             String?
-    id_token          String? // @db.Text
-    session_state     String?
-    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@unique([provider, providerAccountId])
+  @@unique([provider, providerAccountId])
 }
 
 model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-// roles enum
-enum UserRole {
-    user
-    admin
-}
-
-// 
-enum Gender {
-    male
-    female
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    role          UserRole  @default(user)
-    phoneNumber   String?
-    image         String?
-    accounts      Account[]
-    sessions      Session[]
-    pets          Pet[]
-    petTags       PetTag[]
-    createdAt     DateTime  @default(now())
-    updatedAt     DateTime  @default(now()) @updatedAt
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
+  phoneNumber   String?
+  role          UserRole  @default(user)
+  accounts      Account[]
+  pets          Pet[]
+  petTags       PetTag[]
+  sessions      Session[]
 }
 
 model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+  identifier String
+  token      String   @unique
+  expires    DateTime
 
-    @@unique([identifier, token])
+  @@unique([identifier, token])
 }
 
 model Pet {
-    id               String   @id @default(cuid())
-    userId           String // Foreign key referencing the User model
-    name             String
-    type             String
-    gender           Gender   @default(male)
-    breed            String
-    alertsEnabled    Boolean  @default(true)
-    behaviourTags    String[] @default([])
-    profileImages    String[]
-    birthdate        DateTime
-    socialMediaLinks Json?    @default("{}")
-    description      String?
-    createdAt        DateTime @default(now())
-    updatedAt        DateTime @default(now()) @updatedAt
-
-    petTags PetTag[] // A list of tags associated with the pet
-    // Other fields related to the pet
-    user    User     @relation(fields: [userId], references: [id])
+  id               String        @id @default(cuid())
+  userId           String
+  name             String
+  type             String
+  breed            String
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @default(now()) @updatedAt
+  birthdate        DateTime
+  description      String?
+  gender           Gender        @default(male)
+  profileImages    String[]
+  socialMediaLinks Json?         @default("{}")
+  behaviourTags    String[]      @default([])
+  alertsEnabled    Boolean       @default(true)
+  user             User          @relation(fields: [userId], references: [id])
+  petTags          PetTag[]
+  ScanHistory      ScanHistory[]
 }
 
 model PetTag {
-    id               String        @id @default(cuid())
-    petId            String? // Foreign key referencing the Pet model
-    userId           String? // Foreign key referencing the User model
-    registrationCode String
-    qrCodeId         String?       @unique
-    isActive         Boolean       @default(true)
-    registeredDate   DateTime?
-    createdAt        DateTime      @default(now())
-    updatedAt        DateTime      @default(now()) @updatedAt
-    // Other fields related to the pet tag
-    pet              Pet?          @relation(fields: [petId], references: [id])
-    user             User?         @relation(fields: [userId], references: [id])
-    scanHistories    ScanHistory[]
+  id               String        @id @default(cuid())
+  petId            String?
+  userId           String?
+  isActive         Boolean       @default(true)
+  registeredDate   DateTime?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @default(now()) @updatedAt
+  registrationCode String
+  qrCodeId         String?       @unique
+  pet              Pet?          @relation(fields: [petId], references: [id])
+  user             User?         @relation(fields: [userId], references: [id])
+  scanHistories    ScanHistory[]
 }
 
 model ScanHistory {
-    id          String   @id @default(cuid())
-    petTagId    String // Foreign key referencing the PetTag model @map("tagId")
-    scannedAt   DateTime
-    scannerInfo String?
-    geoCode     Json?
-    // Other fields related to the scan history
-    petTag      PetTag   @relation(fields: [petTagId], references: [id])
+  id          String   @id @default(cuid())
+  scannerInfo String?
+  geoCode     Json?
+  petTagId    String
+  scannedAt   DateTime
+  petId       String
+  pet         Pet      @relation(fields: [petId], references: [id])
+  petTag      PetTag   @relation(fields: [petTagId], references: [id])
+}
+
+enum UserRole {
+  user
+  admin
+}
+
+enum Gender {
+  male
+  female
 }

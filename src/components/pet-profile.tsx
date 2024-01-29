@@ -3,7 +3,7 @@ import { Share } from "~/components/ui/icons";
 import NotFound from "~/components/ui/not-found";
 import { api } from "~/lib/trpc/server";
 import { getTimePassed, titleCase } from "~/lib/utils";
-import OnwerInfoButtons from "./ui/pet-profile-call-buttons";
+import OwnerInfoButtons from "./ui/owner-info-call-buttons";
 import PhotoCasousel from "./photo-carousel";
 import { PetBehaviourTagsOptions } from "~/lib/constants";
 
@@ -95,8 +95,9 @@ export default async function PetProfile({ id, user, petTagId }: Props) {
           <div className="text-foreground/80">{pet?.description}</div>
 
           {user?.phoneNumber && (
-            <OnwerInfoButtons
+            <OwnerInfoButtons
               phoneNumber={user.phoneNumber}
+              petId={id}
               petTagId={petTagId!}
             />
           )}

@@ -29,7 +29,11 @@ import { useEffect, useState } from "react";
 import { api } from "~/lib/trpc/react";
 import { ImageInput, ImageInputDisplay } from "../ui/image-input";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { PetBehaviourTagsOptions, REGEX } from "~/lib/constants";
+import {
+  DEFAULT_MAX_PET_PROFILE_IMAGES,
+  PetBehaviourTagsOptions,
+  REGEX,
+} from "~/lib/constants";
 import { useToast } from "../ui/use-toast";
 import Loader from "../ui/loader";
 import { useRouter } from "next/navigation";
@@ -245,7 +249,7 @@ export function PetProfileForm({ id, petTagId }: Props) {
                     <ImageInput
                       form={form}
                       field={field}
-                      maxFiles={3}
+                      maxFiles={DEFAULT_MAX_PET_PROFILE_IMAGES}
                       handleUploadUrl="/api/profile-image/upload"
                     />
                   </FormControl>

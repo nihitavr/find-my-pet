@@ -14,11 +14,13 @@ import { toast } from "./use-toast";
 import { useEffect } from "react";
 import { api } from "~/lib/trpc/react";
 
-export default function OnwerInfoButtons({
+export default function OwnerInfoButtons({
   phoneNumber,
+  petId,
   petTagId,
 }: {
   phoneNumber?: string;
+  petId: string;
   petTagId: string;
 }) {
   const petTagMutate = api.petTag.recordScan.useMutation();
@@ -29,6 +31,7 @@ export default function OnwerInfoButtons({
         (position) => {
           const { latitude, longitude } = position.coords;
           petTagMutate.mutate({
+            petId,
             petTagId,
             geoCode: { latitude, longitude },
           });
