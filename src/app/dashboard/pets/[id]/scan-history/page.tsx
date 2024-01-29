@@ -23,7 +23,7 @@ export default async function PetScanHistory({
 
   return (
     <div>
-      <h1 className="text-xl font-semibold">{pet?.name}'s scan history</h1>
+      <h1 className="text-xl font-semibold">{pet?.name}&apos;s scan history</h1>
       <Table className="mt-5">
         <TableCaption>A list of your pets.</TableCaption>
         <TableHeader>
@@ -42,7 +42,9 @@ export default async function PetScanHistory({
               </TableCell>
               <TableCell className="col-span-5 pl-12">
                 <a
-                  href={`https://www.google.com/maps/search/${scan?.geoCode?.latitude},${scan?.geoCode?.longitude}`}
+                  href={`https://www.google.com/maps/search/${(
+                    scan?.geoCode as any
+                  )?.latitude},${(scan?.geoCode as any)?.longitude}`}
                   target="_blank"
                 >
                   <MapPin />
