@@ -37,11 +37,12 @@ export default function AlertsSwitch({
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          setIsEnabled((isEnabled: boolean) => !isEnabled);
-
-          petAlerts.mutate({
-            petId,
-            alertsEnabled: isEnabled,
+          setIsEnabled((isEnabled: boolean) => {
+            petAlerts.mutate({
+              petId,
+              alertsEnabled: !isEnabled,
+            });
+            return !isEnabled;
           });
 
           toast({

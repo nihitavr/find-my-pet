@@ -1,9 +1,8 @@
 import Image from "next/image";
-import { Skeleton } from "./skeleton";
 
 export default function ProfileLoadingSkeleton() {
   return (
-    <div className="flex h-[90vh] w-full flex-col items-center justify-center">
+    <div className="flex h-[80vh] w-full flex-col items-center justify-center">
       <Image
         src="/loading-cute-animated-cat-1.gif"
         alt="Animated Cat"

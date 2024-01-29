@@ -113,9 +113,10 @@ model PetTag {
 
 model ScanHistory {
     id          String   @id @default(cuid())
-    tagId       String // Foreign key referencing the PetTag model
-    scanDate    DateTime
+    petTagId    String // Foreign key referencing the PetTag model @map("tagId")
+    scannedAt   DateTime
     scannerInfo String?
+    geoCode     Json?
     // Other fields related to the scan history
-    petTag      PetTag   @relation(fields: [tagId], references: [id])
+    petTag      PetTag   @relation(fields: [petTagId], references: [id])
 }

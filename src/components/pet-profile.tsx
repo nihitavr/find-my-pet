@@ -3,7 +3,7 @@ import { Share } from "~/components/ui/icons";
 import NotFound from "~/components/ui/not-found";
 import { api } from "~/lib/trpc/server";
 import { getTimePassed, titleCase } from "~/lib/utils";
-import PetProfileCallButtons from "./ui/pet-profile-call-buttons";
+import OnwerInfoButtons from "./ui/pet-profile-call-buttons";
 import PhotoCasousel from "./photo-carousel";
 import { PetBehaviourTagsOptions } from "~/lib/constants";
 
@@ -14,9 +14,10 @@ type Props = {
     email: string | null;
     phoneNumber: string | null;
   } | null;
+  petTagId?: string;
 };
 
-export default async function PetProfile({ id, user }: Props) {
+export default async function PetProfile({ id, user, petTagId }: Props) {
   const pet = await api.pet.getPet.query({ id });
 
   if (!pet) return <NotFound />;
@@ -94,7 +95,10 @@ export default async function PetProfile({ id, user }: Props) {
           <div className="text-foreground/80">{pet?.description}</div>
 
           {user?.phoneNumber && (
-            <PetProfileCallButtons phoneNumber={user.phoneNumber} />
+            <OnwerInfoButtons
+              phoneNumber={user.phoneNumber}
+              petTagId={petTagId!}
+            />
           )}
         </div>
       </div>

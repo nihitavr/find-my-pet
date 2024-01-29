@@ -11,23 +11,22 @@ export default async function HeroSection() {
   return (
     <div className="justify flex flex-col-reverse items-center gap-5 p-5 pb-8 md:flex-row md:gap-10 md:px-28 md:py-16">
       {/* Left Text */}
-      <div className="flex w-full flex-1 flex-col justify-center gap-2 md:gap-3">
+      <div className="flex w-full flex-1 flex-col justify-center gap-3 md:gap-6">
         <span className="text-3xl font-semibold md:text-5xl">
           {/* Scan & Reunite */}
-          QR Pet Collar Tags
-        </span>
-        <span className="text-xl font-semibold text-foreground/90 md:text-3xl">
-          Every adventure leads Home!
+          Lost Pet? Scan Our QR Collat Tag for Instant Contact!
         </span>
         <span className="text-foreground/90">
-          Never worry about a <span className="font-semibold">lost pet </span>
-          again with our <span className="font-semibold">QR Pet Tag</span>.
-          Purchase our tag and create a{" "}
-          <span className="font-semibold">pet profile</span> to receive alerts
-          when someone scans your lost pet&apos;s QR tag.
+          Purchase our <span className="font-semibold">QR Collar Tag</span> and
+          create a <span className="font-semibold">pet profile</span> so that
+          anyone who scans your lost pet&apos;s tag can access your pet&apos;s
+          information and contact you immediately.
         </span>
 
-        <BuyItemsCarousal shopItemsPrefixes={shopItemsPrefixes} />
+        <BuyItemsCarousal
+          className="w-full pt-3"
+          shopItemsPrefixes={shopItemsPrefixes}
+        />
         <Link href={"https://forms.gle/uQedFpbeEBM2m4NEA"} target="_blank">
           <Button className="mt-2 w-full">
             Buy Now <ArrowUpRight />

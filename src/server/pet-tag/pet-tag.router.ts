@@ -49,4 +49,24 @@ export const petTagRouter = createTRPCRouter({
       },
     });
   }),
+
+  recordScan: publicProcedure
+    .input(
+      z.object({
+        petTagId: z.string().cuid(),
+        geoCode: z.object({
+          latitude: z.number(),
+          longitude: z.number(),
+        }),
+      }),
+    )
+    .mutation(({ ctx, input }) => {
+      return ctx.db.scanHistory.create({
+        data: {
+          petTagId: input.petTagId,
+          scannedAt: new Date(),
+          geoCode: input.geoCode,
+        },
+      });
+    }),
 });
