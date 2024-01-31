@@ -40,3 +40,10 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+
+# PWA
+public/sw.js
+public/fallback-*.js
+public/workbox-*.js
+public/swe-*.js

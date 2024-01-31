@@ -47,7 +47,7 @@ export default function Header({ session }: { session: any }) {
             <div className="relative h-12 w-52">
               {/* <div className="relative h-12 w-44"> */}
               <Image
-                src="/find-my-pet-logo-dark-long.svg"
+                src="/find-my-pet-logo-long.svg"
                 alt="Logo"
                 className="rounded-lg"
                 fill

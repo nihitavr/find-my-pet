@@ -1,0 +1,21 @@
+{
+  "short_name": "FMP",
+  "name": "Find My Pet",
+  "icons": [
+    {
+      "src": "/find-my-pet-logo-small.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    },
+    {
+      "src": "/find-my-pet-logo-small.svg",
+      "type": "image/svg+xml",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#FFFFFF"
+}
