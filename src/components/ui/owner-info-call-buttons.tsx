@@ -11,7 +11,7 @@ import {
 
 import { WHATSAPP_URL } from "~/lib/constants";
 import { toast } from "./use-toast";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "~/lib/trpc/react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 

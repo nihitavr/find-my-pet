@@ -1,5 +1,6 @@
 import { type Gender } from "@prisma/client";
 import { z } from "zod";
+import { REGEX } from "~/lib/constants";
 import { api } from "~/lib/trpc/server";
 
 import {
@@ -14,7 +15,7 @@ export const petProfileFormSchema = z.object({
   gender: z.string(),
   profileImages: z.array(z.string().url()),
   socialMediaLinks: z.object({
-    instagram: z.string().url().optional(),
+    instagram: z.string().regex(REGEX.instagramURL).optional(),
   }),
   type: z.string(),
   breed: z.string(),
