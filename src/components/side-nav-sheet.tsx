@@ -41,7 +41,7 @@ export function SideNavSheet({
         <SheetHeader className="flex flex-row gap-2">
           <div className="relative h-12 w-40">
             <Image
-              src="/find-my-pet-logo-dark-long.svg"
+              src="/find-my-pet-logo-long.svg"
               alt="Logo"
               className="rounded-lg"
               fill
