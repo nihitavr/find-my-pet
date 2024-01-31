@@ -13,7 +13,7 @@ import { api } from "~/lib/trpc/server";
 import { getServerAuthSession } from "~/lib/auth";
 import { Share } from "~/components/ui/icons";
 import { env } from "~/env";
-import { ArrowUpRight, FileClock, Pencil } from "lucide-react";
+import { ArrowUpRight, FileClock, PawPrint, Pencil } from "lucide-react";
 import { titleCase } from "~/lib/utils";
 import { Share as ShareLucid } from "lucide-react";
 
@@ -28,7 +28,10 @@ export default async function Pets() {
           <h1 className="text-xl font-semibold">All Pets</h1>
         </div>
         <Link href={"/dashboard/pets/add"}>
-          <Button>Add Pet</Button>
+          <Button className="flex items-center justify-center gap-1">
+            Add Pet
+            <PawPrint strokeWidth={2.5} className="h-4 w-4" />
+          </Button>
         </Link>
       </div>
 
@@ -42,10 +45,11 @@ export default async function Pets() {
                 href={`/user/${session?.user.id}/pets`}
               >
                 <Button
-                  className="flex items-center justify-center gap-2 "
+                  className="flex items-center justify-center gap-1"
                   variant="outline"
                 >
-                  <span>View Pets</span> <ArrowUpRight size={15} />
+                  <span>View Pets</span>{" "}
+                  <ArrowUpRight strokeWidth={2.5} className="h-4 w-4" />
                 </Button>
               </Link>
 
@@ -57,14 +61,18 @@ export default async function Pets() {
                   url: `${env.SERVER_URL}/user/${session?.user.id}/pets`,
                 }}
               >
-                <Button className="flex items-center justify-center gap-2">
+                <Button className="flex items-center justify-center gap-1">
                   <span>Share Pets</span>
-                  <ShareLucid className="h-5 w-5" />
+                  <ShareLucid strokeWidth={2.5} className="h-4 w-4" />
                 </Button>
               </Share>
             </div>
           ) : (
-            <span>No pets added.</span>
+            <span>
+              No pets added. Click{" "}
+              <span className="font-semibold">Add Pet </span> to create a new
+              pet.
+            </span>
           )}
         </TableCaption>
         <TableHeader>

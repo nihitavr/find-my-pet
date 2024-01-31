@@ -13,7 +13,7 @@ import Link from "next/link";
 import { Dog, LayoutDashboard, SquareUserRound, Tags } from "lucide-react";
 import SignIn from "./sign-in";
 
-export function MobileSideNavSheet({
+export function SideNavSheet({
   isSignedIn,
   image,
   fallbackLetter,

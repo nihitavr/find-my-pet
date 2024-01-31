@@ -145,7 +145,11 @@ export function UserProfileForm() {
             <FormItem>
               <FormLabel>Phone Number</FormLabel>
               <FormControl>
-                <Input placeholder="9876543210" {...field} />
+                <Input
+                  className="placeholder:text-secondary-foreground/40"
+                  placeholder="Phone Number (9999999999)"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

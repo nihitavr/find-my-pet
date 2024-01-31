@@ -49,7 +49,7 @@ export default function BuyItemsCarousal({
       <div
         onClick={() => carouselApi?.scrollPrev()}
         className={cn(
-          "absolute top-1/2 ml-1 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-lg border bg-gray-200 hover:bg-gray-100",
+          "absolute top-1/2 ml-1 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-lg border bg-gray-200 hover:bg-gray-100",
         )}
       >
         <ChevronLeft />
@@ -57,7 +57,7 @@ export default function BuyItemsCarousal({
       <div
         onClick={() => carouselApi?.scrollNext()}
         className={cn(
-          "absolute right-0 top-1/2 mr-1 flex h-8 w-8 translate-x-1/2 items-center justify-center rounded-lg border bg-gray-200 hover:bg-gray-100",
+          "absolute right-0 top-1/2 mr-1 flex h-8 w-8 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-lg border bg-gray-200 hover:bg-gray-100",
         )}
       >
         <ChevronRight />

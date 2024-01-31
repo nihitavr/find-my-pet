@@ -1,7 +1,8 @@
-import { BellOff, BellRing, Pencil } from "lucide-react";
+import { BellOff, BellRing, PawPrint, Pencil } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import AlertsSwitch from "~/components/dashboard/alerts-switch";
+import { Button } from "~/components/ui/button";
 import NotFound from "~/components/ui/not-found";
 import { getServerAuthSession } from "~/lib/auth";
 import { api } from "~/lib/trpc/server";
@@ -44,45 +45,61 @@ export default async function Dashboard() {
           <Link href="/dashboard/pets">
             <Pencil strokeWidth={3} size={18} />
           </Link>
+          <div className="flex-grow">
+            <Link className="float-right" href={"/dashboard/pets/add"}>
+              <Button className="flex items-center justify-center gap-1">
+                Add Pet
+                <PawPrint strokeWidth={2.5} className="h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
         </div>
         <div className="mt-4 grid grid-cols-2 gap-5 md:grid-cols-4">
-          {pets.map((pet, idx) => {
-            return (
-              <Link
-                href={`/dashboard/pets/${pet.id}`}
-                key={idx}
-                className="cols-1"
-              >
-                <div className="relative flex flex-col items-start">
-                  <div className="absolute right-2 top-2 z-[10] flex flex-col items-center justify-center gap-1 rounded-md bg-secondary/70 p-2">
-                    <AlertsSwitch
-                      petId={pet.id}
-                      petName={pet.name}
-                      isAlertsEnabled={pet.alertsEnabled}
-                    />
+          {pets.length ? (
+            pets.map((pet, idx) => {
+              return (
+                <Link
+                  href={`/dashboard/pets/${pet.id}`}
+                  key={idx}
+                  className="cols-1"
+                >
+                  <div className="relative flex flex-col items-start">
+                    <div className="absolute right-2 top-2 z-[10] flex flex-col items-center justify-center gap-1 rounded-md bg-secondary/70 p-2">
+                      <AlertsSwitch
+                        petId={pet.id}
+                        petName={pet.name}
+                        isAlertsEnabled={pet.alertsEnabled}
+                      />
+                    </div>
+                    <div className="relative aspect-square w-full">
+                      <Image
+                        fill
+                        style={{ objectFit: "cover" }}
+                        src={
+                          pet.profileImages[0]
+                            ? pet.profileImages[0]
+                            : pet.type === "dog"
+                              ? "/dog-avatar.jpeg"
+                              : "/cat-avatar.jpeg"
+                        }
+                        alt="pet profile"
+                        className="rounded-lg"
+                      />
+                    </div>
+                    <div className="font-semibold text-foreground">
+                      {pet.name}
+                    </div>
                   </div>
-                  <div className="relative aspect-square w-full">
-                    <Image
-                      fill
-                      style={{ objectFit: "cover" }}
-                      src={
-                        pet.profileImages[0]
-                          ? pet.profileImages[0]
-                          : pet.type === "dog"
-                            ? "/dog-avatar.jpeg"
-                            : "/cat-avatar.jpeg"
-                      }
-                      alt="pet profile"
-                      className="rounded-lg"
-                    />
-                  </div>
-                  <div className="font-semibold text-foreground">
-                    {pet.name}
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
+                </Link>
+              );
+            })
+          ) : (
+            <span>
+              No pets added. Click{" "}
+              <span className="font-semibold">Add Pet </span> to create a new
+              pet.
+            </span>
+          )}
         </div>
       </div>
     </div>

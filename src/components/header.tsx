@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { MobileSideNavSheet } from "./mobile-side-nav-sheet";
+import { SideNavSheet } from "./side-nav-sheet";
 import { cn } from "~/lib/utils";
 
 export default function Header({ session }: { session: any }) {
@@ -57,7 +57,7 @@ export default function Header({ session }: { session: any }) {
           </Link>
         </div>
         <div className="flex items-center space-x-5">
-          <MobileSideNavSheet
+          <SideNavSheet
             isSignedIn={!!session?.user}
             image={session?.user?.image}
             fallbackLetter={session?.user?.name?.[0] ?? "A"}

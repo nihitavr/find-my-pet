@@ -84,7 +84,7 @@ export default function PhotoCasousel({
             return (
               <div
                 className={`h-2 w-2 rounded-full ${
-                  idx + 1 === current ? "bg-gray-500" : "bg-gray-300"
+                  idx + 1 === current ? "bg-primary" : "bg-gray-300"
                 }`}
                 key={idx}
               />
