@@ -16,6 +16,7 @@ const APP_DEFAULT_TITLE = "Find My Pet - QR Code Collar Tags for Pets";
 const APP_TITLE_TEMPLATE = "%s";
 const APP_DESCRIPTION =
   "Find your lost pet with a QR code collar tag. Buy and scan our QR code collar tag for pet parent.";
+const APP_LOGO = "/find-my-pet-logo-small.svg";
 
 export const metadata: Metadata = {
   applicationName: APP_NAME,
@@ -23,13 +24,14 @@ export const metadata: Metadata = {
     default: APP_DEFAULT_TITLE,
     template: APP_TITLE_TEMPLATE,
   },
-  icons: [{ rel: "icon", url: "/find-my-pet-logo-small.svg" }],
+  icons: [{ rel: "icon", url: APP_LOGO }],
   description: APP_DESCRIPTION,
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
     title: APP_DEFAULT_TITLE,
+    startupImage: APP_LOGO,
   },
   formatDetection: {
     telephone: false,
