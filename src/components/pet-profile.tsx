@@ -15,6 +15,7 @@ type Props = {
     phoneNumber: string | null;
   } | null;
   petTagId?: string;
+  recordLocation?: boolean;
 };
 
 export default async function PetProfile({ id, user, petTagId }: Props) {

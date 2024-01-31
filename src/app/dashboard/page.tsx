@@ -1,4 +1,4 @@
-import { BellOff, BellRing, PawPrint, Pencil } from "lucide-react";
+import { FileClock, PawPrint, Pencil } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import AlertsSwitch from "~/components/dashboard/alerts-switch";
@@ -58,20 +58,27 @@ export default async function Dashboard() {
           {pets.length ? (
             pets.map((pet, idx) => {
               return (
-                <Link
-                  href={`/dashboard/pets/${pet.id}`}
-                  key={idx}
-                  className="cols-1"
-                >
-                  <div className="relative flex flex-col items-start">
-                    <div className="absolute right-2 top-2 z-[10] flex flex-col items-center justify-center gap-1 rounded-md bg-secondary/70 p-2">
-                      <AlertsSwitch
-                        petId={pet.id}
-                        petName={pet.name}
-                        isAlertsEnabled={pet.alertsEnabled}
-                      />
-                    </div>
-                    <div className="relative aspect-square w-full">
+                <div key={idx} className="relative flex flex-col items-start">
+                  <div className="absolute right-2 top-2 z-[10] flex flex-col items-start justify-center gap-2 rounded-md bg-secondary/70 p-2">
+                    <AlertsSwitch
+                      petId={pet.id}
+                      petName={pet.name}
+                      isAlertsEnabled={pet.alertsEnabled}
+                    />
+                    <Link
+                      href={`/dashboard/pets/${pet.id}/scan-history`}
+                      className="flex gap-1 text-xs font-medium"
+                    >
+                      <div>Scan History</div>
+                      <FileClock className="h-4 w-4" />
+                    </Link>
+                  </div>
+                  <div className="relative aspect-square w-full">
+                    <Link
+                      href={`/dashboard/pets/${pet.id}`}
+                      key={idx}
+                      className="cols-1"
+                    >
                       <Image
                         fill
                         style={{ objectFit: "cover" }}
@@ -85,12 +92,12 @@ export default async function Dashboard() {
                         alt="pet profile"
                         className="rounded-lg"
                       />
-                    </div>
-                    <div className="font-semibold text-foreground">
-                      {pet.name}
-                    </div>
+                    </Link>
                   </div>
-                </Link>
+                  <div className="font-semibold text-foreground">
+                    {pet.name}
+                  </div>
+                </div>
               );
             })
           ) : (

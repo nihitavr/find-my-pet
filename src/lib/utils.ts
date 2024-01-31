@@ -43,3 +43,11 @@ export function removeLastSlash(url?: string) {
   if (!url) return "";
   return url.replace(/\/$/, "");
 }
+
+export function dateToISTString(date: Date) {
+  if (!date) return "";
+
+  return date.toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+  });
+}

@@ -13,7 +13,7 @@ export default function Loader({
     !flexible ? (
       <div
         className={cn(
-          "mx-auto h-10 w-10 animate-spin rounded-full border-4 border-black border-t-white ",
+          "h-10 w-10 animate-spin rounded-full border-4 border-black border-t-white ",
           className,
         )}
       ></div>
