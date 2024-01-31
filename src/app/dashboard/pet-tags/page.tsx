@@ -23,7 +23,11 @@ export default async function PetTags() {
       </div>
 
       <Table className="mt-3">
-        <TableCaption>A list of all pet tags.</TableCaption>
+        <TableCaption>
+          {petTags?.length
+            ? "A list of all qr collar tags."
+            : "No QR collar tags added yet. Scan the QR code on the collar tag to register your pet."}
+        </TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[20px]"></TableHead>

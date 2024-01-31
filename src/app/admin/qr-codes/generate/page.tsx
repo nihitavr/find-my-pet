@@ -83,7 +83,7 @@ export default function GenerateQrcode() {
 
       <div>
         <Table className="mt-10">
-          <TableCaption>A list of your pets.</TableCaption>
+          <TableCaption>A list of all generated QR Tags.</TableCaption>
           <TableHeader>
             <TableRow className="grid grid-cols-10">
               <TableHead className="col-span-1"></TableHead>
