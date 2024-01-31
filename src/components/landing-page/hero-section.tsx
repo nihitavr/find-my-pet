@@ -26,10 +26,10 @@ export default async function HeroSection() {
         </span>
 
         <BuyItemsCarousal
-          className="mt-3 w-full"
+          className="mt-2 w-full"
           shopItemsPrefixes={shopItemsPrefixes}
         />
-        <div className="mt-3">
+        <div className="mt-2">
           <div className="text-xs">
             This will open a <span className="font-semibold">Google Form</span>{" "}
             for checkout.*
