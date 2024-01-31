@@ -43,6 +43,8 @@ export default function OwnerInfoButtons({
           description: "Please allow popups for this website.",
         });
       }
+
+      setWhatsAppUrlToOpen(null);
     }
   }, [whatsAppUrlToOpen]);
 
