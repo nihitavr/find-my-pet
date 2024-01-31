@@ -78,6 +78,7 @@ export default function OwnerInfoButtons({
                   setTimeout(() => {
                     window.open(
                       `${WHATSAPP_URL}${phoneNumber}?text=Hi, I found your pet! I am currently at this location. %0A%0Ahttps://www.google.com/maps/search/${latitude},${longitude}`,
+                      "_blank",
                     );
                   });
                 },
