@@ -13,6 +13,7 @@ import { WHATSAPP_URL } from "~/lib/constants";
 import { toast } from "./use-toast";
 import { useEffect } from "react";
 import { api } from "~/lib/trpc/react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 export default function OwnerInfoButtons({
   phoneNumber,
@@ -23,10 +24,18 @@ export default function OwnerInfoButtons({
   petId: string;
   petTagId: string;
 }) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
   const petTagMutate = api.petTag.recordScan.useMutation();
 
   useEffect(() => {
-    if (navigator.geolocation && petTagId) {
+    if (
+      navigator.geolocation &&
+      petTagId &&
+      searchParams.get("recordLocation") != "false"
+    ) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
@@ -35,6 +44,11 @@ export default function OwnerInfoButtons({
             petTagId,
             geoCode: { latitude, longitude },
           });
+
+          // Add recordLocation=false to url, so that we don't keep recording location.
+          // const newSearchParams = new URLSearchParams(searchParams);
+          // newSearchParams.set("recordLocation", "false");
+          // router.replace(`${pathname}?${newSearchParams.toString()}`);
         },
         () => {
           return;

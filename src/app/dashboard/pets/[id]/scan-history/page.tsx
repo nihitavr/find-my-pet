@@ -10,6 +10,7 @@ import {
 import { Label } from "~/components/ui/label";
 import { api } from "~/lib/trpc/server";
 import { MapPin } from "lucide-react";
+import { dateToISTString } from "~/lib/utils";
 
 export default async function PetScanHistory({
   params: { id },
@@ -20,12 +21,13 @@ export default async function PetScanHistory({
 }) {
   const pet = await api.pet.getPetProfile.query({ id });
   const scanHistory = await api.pet.getPetScanHistory.query({ petId: id });
-
   return (
     <div>
-      <h1 className="text-xl font-semibold">{pet?.name}&apos;s scan history</h1>
+      <h1 className="text-xl font-semibold">
+        <span className="text-primary">{pet?.name}&apos;s</span> scan history
+      </h1>
       <Table className="mt-5">
-        <TableCaption>A list of your pets.</TableCaption>
+        <TableCaption>Last 10 Scan history for {pet?.name}</TableCaption>
         <TableHeader>
           <TableRow className="grid grid-cols-11">
             <TableHead className="col-span-1"></TableHead>
@@ -38,7 +40,7 @@ export default async function PetScanHistory({
             <TableRow className="grid grid-cols-11" key={idx}>
               <TableCell className="col-span-1">{idx + 1}</TableCell>
               <TableCell className="col-span-5">
-                {scan.scannedAt?.toUTCString()}
+                {dateToISTString(scan.scannedAt)}
               </TableCell>
               <TableCell className="col-span-5 pl-12">
                 <a
