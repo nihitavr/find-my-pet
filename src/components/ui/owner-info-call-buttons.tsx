@@ -46,9 +46,9 @@ export default function OwnerInfoButtons({
           });
 
           // Add recordLocation=false to url, so that we don't keep recording location.
-          // const newSearchParams = new URLSearchParams(searchParams);
-          // newSearchParams.set("recordLocation", "false");
-          // router.replace(`${pathname}?${newSearchParams.toString()}`);
+          const newSearchParams = new URLSearchParams(searchParams);
+          newSearchParams.set("recordLocation", "false");
+          router.replace(`${pathname}?${newSearchParams.toString()}`);
         },
         () => {
           return;
@@ -66,16 +66,20 @@ export default function OwnerInfoButtons({
       <div className="grid grid-cols-12 gap-2">
         <Button
           variant={"outline"}
-          className="col-span-5 gap-1 text-green-900 hover:bg-green-50"
+          className="col-span-5 gap-1 text-green-900 hover:bg-green-50 md:w-full"
           onClick={() => {
             // Get geolocation
             if (navigator.geolocation) {
               navigator.geolocation.getCurrentPosition(
                 (position) => {
                   const { latitude, longitude } = position.coords;
-                  window.open(
-                    `${WHATSAPP_URL}${phoneNumber}?text=Hi, I found your pet! I am currently at this location. %0A%0Ahttps://www.google.com/maps/search/${latitude},${longitude}`,
-                  );
+
+                  // In IOS window.open doesn't work without setTimeout. setTimeout executes on the main thread so it works.
+                  setTimeout(() => {
+                    window.open(
+                      `${WHATSAPP_URL}${phoneNumber}?text=Hi, I found your pet! I am currently at this location. %0A%0Ahttps://www.google.com/maps/search/${latitude},${longitude}`,
+                    );
+                  });
                 },
                 () => {
                   toast({
@@ -108,7 +112,7 @@ export default function OwnerInfoButtons({
           </div>
         </Button>
         <Button
-          className="col-span-5 gap-1"
+          className="col-span-5 gap-1 md:w-full"
           onClick={() => {
             window.open(`tel:${phoneNumber}`);
           }}
@@ -118,7 +122,7 @@ export default function OwnerInfoButtons({
         </Button>
 
         <Popover>
-          <PopoverTrigger asChild className="col-span-2 w-full">
+          <PopoverTrigger asChild className="col-span-2 !w-full">
             <Button
               className="w-full p-2"
               onClick={async () => {
