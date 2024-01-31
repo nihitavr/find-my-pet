@@ -40,9 +40,9 @@
   ],
   "exclude": [
     "node_modules",
-    "public/sw.js",
-    "public/fallback-*.js",
-    "public/workbox-*.js",
-    "public/swe-*.js"
+    "public/sw.js*",
+    "public/fallback-*.js*",
+    "public/workbox-*.js*",
+    "public/swe-*.js*"
   ]
 }
