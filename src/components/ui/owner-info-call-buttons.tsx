@@ -11,7 +11,7 @@ import {
 
 import { WHATSAPP_URL } from "~/lib/constants";
 import { toast } from "./use-toast";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { api } from "~/lib/trpc/react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
@@ -24,29 +24,13 @@ export default function OwnerInfoButtons({
   petId: string;
   petTagId: string;
 }) {
-  const [whatsAppUrlToOpen, setWhatsAppUrlToOpen] = useState<string | null>(
-    null,
-  );
+  const whatsAppLinkRef = useRef<HTMLAnchorElement>(null);
 
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
   const petTagMutate = api.petTag.recordScan.useMutation();
-
-  useEffect(() => {
-    if (whatsAppUrlToOpen) {
-      const newWindow = window.open(whatsAppUrlToOpen, "_blank");
-      if (!newWindow) {
-        toast({
-          variant: "failure",
-          description: "Please allow popups for this website.",
-        });
-      }
-
-      setWhatsAppUrlToOpen(null);
-    }
-  }, [whatsAppUrlToOpen]);
 
   useEffect(() => {
     if (
@@ -78,6 +62,15 @@ export default function OwnerInfoButtons({
 
   return (
     <div className="pt-2">
+      {/* Hidden Whatsapp Link */}
+      <a
+        ref={whatsAppLinkRef}
+        href=""
+        target="_blank"
+        style={{ display: "none" }}
+      >
+        Hidden Link
+      </a>
       <span className="text-xs font-semibold leading-3">
         Found Pet? Share your location or Call Owner.*
       </span>
@@ -91,9 +84,11 @@ export default function OwnerInfoButtons({
               navigator.geolocation.getCurrentPosition(
                 (position) => {
                   const { latitude, longitude } = position.coords;
-                  setWhatsAppUrlToOpen(
-                    `${WHATSAPP_URL}${phoneNumber}?text=Hi, I found your pet! I am currently at this location. %0A%0Ahttps://www.google.com/maps/search/${latitude},${longitude}`,
-                  );
+
+                  if (whatsAppLinkRef.current) {
+                    whatsAppLinkRef.current.href = `${WHATSAPP_URL}${phoneNumber}?text=Hi, I found your pet! I am currently at this location. %0A%0Ahttps://www.google.com/maps/search/${latitude},${longitude}`;
+                    whatsAppLinkRef.current.click();
+                  }
                 },
                 () => {
                   toast({
