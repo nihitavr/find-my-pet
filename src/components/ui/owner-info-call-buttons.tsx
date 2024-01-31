@@ -11,7 +11,7 @@ import {
 
 import { WHATSAPP_URL } from "~/lib/constants";
 import { toast } from "./use-toast";
-import { useEffect } from "react";
+import { use, useEffect, useState } from "react";
 import { api } from "~/lib/trpc/react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
@@ -24,11 +24,27 @@ export default function OwnerInfoButtons({
   petId: string;
   petTagId: string;
 }) {
+  const [whatsAppUrlToOpen, setWhatsAppUrlToOpen] = useState<string | null>(
+    null,
+  );
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
   const petTagMutate = api.petTag.recordScan.useMutation();
+
+  useEffect(() => {
+    if (whatsAppUrlToOpen) {
+      const newWindow = window.open(whatsAppUrlToOpen, "_blank");
+      if (!newWindow) {
+        toast({
+          variant: "failure",
+          description: "Please allow popups for this website.",
+        });
+      }
+    }
+  }, [whatsAppUrlToOpen]);
 
   useEffect(() => {
     if (
@@ -73,14 +89,9 @@ export default function OwnerInfoButtons({
               navigator.geolocation.getCurrentPosition(
                 (position) => {
                   const { latitude, longitude } = position.coords;
-
-                  // In IOS window.open doesn't work without setTimeout. setTimeout executes on the main thread so it works.
-                  setTimeout(() => {
-                    window.open(
-                      `${WHATSAPP_URL}${phoneNumber}?text=Hi, I found your pet! I am currently at this location. %0A%0Ahttps://www.google.com/maps/search/${latitude},${longitude}`,
-                      "_blank",
-                    );
-                  });
+                  setWhatsAppUrlToOpen(
+                    `${WHATSAPP_URL}${phoneNumber}?text=Hi, I found your pet! I am currently at this location. %0A%0Ahttps://www.google.com/maps/search/${latitude},${longitude}`,
+                  );
                 },
                 () => {
                   toast({
