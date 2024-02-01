@@ -19,11 +19,11 @@ import { toast } from "./use-toast";
 export default function OwnerInfoButtons({
   phoneNumber,
   petId,
-  petTagId,
+  qrCodeId,
 }: {
   phoneNumber?: string;
   petId: string;
-  petTagId: string;
+  qrCodeId: string;
 }) {
   const [whatsappLink, setWhatsappLink] = useState<string>("");
   const [fetchingGeoLocation, setFetchingGeoLocation] =
@@ -36,7 +36,7 @@ export default function OwnerInfoButtons({
   const petTagMutate = api.petTag.recordScan.useMutation();
 
   useEffect(() => {
-    if (navigator.geolocation && petTagId) {
+    if (navigator.geolocation && qrCodeId) {
       setFetchingGeoLocation(true);
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -49,7 +49,7 @@ export default function OwnerInfoButtons({
           if (searchParams.get("recordLocation") != "false") {
             petTagMutate.mutate({
               petId,
-              petTagId,
+              qrCodeId,
               geoCode: { latitude, longitude },
             });
 
@@ -114,7 +114,7 @@ export default function OwnerInfoButtons({
         <Button
           className="col-span-5 gap-1 md:w-full"
           onClick={() => {
-            window.open(`tel:${phoneNumber}`);
+            window.open(`tel:${phoneNumber}`, "_self");
           }}
         >
           <span>Call Owner</span>

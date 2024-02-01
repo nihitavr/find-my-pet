@@ -76,10 +76,10 @@ const petProfileFormSchema = z.object({
 
 type Props = {
   id?: string;
-  petTagId?: string;
+  qrCodeId?: string;
 };
 
-export function PetProfileForm({ id, petTagId }: Props) {
+export function PetProfileForm({ id, qrCodeId }: Props) {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof petProfileFormSchema>>({
@@ -112,7 +112,6 @@ export function PetProfileForm({ id, petTagId }: Props) {
   useEffect(() => {
     if (id && !isInitialLoading && data) {
       // 4. Set the data to the form.
-      console.log("data.behaviorTags", data.behaviourTags);
 
       form.reset({
         profileImages: data.profileImages,
@@ -134,8 +133,6 @@ export function PetProfileForm({ id, petTagId }: Props) {
   }, [id, isInitialLoading]);
 
   const onSubmit = async (values: z.infer<typeof petProfileFormSchema>) => {
-    console.log("values", values);
-
     const data = {
       id: id,
       name: values.name,
@@ -149,7 +146,7 @@ export function PetProfileForm({ id, petTagId }: Props) {
       behaviourTags: values.behaviorTags.map((tag) => tag.value),
       birthdate: values.birthdate.toISOString(),
       description: values.description,
-      petTagId: petTagId,
+      qrCodeId: qrCodeId,
     };
 
     setIsSubmitting(true);
@@ -186,10 +183,10 @@ export function PetProfileForm({ id, petTagId }: Props) {
           let toastMessage = "Pet profile created successfully!";
           let nextUrl = `/dashboard/pets`;
 
-          if (petTagId) {
+          if (qrCodeId) {
             toastMessage =
               "Pet profile created successfully and registeted it to tha tag!";
-            nextUrl = `/pt/${petTagId}`;
+            nextUrl = `/pt/${qrCodeId}`;
           }
 
           toast({
@@ -471,7 +468,7 @@ export function PetProfileForm({ id, petTagId }: Props) {
             type="submit"
             disabled={!form.formState.isDirty || isSubmitting}
           >
-            <span>{petTagId ? "Create Pet & Register Tag" : "Save"}</span>
+            <span>{qrCodeId ? "Create Pet & Register Tag" : "Save"}</span>
             <div>
               <Loader className="h-5 w-5 border-2" show={isSubmitting} />
             </div>

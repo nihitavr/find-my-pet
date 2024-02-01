@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AlertsSwitch from "~/components/dashboard/alerts-switch";
 import { Button } from "~/components/ui/button";
-import NotFound from "~/components/ui/not-found";
+import NotFound from "~/components/ui/errors/not-found";
 import { getServerAuthSession } from "~/lib/auth";
 import { api } from "~/lib/trpc/server";
 
@@ -60,11 +60,6 @@ export default async function Dashboard() {
               return (
                 <div key={idx} className="relative flex flex-col items-start">
                   <div className="absolute right-2 top-2 z-[10] flex flex-col items-start justify-center gap-2 rounded-md bg-secondary/70 p-2">
-                    <AlertsSwitch
-                      petId={pet.id}
-                      petName={pet.name}
-                      isAlertsEnabled={pet.alertsEnabled}
-                    />
                     <Link
                       href={`/dashboard/pets/${pet.id}/scan-history`}
                       className="flex gap-1 text-xs font-medium"
@@ -72,6 +67,11 @@ export default async function Dashboard() {
                       <div>Scan History</div>
                       <FileClock className="h-4 w-4" />
                     </Link>
+                    <AlertsSwitch
+                      petId={pet.id}
+                      petName={pet.name}
+                      isAlertsEnabled={pet.alertsEnabled}
+                    />
                   </div>
                   <div className="relative aspect-square w-full">
                     <Link

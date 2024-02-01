@@ -1,5 +1,5 @@
 import { getServerAuthSession } from "~/lib/auth";
-import Unauthorised from "./ui/unauthorised";
+import Unauthorised from "./ui/errors/unauthorised";
 
 export default async function AuthCheck({
   children,

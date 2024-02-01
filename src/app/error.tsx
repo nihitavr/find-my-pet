@@ -1,0 +1,20 @@
+"use client";
+
+const MESSAGES = [
+  "Our server is having a catnap. We'll nudge it awake and get back to you soon.",
+  "The server's got a furball. Give us a moment to groom it back to health.",
+  "Our server is chasing its tail in circles. We'll sort it out shortly.",
+  "The server's in the dog house right now. We're working to fetch it back.",
+  "A squirrel ran through the server room. We're trying to get everything back in order!",
+];
+
+export default function Error() {
+  return (
+    <div className="flex h-[80vh] w-full flex-col items-center justify-center">
+      <div className="text-3xl font-semibold">500</div>
+      <div className="px-3 text-center text-xl font-semibold">
+        {MESSAGES[Math.floor(Math.random() * MESSAGES.length)]}
+      </div>
+    </div>
+  );
+}

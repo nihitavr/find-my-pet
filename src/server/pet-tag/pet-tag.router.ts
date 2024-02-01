@@ -1,4 +1,6 @@
+import { nanoid } from "nanoid";
 import { z } from "zod";
+import { QR_CODE_ID_LENGTH } from "~/lib/constants";
 
 import {
   createTRPCRouter,
@@ -10,12 +12,12 @@ export const petTagRouter = createTRPCRouter({
   getPetTag: publicProcedure
     .input(
       z.object({
-        id: z.string().cuid(),
+        qrCodeId: z.string().min(12),
       }),
     )
-    .mutation(async ({ ctx, input: { id } }) => {
+    .query(async ({ ctx, input: { qrCodeId } }) => {
       const petTag = await ctx.db.petTag.findUnique({
-        where: { id },
+        where: { qrCodeId },
       });
 
       return petTag;
@@ -25,12 +27,12 @@ export const petTagRouter = createTRPCRouter({
     .input(
       z.object({
         petId: z.string().cuid(),
-        petTagId: z.string().cuid(),
+        qrCodeId: z.string(),
       }),
     )
-    .mutation(async ({ ctx, input: { petTagId, petId } }) => {
+    .mutation(async ({ ctx, input: { qrCodeId, petId } }) => {
       const petTag = await ctx.db.petTag.update({
-        where: { id: petTagId, petId: null },
+        where: { qrCodeId: qrCodeId, petId: null },
         data: {
           userId: ctx.session.user.id,
           petId: petId,
@@ -54,21 +56,64 @@ export const petTagRouter = createTRPCRouter({
     .input(
       z.object({
         petId: z.string().cuid(),
-        petTagId: z.string().cuid(),
+        qrCodeId: z.string().cuid(),
         geoCode: z.object({
           latitude: z.number(),
           longitude: z.number(),
         }),
       }),
     )
-    .mutation(({ ctx, input }) => {
+    .mutation(async ({ ctx, input }) => {
+      const petTag = await ctx.db.petTag.findUnique({
+        where: { qrCodeId: input.qrCodeId },
+      });
+
+      if (!petTag) {
+        return {};
+      }
+
       return ctx.db.scanHistory.create({
         data: {
           petId: input.petId,
-          petTagId: input.petTagId,
+          petTagId: petTag.id,
           scannedAt: new Date(),
           geoCode: input.geoCode,
         },
       });
+    }),
+
+  generatePetTags: publicProcedure
+    .input(
+      z.object({
+        qrCount: z.number().min(1),
+      }),
+    )
+    .mutation(async ({ ctx, input: { qrCount } }) => {
+      const result = [];
+      while (true && qrCount > 0) {
+        const nanoId = nanoid(QR_CODE_ID_LENGTH);
+
+        const petTagCheck = await ctx.db.petTag.findUnique({
+          where: {
+            qrCodeId: nanoId,
+          },
+        });
+
+        if (petTagCheck) {
+          continue;
+        }
+
+        result.push(
+          await ctx.db.petTag.create({
+            data: {
+              qrCodeId: nanoId,
+            },
+          }),
+        );
+
+        qrCount--;
+      }
+
+      return result;
     }),
 });
