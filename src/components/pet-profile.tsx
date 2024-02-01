@@ -1,6 +1,6 @@
 import { Instagram } from "lucide-react";
 import { Share } from "~/components/ui/icons";
-import NotFound from "~/components/ui/not-found";
+import NotFound from "~/components/ui/errors/not-found";
 import { api } from "~/lib/trpc/server";
 import { getTimePassed, titleCase } from "~/lib/utils";
 import OwnerInfoButtons from "./ui/owner-info-call-buttons";
@@ -14,11 +14,11 @@ type Props = {
     email: string | null;
     phoneNumber: string | null;
   } | null;
-  petTagId?: string;
+  qrCodeId?: string | null;
   recordLocation?: boolean;
 };
 
-export default async function PetProfile({ id, user, petTagId }: Props) {
+export default async function PetProfile({ id, user, qrCodeId }: Props) {
   const pet = await api.pet.getPet.query({ id });
 
   if (!pet) return <NotFound />;
@@ -99,7 +99,7 @@ export default async function PetProfile({ id, user, petTagId }: Props) {
             <OwnerInfoButtons
               phoneNumber={user.phoneNumber}
               petId={id}
-              petTagId={petTagId!}
+              qrCodeId={qrCodeId!}
             />
           )}
         </div>

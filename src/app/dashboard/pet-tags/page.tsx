@@ -50,7 +50,7 @@ export default async function PetTags() {
               <TableCell>{petTag?.pet?.name}</TableCell>
               <TableCell className="text-right">
                 <Link
-                  href={`/pt/${petTag.id}?recordLocation=false`}
+                  href={`/pt/${petTag.qrCodeId}?recordLocation=false`}
                   target="_blank"
                   className="flex items-center justify-start text-sm text-blue-700 hover:underline"
                 >

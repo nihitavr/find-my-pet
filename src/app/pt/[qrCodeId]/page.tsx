@@ -2,13 +2,19 @@ import Link from "next/link";
 import PetProfile from "~/components/pet-profile";
 import SignIn from "~/components/sign-in";
 import { Button } from "~/components/ui/button";
-import NotFound from "~/components/ui/not-found";
+import NotFound from "~/components/ui/errors/not-found";
 import { getServerAuthSession } from "~/lib/auth";
 import { api } from "~/lib/trpc/server";
 
-export default async function PetTag({ params }: { params: { id: string } }) {
+export default async function PetTag({
+  params,
+}: {
+  params: { qrCodeId: string };
+}) {
   const auth = await getServerAuthSession();
-  const petTag = await api.petTag.getPetTag.mutate({ id: params.id });
+  const petTag = await api.petTag.getPetTag.query({
+    qrCodeId: params.qrCodeId,
+  });
 
   if (!petTag) return <NotFound />;
 
@@ -20,7 +26,7 @@ export default async function PetTag({ params }: { params: { id: string } }) {
           register the pet tag with your pet.
         </div>
         <SignIn
-          callbackUrl={`/dashboard/owner-profile?petTagRegistration=true&petTagId=${petTag.id}`}
+          callbackUrl={`/dashboard/owner-profile?qrCodeId=${petTag.qrCodeId}`}
         />
       </div>
     );
@@ -32,7 +38,9 @@ export default async function PetTag({ params }: { params: { id: string } }) {
           This qr code is not associated with any pet. Please add/select a pet
           to register the pet tag.
         </div>
-        <Link href={`/dashboard/pet-tags/pet-selection?petTagId=${petTag.id}`}>
+        <Link
+          href={`/dashboard/pet-tags/pet-selection?qrCodeId=${petTag.qrCodeId}`}
+        >
           <Button variant="secondary">Select or Create New Pet</Button>
         </Link>
       </div>
@@ -40,5 +48,7 @@ export default async function PetTag({ params }: { params: { id: string } }) {
 
   const user = await api.user.getUser.query({ id: petTag.userId! });
 
-  return <PetProfile id={petTag.petId!} user={user} petTagId={petTag.id} />;
+  return (
+    <PetProfile id={petTag.petId!} user={user} qrCodeId={petTag.qrCodeId} />
+  );
 }

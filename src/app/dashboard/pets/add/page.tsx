@@ -7,5 +7,5 @@ export default function AddPet({
     [k in string]: string | string[] | undefined;
   };
 }) {
-  return <PetProfileForm petTagId={searchParams.petTagId as string} />;
+  return <PetProfileForm qrCodeId={searchParams.qrCodeId as string} />;
 }

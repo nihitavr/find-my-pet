@@ -22,7 +22,7 @@ export const petProfileFormSchema = z.object({
   behaviourTags: z.array(z.string()),
   birthdate: z.string(),
   description: z.string().optional(),
-  petTagId: z.string().cuid().optional(),
+  qrCodeId: z.string().optional(),
 });
 
 export const petRouter = createTRPCRouter({
@@ -59,9 +59,9 @@ export const petRouter = createTRPCRouter({
         },
       });
 
-      if (input.petTagId) {
+      if (input.qrCodeId) {
         await ctx.db.petTag.update({
-          where: { id: input.petTagId, petId: null },
+          where: { qrCodeId: input.qrCodeId, petId: null },
           data: {
             userId: ctx.session.user.id,
             petId: pet.id,

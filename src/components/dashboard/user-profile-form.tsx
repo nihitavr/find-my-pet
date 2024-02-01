@@ -32,7 +32,7 @@ const userProfileFormSchema = z.object({
 
 export function UserProfileForm() {
   const router = useRouter();
-  const petTagId = useSearchParams().get("petTagId");
+  const qrCodeId = useSearchParams().get("qrCodeId");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -78,7 +78,7 @@ export function UserProfileForm() {
           phoneNumber: userData.phoneNumber!,
         });
 
-        if (!petTagId) {
+        if (!qrCodeId) {
           toast({
             variant: "success",
             description: "Owner Profile updated successfully!",
@@ -87,7 +87,7 @@ export function UserProfileForm() {
           return;
         }
 
-        router.push(`/dashboard/pet-tags/pet-selection?petTagId=${petTagId}`);
+        router.push(`/dashboard/pet-tags/pet-selection?qrCodeId=${qrCodeId}`);
       },
       onError: (error) => {
         toast({
@@ -161,12 +161,12 @@ export function UserProfileForm() {
             className="flex gap-2"
             type="submit"
             disabled={
-              (form.formState.isDirty || petTagId) && !isSubmitting
+              (form.formState.isDirty || qrCodeId) && !isSubmitting
                 ? false
                 : true
             }
           >
-            <span>{petTagId ? "Next" : "Save"}</span>
+            <span>{qrCodeId ? "Next" : "Save"}</span>
             <Loader className="h-5 w-5 border-2" show={isSubmitting} />
           </Button>
         </div>

@@ -24,13 +24,13 @@ import { useState } from "react";
 
 export function PetSelectionForm({
   pets,
-  petTagId,
+  qrCodeId,
 }: {
   pets: {
     id: string;
     name: string;
   }[];
-  petTagId: string;
+  qrCodeId: string;
 }) {
   const router = useRouter();
 
@@ -47,7 +47,7 @@ export function PetSelectionForm({
     await registerPetTag.mutateAsync(
       {
         petId,
-        petTagId,
+        qrCodeId,
       },
       {
         onSuccess: () => {
@@ -56,7 +56,7 @@ export function PetSelectionForm({
             description: "Pet Tag has been registered successfully.",
           });
 
-          router.push(`/pt/${petTagId}`);
+          router.push(`/pt/${qrCodeId}`);
           router.refresh();
         },
       },
@@ -66,14 +66,14 @@ export function PetSelectionForm({
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex w-full flex-col">
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             variant="outline"
             role="combobox"
             aria-expanded={open}
-            className="w-[300px] justify-between"
+            className="w-[300px] justify-between md:w-[300px]"
           >
             {petId
               ? pets.find((pet) => pet.id === petId)?.name

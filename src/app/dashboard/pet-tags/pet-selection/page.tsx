@@ -6,6 +6,6 @@ export default function PetSelectionPage({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   return (
-    <PetAndPetTagRegistrationForm petTagId={searchParams.petTagId as string} />
+    <PetAndPetTagRegistrationForm qrCodeId={searchParams.qrCodeId as string} />
   );
 }

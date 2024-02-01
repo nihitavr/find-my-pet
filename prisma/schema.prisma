@@ -91,6 +91,8 @@ model PetTag {
   pet              Pet?          @relation(fields: [petId], references: [id])
   user             User?         @relation(fields: [userId], references: [id])
   scanHistories    ScanHistory[]
+
+  @@index([qrCodeId], type: Hash)
 }
 
 model ScanHistory {

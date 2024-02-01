@@ -1,25 +1,41 @@
 import { z } from "zod";
 import { nanoid } from "nanoid";
 import { adminProcedure, createTRPCRouter } from "~/lib/trpc/trpc";
+import { QR_CODE_ID_LENGTH } from "~/lib/constants";
 
 export const adminRouter = createTRPCRouter({
-  generateQrCodes: adminProcedure
+  generatePetTagIds: adminProcedure
     .input(
       z.object({
         qrCount: z.number().min(1),
       }),
     )
     .mutation(async ({ ctx, input: { qrCount } }) => {
-      const petTags = [];
-      for (let i = 0; i < qrCount; i++) {
-        const qrCode = nanoid(12);
+      const result = [];
+      while (true && qrCount > 0) {
+        const nanoId = nanoid(QR_CODE_ID_LENGTH);
 
-        petTags.push({
-          registrationCode: "123456",
-          qrCode: nanoid(12),
-          qrUrl: "https://findmypet.in/pt/" + qrCode,
+        const petTagCheck = await ctx.db.petTag.findUnique({
+          where: {
+            qrCodeId: nanoId,
+          },
         });
+
+        if (petTagCheck) {
+          continue;
+        }
+
+        result.push(
+          await ctx.db.petTag.create({
+            data: {
+              qrCodeId: nanoId,
+            },
+          }),
+        );
+
+        qrCount--;
       }
-      return petTags;
+
+      return result;
     }),
 });
