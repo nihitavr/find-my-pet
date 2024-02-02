@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { z } from "zod";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -50,4 +51,14 @@ export function dateToISTString(date: Date) {
   return date.toLocaleString("en-IN", {
     timeZone: "Asia/Kolkata",
   });
+}
+
+export function isValidCuid(cuid: string) {
+  const zobParse = z.string().cuid().safeParse(cuid);
+
+  if (zobParse.success === false) {
+    return false;
+  }
+
+  return true;
 }

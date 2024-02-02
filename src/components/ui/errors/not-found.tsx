@@ -1,3 +1,5 @@
+import NotFoundAnimation from "./not-found-animation";
+
 const MESSAGES = [
   "We sniffed around but couldn't find your bone. Are you sure it's buried here?",
   "This page must have gone on a walk without a leash. We can't find it!",
@@ -10,8 +12,8 @@ const MESSAGES = [
 export default function NotFound() {
   return (
     <div className="flex h-[80vh] w-full flex-col items-center justify-center">
-      <div className="text-3xl font-semibold">404</div>
-      <div className="text-center text-xl font-semibold px-3">
+      <NotFoundAnimation />
+      <div className="px-3 text-center text-xl font-semibold">
         {MESSAGES[Math.floor(Math.random() * MESSAGES.length)]}
       </div>
     </div>

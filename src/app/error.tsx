@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 const MESSAGES = [
   "Our server is having a catnap. We'll nudge it awake and get back to you soon.",
   "The server's got a furball. Give us a moment to groom it back to health.",
@@ -11,7 +13,14 @@ const MESSAGES = [
 export default function Error() {
   return (
     <div className="flex h-[80vh] w-full flex-col items-center justify-center">
-      <div className="text-3xl font-semibold">500</div>
+      <div className="relative h-60 w-96">
+        <Image
+          layout="fill"
+          style={{ objectFit: "contain" }}
+          src="/errors/internal-server-error.svg"
+          alt="Internal Server Error 500"
+        />
+      </div>
       <div className="px-3 text-center text-xl font-semibold">
         {MESSAGES[Math.floor(Math.random() * MESSAGES.length)]}
       </div>
