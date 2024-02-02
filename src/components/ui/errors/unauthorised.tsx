@@ -11,6 +11,10 @@ const MESSAGES = [
 export default function Unauthorised() {
   return (
     <div className="flex h-[80vh] w-full flex-col items-center justify-center">
+      <span className="text-primary text-center text-[3rem] font-medium">
+        Oops...
+      </span>
+
       <div className="relative h-60 w-96">
         <Image
           layout="fill"

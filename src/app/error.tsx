@@ -1,5 +1,6 @@
 "use client";
 
+import { Dog } from "lucide-react";
 import Image from "next/image";
 
 const MESSAGES = [
@@ -13,6 +14,10 @@ const MESSAGES = [
 export default function Error() {
   return (
     <div className="flex h-[80vh] w-full flex-col items-center justify-center">
+      <span className="text-primary text-center text-[3rem] font-medium">
+        Oops...
+        <Dog className="text-primary" stroke="" />
+      </span>
       <div className="relative h-60 w-96">
         <Image
           layout="fill"
@@ -24,6 +29,7 @@ export default function Error() {
       <div className="px-3 text-center text-xl font-semibold">
         {MESSAGES[Math.floor(Math.random() * MESSAGES.length)]}
       </div>
+      <div>Try again later!</div>
     </div>
   );
 }
