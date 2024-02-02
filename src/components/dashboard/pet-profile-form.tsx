@@ -39,7 +39,7 @@ import Loader from "../ui/loader";
 import { useRouter } from "next/navigation";
 import ProfileFormLoadingSkeleton from "../ui/profile-form-loading-skeleton";
 import Link from "next/link";
-import MultipleSelector, { Option } from "~/components/ui/multiple-selector";
+import MultipleSelector from "~/components/ui/multiple-selector";
 
 const petProfileFormSchema = z.object({
   profileImages: z.array(z.string().url()),
