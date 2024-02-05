@@ -31,7 +31,7 @@ export default async function PetTag({
             alt="Dog Image with QR Tag"
           />
         </div>
-        <div className="z-[50] -mt-5 flex flex-col items-center gap-5 rounded-t-3xl bg-white py-5">
+        <div className="z-[50] -mt-5 flex flex-col items-center gap-5 rounded-t-3xl bg-white py-5 pb-14">
           <Image
             src="/find-my-pet-logo-small.svg"
             alt="find-my-pet logo"
