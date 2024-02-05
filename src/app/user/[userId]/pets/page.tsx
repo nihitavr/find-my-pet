@@ -39,12 +39,11 @@ export default async function PetsListView({
                     }
                     alt="pet profile"
                   />
-                  <div className="absolute bottom-3 mt-2 flex flex-col items-center rounded-lg bg-secondary/60 p-3 py-1 text-center">
+                  <div className="bg-secondary/60 absolute bottom-3 mt-2 flex flex-col items-center rounded-lg p-3 py-1 text-center">
                     <div className="text-sm font-semibold">
                       {titleCase(pet.name)}
                     </div>
                     <span className="text-xs">{titleCase(pet.breed)}</span>
-                    {/* <div className="absolute left-0 top-0 z-[0] h-full w-full bg-white opacity-20" /> */}
                   </div>
                 </div>
               </Link>

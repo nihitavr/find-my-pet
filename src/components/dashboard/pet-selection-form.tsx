@@ -1,26 +1,14 @@
 "use client";
 
-import { Check, ChevronsUpDown } from "lucide-react";
-
-import { cn } from "~/lib/utils";
 import { Button } from "~/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "~/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "~/components/ui/popover";
 import Loader from "../ui/loader";
 import { api } from "~/lib/trpc/react";
 import { useRouter } from "next/navigation";
 import { useToast } from "../ui/use-toast";
 import { useState } from "react";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import Image from "next/image";
+import { Label } from "../ui/label";
 
 export function PetSelectionForm({
   pets,
@@ -29,6 +17,7 @@ export function PetSelectionForm({
   pets: {
     id: string;
     name: string;
+    image: string;
   }[];
   qrCodeId: string;
 }) {
@@ -36,7 +25,6 @@ export function PetSelectionForm({
 
   const { toast } = useToast();
 
-  const [open, setOpen] = useState(false);
   const [petId, setPetId] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -65,49 +53,38 @@ export function PetSelectionForm({
     setIsSubmitting(false);
   };
 
+  console.log(pets);
+
   return (
     <div className="flex w-full flex-col">
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            role="combobox"
-            aria-expanded={open}
-            className="w-[300px] justify-between md:w-[300px]"
-          >
-            {petId
-              ? pets.find((pet) => pet.id === petId)?.name
-              : "Select pet..."}
-            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-[300px] p-0">
-          <Command>
-            <CommandInput placeholder="Search pet..." />
-            <CommandEmpty>No Pet found.</CommandEmpty>
-            <CommandGroup>
-              {pets.map((pet) => (
-                <CommandItem
-                  key={pet.id}
-                  value={pet.id}
-                  onSelect={(currentValue) => {
-                    setPetId(currentValue === petId ? "" : currentValue);
-                    setOpen(false);
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      petId === pet.id ? "opacity-100" : "opacity-0",
-                    )}
-                  />
+      <RadioGroup
+        onValueChange={(value) => setPetId(value)}
+        value={petId}
+        className="flex flex-col gap-3"
+      >
+        {pets.map((pet) => (
+          <div className="flex items-center" key={pet.id}>
+            <div className="flex w-full items-center gap-3">
+              <RadioGroupItem value={pet.id} id={`petId:${pet.id}`} />
+              <Label
+                className="flex items-center gap-3"
+                htmlFor={`petId:${pet.id}`}
+              >
+                <Image
+                  width={60}
+                  height={60}
+                  className="rounded-full"
+                  src={pet.image}
+                  alt={`${pet.name} image`}
+                />
+                <span className="w-[80%] break-words font-semibold">
                   {pet.name}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </Command>
-        </PopoverContent>
-      </Popover>
+                </span>
+              </Label>
+            </div>
+          </div>
+        ))}
+      </RadioGroup>
 
       <div className={`w-full pt-5`}>
         <Button

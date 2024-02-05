@@ -14,7 +14,6 @@ import { getServerAuthSession } from "~/lib/auth";
 import { Share } from "~/components/ui/icons";
 import { env } from "~/env";
 import { ArrowUpRight, FileClock, PawPrint, Pencil } from "lucide-react";
-import { titleCase } from "~/lib/utils";
 import { Share as ShareLucid } from "lucide-react";
 
 export default async function Pets() {
@@ -28,7 +27,10 @@ export default async function Pets() {
           <h1 className="text-xl font-semibold">All Pets</h1>
         </div>
         <Link href={"/dashboard/pets/add"}>
-          <Button className="flex items-center justify-center gap-1">
+          <Button
+            variant="secondary"
+            className="flex items-center justify-center gap-1"
+          >
             Add Pet
             <PawPrint strokeWidth={2.5} className="h-4 w-4" />
           </Button>
