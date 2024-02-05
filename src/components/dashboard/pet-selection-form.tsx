@@ -67,19 +67,19 @@ export function PetSelectionForm({
             <div className="flex w-full items-center gap-3">
               <RadioGroupItem value={pet.id} id={`petId:${pet.id}`} />
               <Label
-                className="flex items-center gap-3"
+                className="flex w-full items-center gap-3"
                 htmlFor={`petId:${pet.id}`}
               >
-                <Image
-                  width={60}
-                  height={60}
-                  className="rounded-full"
-                  src={pet.image}
-                  alt={`${pet.name} image`}
-                />
-                <span className="w-[80%] break-words font-semibold">
-                  {pet.name}
-                </span>
+                <div className="relative h-14 w-14 rounded-full">
+                  <Image
+                    fill
+                    style={{ objectFit: "cover" }}
+                    className="rounded-full"
+                    src={pet.image}
+                    alt={`${pet.name} image`}
+                  />
+                </div>
+                <span className="break-words font-semibold">{pet.name}</span>
               </Label>
             </div>
           </div>
