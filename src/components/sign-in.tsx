@@ -12,7 +12,7 @@ export default function SignIn({
   ...props
 }: {
   callbackUrl?: string;
-  className: string;
+  className?: string;
 }) {
   const [isSigningIn, setIsSigningIn] = useState(false);
 
