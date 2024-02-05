@@ -107,7 +107,7 @@ export function UserProfileForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <div>
-          <h1 className="text-xl font-semibold">Owner Profile</h1>
+          <h1 className="text-center text-xl font-semibold">Owner Profile</h1>
         </div>
 
         <FormField

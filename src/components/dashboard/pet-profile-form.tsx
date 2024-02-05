@@ -367,7 +367,7 @@ export function PetProfileForm({ id, qrCodeId }: Props) {
                     onChange={field.onChange}
                     defaultOptions={PetBehaviourTagsOptions}
                     maxSelected={10}
-                    placeholder="Select tags that describes you pet..."
+                    placeholder="Select tags that describes your pet..."
                     emptyIndicator={
                       <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
                         no results found.
