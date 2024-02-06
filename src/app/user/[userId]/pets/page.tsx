@@ -17,7 +17,7 @@ export default async function PetsListView({
 
   return (
     <div className="flex w-full flex-col items-center">
-      <div className="w-full p-3 lg:w-2/5">
+      <div className="w-full p-3 lg:w-2/5 lg:p-5">
         <div className="pb-3 text-center text-lg">
           <span className="font-semibold">{user?.name}&apos;s</span> pet family!
         </div>

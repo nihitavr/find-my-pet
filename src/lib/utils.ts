@@ -24,10 +24,9 @@ export function getTimePassed(startDate: Date) {
 }
 
 export function titleCase(str: string) {
-  return str
-    .split(" ")
-    .map((word) => word[0]!.toUpperCase() + word.slice(1).toLowerCase())
-    .join(" ");
+  if (!str) return "";
+
+  return str[0]?.toUpperCase() + str.slice(1);
 }
 
 export function getInstagramUsername(url?: string) {
