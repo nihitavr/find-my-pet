@@ -64,3 +64,33 @@ input[type="file"] {
     --ring: 20.5 90.2% 48.2%;
   }
 }
+
+.logo {
+  position: relative;
+  height: 3rem; /* Adjust based on your logo size */
+  width: max-content;
+}
+
+.logo-initial,
+.logo-scrolled {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+}
+
+.logo-initial {
+  @apply flex-col;
+}
+
+.logo-scrolled {
+  @apply flex-row;
+}
+
+.show {
+  opacity: 1;
+  transform: scale(1);
+}
