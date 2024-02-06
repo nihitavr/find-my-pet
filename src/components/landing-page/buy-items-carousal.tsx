@@ -3,7 +3,7 @@
 import { Card, CardContent } from "~/components/ui/card";
 import {
   Carousel,
-  CarouselApi,
+  type CarouselApi,
   CarouselContent,
   CarouselItem,
 } from "~/components/ui/carousel";

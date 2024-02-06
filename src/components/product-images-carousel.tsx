@@ -13,7 +13,7 @@ import Image from "next/image";
 import { cn } from "~/lib/utils";
 import Autoplay from "embla-carousel-autoplay";
 
-export default function PhotoCasousel({
+export default function ProductImageCasousel({
   images,
   defaultImage = "",
   className,
@@ -59,32 +59,28 @@ export default function PhotoCasousel({
     >
       <CarouselContent>
         {images.map((imageUrl, index) => (
-          <CarouselItem key={index}>
-            <div>
-              <Card className="rounded-xl">
-                <CardContent className={cn("relative w-full", className)}>
-                  <Image
-                    src={imageUrl ? imageUrl : defaultImage}
-                    alt="Profile Image"
-                    fill
-                    style={{ objectFit: "cover" }}
-                    className={cn("rounded-xl", imageClassName)}
-                    loading="lazy"
-                  />
-                </CardContent>
-              </Card>
-            </div>
+          <CarouselItem className={cn("relative", className)} key={index}>
+            <Image
+              src={imageUrl ? imageUrl : defaultImage}
+              alt="Profile Image"
+              fill
+              style={{ objectFit: "contain" }}
+              className={cn(imageClassName)}
+              loading="lazy"
+            />
           </CarouselItem>
         ))}
       </CarouselContent>
 
-      <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 gap-2">
+      <div className="flex h-8 items-center justify-center gap-2">
         {images.length > 1 &&
           images.map((_, idx) => {
             return (
               <div
                 className={`h-2 w-2 rounded-full ${
-                  idx + 1 === current ? "bg-primary" : "bg-gray-300"
+                  idx + 1 === current
+                    ? "bg-primary"
+                    : "border border-gray-400 bg-gray-300"
                 }`}
                 key={idx}
               />

@@ -106,6 +106,25 @@ model ScanHistory {
   petTag      PetTag   @relation(fields: [petTagId], references: [id])
 }
 
+model Product {
+  id              String   @id @default(cuid())
+  parentProductId String? // Nullable. If null, this product is a standalone or a parent product. If not, it's a variant of the product with this ID.
+  name            String
+  description     String
+  price           Float
+  discount        Float    @default(0)
+  images          String[]
+  attributes      Json? // JSON field to store variant-specific attributes like size, color, etc.
+
+  parentProduct Product?  @relation("ProductToProductParent", fields: [parentProductId], references: [id]) // Relation to itself (parent product).
+  variants      Product[] @relation("ProductToProductParent") // Relation to itself (variants of the product).
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@index([parentProductId], name: "parentProductId_idx")
+}
+
 enum UserRole {
   user
   admin
