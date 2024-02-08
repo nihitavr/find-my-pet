@@ -2,6 +2,7 @@ import Link from "next/link";
 import BuyItemsCarousal from "./buy-items-carousal";
 import { Button } from "../ui/button";
 import { ArrowUpRight } from "lucide-react";
+import { api } from "~/lib/trpc/server";
 
 const productInfos = [
   {
@@ -47,7 +48,9 @@ const productInfos = [
     discount: 20,
   },
 ];
-export default function OurCollectionSection() {
+export default async function OurCollectionSection() {
+  let petTagProducts = await api.product.getAllPetTags.query();
+
   return (
     <div className="justify flex flex-col items-center gap-5 p-5 md:gap-10 md:px-28 md:pb-10 md:pt-5">
       {/* Buy Now */}
@@ -55,7 +58,7 @@ export default function OurCollectionSection() {
       <BuyItemsCarousal
         className="h-full w-full"
         imageClassName="border-[0.6px] aspect-square rounded-2xl"
-        productInfos={productInfos}
+        productInfos={petTagProducts}
       />
       <Link href={"/collections/pet-tags"}>
         <Button className="w-full text-xl font-normal">View All</Button>
