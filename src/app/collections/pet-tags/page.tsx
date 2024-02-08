@@ -5,7 +5,7 @@ import { getDiscountedPrice } from "~/lib/utils";
 
 export default async function PetTagCollections() {
   let petTagProducts = await api.product.getAllPetTags.query();
-  petTagProducts = [...petTagProducts, ...petTagProducts, ...petTagProducts];
+
   return (
     <div className="px-3 py-4">
       <h1 className="text-xl font-semibold">Pet Tag Collections</h1>

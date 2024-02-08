@@ -11,19 +11,14 @@ import Image from "next/image";
 import { use, useEffect, useRef, useState } from "react";
 import { cn, getDiscountedPrice } from "~/lib/utils";
 import Link from "next/link";
+import { Product } from "@prisma/client";
 
 export default function BuyItemsCarousal({
   productInfos,
   className,
   imageClassName,
 }: {
-  productInfos: {
-    id: string;
-    name: string;
-    image: string;
-    price: number;
-    discount: number;
-  }[];
+  productInfos: Product[];
   className: string;
   imageClassName?: string;
 }) {
@@ -70,7 +65,7 @@ export default function BuyItemsCarousal({
                 <Image
                   fill
                   style={{ objectFit: "contain" }}
-                  src={product.image}
+                  src={product.images[0]!}
                   alt={`${product.name} image`}
                   className={cn("h-full w-full", imageClassName)}
                 />
