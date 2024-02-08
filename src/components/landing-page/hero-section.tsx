@@ -1,77 +1,54 @@
 import React from "react";
-import { Button } from "../ui/button";
-import PhotoCasousel from "../photo-carousel";
-import BuyItemsCarousal from "./buy-items-carousal";
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-
-const shopItemsPrefixes = ["bruni", "mini", "hope", "mars", "mush", "simba"];
+import Image from "next/image";
+import { getNRandomCuteImage } from "~/lib/utils";
 
 export default async function HeroSection() {
   return (
-    <div className="justify flex flex-col-reverse items-center gap-5 p-5 pb-8 md:flex-row md:gap-10 md:px-28 md:py-16">
+    <div className="justify relative flex flex-col-reverse items-center gap-2 p-5 md:flex-row md:gap-10 md:px-28 md:pb-5 md:pt-10">
       {/* Left Text */}
       <div className="flex w-full flex-1 flex-col justify-center gap-3 md:gap-6">
-        <span className="text-[1.7rem] font-semibold leading-8 md:text-4xl lg:text-5xl">
-          {/* Scan & Reunite */}
-          {/* Lost Pet? Scan Our QR Collar Tag for Instant Contact! */}
-          Lost Pet? Scan our{" "}
-          <span className="text-primary">QR collar tag </span> for Instant Pet
-          Parent info!
+        <span className="text-center text-4xl font-semibold leading-8 text-primary md:text-6xl lg:text-7xl">
+          Lost Pet?
         </span>
-        <span className="text-foreground/90">
-          Ensure pet safety with our{" "}
-          <span className="font-semibold">durable, laser-etched</span> QR collar
-          tag, crafted from fine, scratch-resistant metal. A quick scan reveals
-          your <span className="font-semibold">pet&apos;s profile</span> and{" "}
-          <span className="font-semibold">contact info</span>, along with{" "}
-          <span className="font-semibold">location updates</span> and{" "}
-          <span className="font-semibold">alerts</span> on scan.
-          {/* Our QR collar tag
-          not only complements your pet's personality but also helps you find
-          your <span className="font-semibold">lost pet.</span> When someone
-          scans the pet tag, their{" "}
-          <span className="font-semibold">location is recorded</span> and they
-          can access your pet&apos;s profile to{" "}
-          <span className="font-semibold">contact you immediately.</span> */}
-          {/* Purchase our{" "}
-          <span className="font-semibold">QR Collar Tag</span> and create a{" "}
-          <span className="font-semibold">pet profile.</span> When someone scans
-          your <span className="font-semibold">lost</span> pet&apos;s tag, their{" "}
-          <span className="font-semibold">location is recorded</span> and they
-          can access your pet&apos;s profile to contact you immediately. */}
+        <span className="text-center text-2xl font-semibold text-foreground md:text-3xl lg:text-4xl">
+          Introducing QR Pet tags
         </span>
-
-        {/* Buy Now */}
-        <div className="">
-          <span className="pl-1 font-semibold">Our Products</span>
-          <BuyItemsCarousal
-            className=" w-full"
-            shopItemsPrefixes={shopItemsPrefixes}
-          />
-        </div>
-        <div>
-          <div className="text-xs">
-            This will open a <span className="font-semibold">Google Form</span>{" "}
-            for checkout.*
-          </div>
-          <Link href={"https://forms.gle/uQedFpbeEBM2m4NEA"} target="_blank">
-            <Button className="w-full">
-              Buy Now <ArrowUpRight />
-            </Button>
-          </Link>
-        </div>
+        <span className="text-foreground/90 text-center">
+          Our QR pet tags are durable, scratch-resistant and gives instant
+          <span className="font-semibold"> owner contact info</span> &{" "}
+          <span className="font-semibold"> location alerts</span> on QR code
+          scan.
+        </span>
       </div>
 
       {/* Hero Image */}
-      <div className="relative flex aspect-[6/5] w-full flex-1 flex-shrink-0 justify-end">
-        <PhotoCasousel
-          images={["/dog-with-pet-collar.jpg", "/cat-with-pet-collar.jpg"]}
-          className="aspect-[6/5] w-full"
-          imageClassName="rounded-xl"
-          defaultImage="/dog-with-pet-collar.jpg"
-          autoplay={true}
-        />
+      <div className="relative flex w-full flex-col items-center gap-2 md:w-1/2">
+        <div className="flex items-center justify-center gap-2">
+          <Image
+            src="/hero-image-tagline-support-image.png"
+            width={30}
+            height={30}
+            alt="tagline support image"
+          />
+          <span className="font-semibold md:text-2xl">
+            Safe Paws, Happy Hearts!
+          </span>
+          <Image
+            src="/hero-image-tagline-support-image.png"
+            width={30}
+            height={30}
+            alt="tagline support image"
+            className="rotate-180"
+          />
+        </div>
+        <div className="relative flex aspect-[7/5] w-full flex-1 flex-shrink-0 justify-end rounded-3xl">
+          <Image
+            fill
+            style={{ objectFit: "contain" }}
+            src={"/hero-image-dog-cat.png"}
+            alt="image of cat and dog"
+          />
+        </div>
       </div>
     </div>
   );
