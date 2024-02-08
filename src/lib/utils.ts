@@ -61,3 +61,28 @@ export function isValidCuid(cuid: string) {
 
   return true;
 }
+
+export function getDiscountedPrice(price: number, discount: number) {
+  return Math.round((price * (100 - discount)) / 100);
+}
+
+export function getNRandomCuteImage() {
+  const images = ["/paw.svg", "/stars.svg", "/bowtie.svg"];
+  const randomImages = [];
+  // Random number between 4-6
+  const n = Math.floor(Math.random() * 3) + 4;
+
+  // loop n
+  for (let i = 0; i < n; i++) {
+    const m = Math.floor(Math.random() * 3);
+
+    randomImages.push({
+      src: images[m],
+      alt: "cute image",
+      top: `${Math.floor(Math.random() * 100)}%`,
+      left: `${Math.floor(Math.random() * 100)}%`,
+    });
+  }
+
+  return randomImages;
+}

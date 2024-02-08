@@ -16,4 +16,11 @@ export const productRouter = createTRPCRouter({
         },
       });
     }),
+  getAllPetTags: publicProcedure.query(async ({ ctx }) => {
+    return ctx.db.product.findMany({
+      include: {
+        variants: true,
+      },
+    });
+  }),
 });

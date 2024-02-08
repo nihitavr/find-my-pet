@@ -21,7 +21,7 @@ export default async function Product({
 
   return (
     <main className="flex flex-col gap-2 p-3 md:flex-row md:py-10">
-      <div className="w-">
+      <div className="w-full">
         <PhotoCasousel
           images={product.images}
           className="aspect-[6/5] w-full"

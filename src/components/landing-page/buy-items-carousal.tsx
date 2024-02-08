@@ -1,6 +1,5 @@
 "use client";
 
-import { Card, CardContent } from "~/components/ui/card";
 import {
   Carousel,
   type CarouselApi,
@@ -9,55 +8,105 @@ import {
 } from "~/components/ui/carousel";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
-import { cn } from "~/lib/utils";
+import { use, useEffect, useRef, useState } from "react";
+import { cn, getDiscountedPrice } from "~/lib/utils";
+import Link from "next/link";
 
 export default function BuyItemsCarousal({
-  shopItemsPrefixes,
+  productInfos,
   className,
+  imageClassName,
 }: {
-  shopItemsPrefixes: string[];
+  productInfos: {
+    id: string;
+    name: string;
+    image: string;
+    price: number;
+    discount: number;
+  }[];
   className: string;
+  imageClassName?: string;
 }) {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const itemOneImageRef = useRef<HTMLAnchorElement | null>(null);
+  const [navButtonHeightOffset, setNavButtonHeightOffset] = useState(0);
+
+  useEffect(() => {
+    if (itemOneImageRef.current) {
+      setNavButtonHeightOffset(itemOneImageRef.current.clientHeight / 2);
+    }
+  }, [itemOneImageRef.current]);
 
   return (
     <Carousel
-      className={cn("relative", className)}
       setApi={setCarouselApi}
-      opts={{ dragFree: true }}
+      className="relative h-full w-full"
+      opts={{
+        dragFree: true,
+      }}
     >
-      <CarouselContent className="">
-        {shopItemsPrefixes.map((petName, index) => (
-          <CarouselItem key={index} className="basis-1/2 md:basis-1/3 ">
-            <div className="p-1 ">
-              <Card className="rounded-xl">
-                <CardContent className="relative flex aspect-square items-center justify-center p-6 ">
-                  <Image
-                    fill
-                    style={{ objectFit: "cover" }}
-                    src={`/shop/${petName}-tag-front.jpg`}
-                    alt={`${petName} image`}
-                    className="rounded-xl"
-                  />
-                </CardContent>
-              </Card>
+      <CarouselContent
+        className={cn("-ml-1", className)}
+        onDrag={(e) => {
+          console.log("dragging");
+        }}
+      >
+        {productInfos.map((product, index) => (
+          <CarouselItem
+            key={index}
+            className={cn(
+              "h-full basis-1/2 items-center pl-2 md:basis-1/4 lg:basis-1/5",
+            )}
+          >
+            <div className="flex h-full w-full flex-col gap-3 p-1">
+              <Link
+                href={`/product/${product.id}`}
+                ref={index == 0 ? itemOneImageRef : undefined}
+                className={cn(
+                  "relative h-full w-full hover:scale-105 hover:cursor-pointer",
+                  imageClassName,
+                )}
+              >
+                <Image
+                  fill
+                  style={{ objectFit: "contain" }}
+                  src={product.image}
+                  alt={`${product.name} image`}
+                  className={cn("h-full w-full", imageClassName)}
+                />
+              </Link>
+              <div>
+                <span className="break-words font-semibold">
+                  {product.name}
+                </span>
+                <div className="text-foreground/90 flex items-center gap-3">
+                  <span className="line-through">&#8377; {product.price}</span>
+                  <span className="text-primary">
+                    &#8377;{" "}
+                    {getDiscountedPrice(product.price, product.discount)}
+                  </span>
+                </div>
+              </div>
             </div>
           </CarouselItem>
         ))}
       </CarouselContent>
       <div
         onClick={() => carouselApi?.scrollPrev()}
+        style={{ top: navButtonHeightOffset }}
         className={cn(
-          "absolute top-1/2 ml-1 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-lg border bg-gray-200 hover:bg-gray-100",
+          "absolute ml-1 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-lg border bg-gray-200 hover:bg-gray-100",
+          navButtonHeightOffset ? "" : "hidden",
         )}
       >
         <ChevronLeft />
       </div>
       <div
         onClick={() => carouselApi?.scrollNext()}
+        style={{ top: navButtonHeightOffset }}
         className={cn(
-          "absolute right-0 top-1/2 mr-1 flex h-8 w-8 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-lg border bg-gray-200 hover:bg-gray-100",
+          "absolute right-0 mr-1 flex h-8 w-8 -translate-y-1/2 translate-x-1/2 cursor-pointer items-center justify-center rounded-lg border bg-gray-200 hover:bg-gray-100",
+          navButtonHeightOffset ? "" : "hidden",
         )}
       >
         <ChevronRight />
