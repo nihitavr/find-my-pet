@@ -8,8 +8,8 @@ export default async function PawsomeProfilesSection() {
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-4">
-        <div className="px-5">
-          <div className="relative h-96">
+        <div className="w-full px-5 md:px-0 md:pl-5">
+          <div className="relative h-96 w-full">
             <Image
               fill
               src={"/pawsome-profiles-image-1.png"}
@@ -18,7 +18,7 @@ export default async function PawsomeProfilesSection() {
             />
           </div>
         </div>
-        <div className="-mt-24 px-5 md:mt-0 md:-translate-x-20 md:-rotate-[3deg]">
+        <div className="-mt-24 px-5 md:mt-0 md:px-0 md:pr-5">
           <div className="relative h-96 w-full">
             <Image
               fill
@@ -28,17 +28,17 @@ export default async function PawsomeProfilesSection() {
             />
           </div>
         </div>
-        <div className="-mt-24 px-5 md:mt-6 md:translate-x-28 md:rotate-12">
+        <div className="-mt-24 px-5 md:mt-0 md:px-0 md:pl-5">
           <div className="relative h-96 w-full">
             <Image
               fill
               src={"/pawsome-profiles-image-3.png"}
               alt="pawsome profiles image 1"
-              className="max-h-min max-w-min object-contain"
+              className="max-w-min object-contain"
             />
           </div>
         </div>
-        <div className="-mt-24 px-5 md:mt-6 md:translate-x-28 md:rotate-12">
+        <div className="-mt-24 px-5 md:mt-0 md:px-0 md:pr-5">
           <div className="relative h-96 w-full">
             <Image
               fill

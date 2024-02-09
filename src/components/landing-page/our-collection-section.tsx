@@ -12,6 +12,7 @@ export default async function OurCollectionSection() {
       <h1 className="text-3xl font-semibold md:text-4xl">Our Collections</h1>
       <BuyItemsCarousal
         className="h-full w-full"
+        // imageClassName="shadow aspect-square rounded-2xl"
         imageClassName="border-[0.6px] aspect-square rounded-2xl"
         productInfos={petTagProducts}
       />
