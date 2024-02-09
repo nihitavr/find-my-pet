@@ -9,7 +9,7 @@ export default async function HowToGetStarted() {
       </h1>
       <div className="grid grid-cols-1 pt-7 md:grid-cols-5">
         <div className="flex items-center gap-2 md:flex-col">
-          <div className="relative h-60 w-60">
+          <div className="relative h-72 w-72 md:h-96 md:w-96">
             <Image
               fill
               src={"/how-to-get-started-1.svg"}
@@ -27,7 +27,7 @@ export default async function HowToGetStarted() {
           />
         </div>
         <div className="flex items-center gap-2 md:flex-col">
-          <div className="relative h-60 w-60">
+          <div className="relative h-72 w-72 md:h-96 md:w-96">
             <Image
               fill
               src={"/how-to-get-started-2.svg"}
@@ -45,7 +45,7 @@ export default async function HowToGetStarted() {
           />
         </div>
         <div className="flex items-center gap-2 md:flex-col">
-          <div className="relative h-60 w-60">
+          <div className="relative h-72 w-72 md:h-96 md:w-96">
             <Image
               fill
               src={"/how-to-get-started-3.svg"}
