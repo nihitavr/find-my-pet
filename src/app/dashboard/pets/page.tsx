@@ -43,15 +43,13 @@ export default async function Pets() {
             <div className="flex items-center justify-center gap-3">
               <Link
                 className="flex items-center text-sm "
-                target="_blank"
                 href={`/user/${session?.user.id}/pets`}
               >
                 <Button
                   className="flex items-center justify-center gap-1"
                   variant="outline"
                 >
-                  <span>View Pets</span>{" "}
-                  <ArrowUpRight strokeWidth={2.5} className="h-4 w-4" />
+                  <span>View Pets</span>
                 </Button>
               </Link>
 
@@ -92,10 +90,9 @@ export default async function Pets() {
               <TableCell className="font-medium">
                 <Link
                   href={`/pet/${pet.id}`}
-                  target="_blank"
                   className="flex items-center justify-start text-sm text-blue-700 hover:underline"
                 >
-                  <span>{pet.name}</span> <ArrowUpRight size={15} />
+                  <span>{pet.name}</span>
                 </Link>
               </TableCell>
               <TableCell>
