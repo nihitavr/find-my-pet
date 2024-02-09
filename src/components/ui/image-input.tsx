@@ -121,6 +121,8 @@ export function ImageInput({
             field.onChange([...field.value, ...imageUrls]);
             form.clearErrors(field.name);
             e.target.value = "";
+          } else {
+            field.onChange([...field.value]);
           }
         }}
       />

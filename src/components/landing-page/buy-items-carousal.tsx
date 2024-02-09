@@ -8,10 +8,10 @@ import {
 } from "~/components/ui/carousel";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn, getDiscountedPrice } from "~/lib/utils";
 import Link from "next/link";
-import { Product } from "@prisma/client";
+import { type Product } from "@prisma/client";
 
 export default function BuyItemsCarousal({
   productInfos,
@@ -74,7 +74,7 @@ export default function BuyItemsCarousal({
                 <span className="break-words font-semibold">
                   {product.name}
                 </span>
-                <div className="text-foreground/90 flex items-center gap-3">
+                <div className="flex items-center gap-3 text-foreground/90">
                   <span className="line-through">&#8377; {product.price}</span>
                   <span className="text-primary">
                     &#8377;{" "}

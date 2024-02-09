@@ -18,13 +18,16 @@ import {
 import { Label } from "~/components/ui/label";
 import { Download } from "lucide-react";
 import { type PetTag } from "@prisma/client";
+import Loader from "../ui/loader";
 
 export default function MultipleQrCodeGenerator() {
   const tableRef = useRef<any>();
 
-  const [qrCount, setQrCount] = useState(5);
+  const [qrCount, setQrCount] = useState(1);
   const [qrUrl, setQrUrl] = useState("");
   const [qrLevel, setQrLevel] = useState("m");
+
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const [petTags, setPetTags] = useState<(PetTag & { qrUrl: string })[]>([]);
   const generateQrCodes = api.admin.generatePetTagIds.useMutation();
@@ -55,9 +58,11 @@ export default function MultipleQrCodeGenerator() {
     if (qrUrl) {
       petTags = [{ registrationCode: "123456" }];
     } else {
+      setIsGenerating(true);
       petTags = await generateQrCodes.mutateAsync({
         qrCount,
       });
+      setIsGenerating(false);
     }
     setPetTags(petTags as (PetTag & { qrUrl: string })[]);
   };
@@ -71,8 +76,9 @@ export default function MultipleQrCodeGenerator() {
           <Input
             disabled={!!qrUrl}
             type="number"
+            min={1}
             value={qrCount}
-            onChange={(event) => setQrCount(+event.target.value)}
+            onChange={(event) => setQrCount(parseInt(event.target.value, 10))}
           />
         </div>
         <div className="w-full">
@@ -97,8 +103,15 @@ export default function MultipleQrCodeGenerator() {
             <span className="font-semibold">{qrUrl ? 1 : qrCount}</span> QR
             codes.
           </span>
-          <Button className="!w-72" onClick={onClickGenerate}>
-            Generate
+          <Button
+            disabled={!qrCount || isGenerating ? true : false}
+            className="flex !w-72 items-center justify-center gap-2"
+            onClick={onClickGenerate}
+          >
+            <span>Generate</span>
+            <div className={`${isGenerating ? "inline" : "hidden"}`}>
+              <Loader className="h-5 w-5 border-2" show={isGenerating} />
+            </div>
           </Button>
         </div>
       </div>
@@ -110,7 +123,7 @@ export default function MultipleQrCodeGenerator() {
             <TableRow className="grid grid-cols-11">
               <TableHead className="col-span-1"></TableHead>
               <TableHead className="col-span-2">QR Code Id</TableHead>
-              <TableHead className="col-span-4">QR Url</TableHead>
+              <TableHead className="col-span-4">Download Url</TableHead>
               <TableHead className="col-span-3">QR SVG</TableHead>
               <TableHead className="col-span-1">Download</TableHead>
             </TableRow>
@@ -121,7 +134,7 @@ export default function MultipleQrCodeGenerator() {
                 <TableCell className="col-span-1">{idx + 1}</TableCell>
                 <TableCell className="col-span-2">{petTag.qrCodeId}</TableCell>
                 <TableCell className="col-span-4 break-words">
-                  <span>{`https://findmypet.in/pt/${petTag.qrCodeId}`}</span>
+                  <span>{`https://findmypet.in/pt/${petTag.qrCodeId}/qr-code`}</span>
                 </TableCell>
                 <TableCell className="col-span-3">
                   <QRCodeSVG
