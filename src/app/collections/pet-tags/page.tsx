@@ -25,12 +25,14 @@ export default async function PetTagCollections() {
               />
             </div>
             <div className="flex flex-col gap-1">
-              <span className="font-semibold">{petTagProduct.name}</span>
+              <span className="text-xs font-semibold">
+                {petTagProduct.name}
+              </span>
               <div className="flex items-center gap-3 text-foreground/90">
                 <span className="line-through">
                   &#8377; {petTagProduct.price}
                 </span>
-                <span className="text-primary">
+                <span className="font-semibold text-primary">
                   &#8377;{" "}
                   {getDiscountedPrice(
                     petTagProduct.price,

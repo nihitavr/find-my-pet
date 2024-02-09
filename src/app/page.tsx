@@ -1,8 +1,8 @@
 import HeroSection from "../components/landing-page/hero-section";
-import HowItWorks from "../components/landing-page/steps-to-pet-security-section";
 import Features from "../components/landing-page/features-section";
 import OurCollectionSection from "~/components/landing-page/our-collection-section";
 import PawsomeProfilesSection from "~/components/landing-page/pawsome-profiles-section";
+import HowToGetStarted from "~/components/landing-page/how-to-get-started";
 
 export default async function Home() {
   return (
@@ -10,7 +10,7 @@ export default async function Home() {
       <HeroSection />
       <OurCollectionSection />
       <PawsomeProfilesSection />
-      <HowItWorks />
+      <HowToGetStarted />
       <Features />
     </main>
   );

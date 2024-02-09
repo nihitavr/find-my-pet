@@ -14,7 +14,7 @@ export default async function HeroSection() {
         </span>
         <span className="text-center text-foreground/90">
           Our QR pet tags are durable, scratch-resistant and gives instant
-          <span className="font-semibold"> owner contact info</span> &{" "}
+          <span className="font-semibold"> pet parent contact info</span> &{" "}
           <span className="font-semibold"> location alerts</span> on QR code
           scan.
         </span>
