@@ -2,10 +2,13 @@ import Image from "next/image";
 
 export default async function PawsomeProfilesSection() {
   return (
-    <div className="p-5 md:px-28 md:pb-10">
+    <div className="p-5 py-10 md:px-28">
       <h1 className="text-center text-3xl font-semibold md:text-4xl">
         Pawsome Pet Profiles
       </h1>
+      <div className="pt-1 text-center text-lg text-primary">
+        Pawsome profiles for your awesome pets.
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 md:pt-5">
         <div className="w-full px-5 md:translate-x-5 md:px-0">
