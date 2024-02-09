@@ -7,7 +7,7 @@ export default async function OurCollectionSection() {
   const petTagProducts = await api.product.getAllPetTags.query();
 
   return (
-    <div className="justify flex flex-col items-center gap-5 p-5 md:gap-10 md:px-28 md:pb-10">
+    <div className="justify flex flex-col items-center gap-5 bg-slate-50 p-5 py-10 md:gap-10 md:px-28">
       {/* Buy Now */}
       <h1 className="text-3xl font-semibold md:text-4xl">Our Collections</h1>
       <BuyItemsCarousal
