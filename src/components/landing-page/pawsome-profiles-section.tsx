@@ -7,7 +7,7 @@ export default async function PawsomeProfilesSection() {
         Pawsome Pet Profiles
       </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 md:pt-5">
         <div className="w-full px-5 md:translate-x-5 md:px-0">
           <div className="relative h-96 w-full">
             <Image
@@ -23,7 +23,7 @@ export default async function PawsomeProfilesSection() {
             <Image
               fill
               src={"/pawsome-profiles-image-2.png"}
-              alt="pawsome profiles image 1"
+              alt="pawsome profiles image 2"
               className="max-w-min object-contain"
             />
           </div>
@@ -33,7 +33,7 @@ export default async function PawsomeProfilesSection() {
             <Image
               fill
               src={"/pawsome-profiles-image-3.png"}
-              alt="pawsome profiles image 1"
+              alt="pawsome profiles image 3"
               className="max-w-min object-contain"
             />
           </div>
@@ -43,7 +43,7 @@ export default async function PawsomeProfilesSection() {
             <Image
               fill
               src={"/pawsome-profiles-image-4.png"}
-              alt="pawsome profiles image 1"
+              alt="pawsome profiles image 4"
               className="max-w-min object-contain"
             />
           </div>
