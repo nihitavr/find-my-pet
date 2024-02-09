@@ -71,10 +71,10 @@ export default function BuyItemsCarousal({
                 />
               </Link>
               <div>
-                <span className="break-words font-semibold">
+                <span className="break-words text-sm font-semibold">
                   {product.name}
                 </span>
-                <div className="flex items-center gap-3 text-foreground/90">
+                <div className="flex items-center gap-3 font-semibold text-foreground/90">
                   <span className="line-through">&#8377; {product.price}</span>
                   <span className="text-primary">
                     &#8377;{" "}
