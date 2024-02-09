@@ -4,7 +4,7 @@ import { api } from "~/lib/trpc/server";
 import { getDiscountedPrice } from "~/lib/utils";
 
 export default async function PetTagCollections() {
-  let petTagProducts = await api.product.getAllPetTags.query();
+  const petTagProducts = await api.product.getAllPetTags.query();
 
   return (
     <div className="px-3 py-4">
@@ -26,7 +26,7 @@ export default async function PetTagCollections() {
             </div>
             <div className="flex flex-col gap-1">
               <span className="font-semibold">{petTagProduct.name}</span>
-              <div className="text-foreground/90 flex items-center gap-3">
+              <div className="flex items-center gap-3 text-foreground/90">
                 <span className="line-through">
                   &#8377; {petTagProduct.price}
                 </span>

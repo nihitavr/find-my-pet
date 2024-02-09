@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import { getNRandomCuteImage } from "~/lib/utils";
 
 export default async function HeroSection() {
   return (
@@ -13,7 +12,7 @@ export default async function HeroSection() {
         <span className="text-center text-2xl font-semibold text-foreground md:text-3xl lg:text-4xl">
           Introducing QR Pet tags
         </span>
-        <span className="text-foreground/90 text-center">
+        <span className="text-center text-foreground/90">
           Our QR pet tags are durable, scratch-resistant and gives instant
           <span className="font-semibold"> owner contact info</span> &{" "}
           <span className="font-semibold"> location alerts</span> on QR code

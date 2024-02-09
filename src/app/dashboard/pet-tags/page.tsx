@@ -51,10 +51,9 @@ export default async function PetTags() {
               <TableCell className="text-right">
                 <Link
                   href={`/pt/${petTag.qrCodeId}?recordLocation=false`}
-                  target="_blank"
                   className="flex items-center justify-start text-sm text-blue-700 hover:underline"
                 >
-                  <span>View</span> <ArrowUpRight size={15} />
+                  <span>View</span>
                 </Link>
               </TableCell>
               <TableCell>

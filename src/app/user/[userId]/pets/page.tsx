@@ -25,7 +25,7 @@ export default async function PetsListView({
           {pets.length ? (
             pets?.map((pet, idx) => (
               <Link href={`/pet/${pet.id}`} key={idx}>
-                <div className="relative flex h-72 flex-col items-center">
+                <div className="relative flex aspect-square flex-col items-center">
                   <Image
                     fill
                     style={{ objectFit: "cover" }}
@@ -39,7 +39,7 @@ export default async function PetsListView({
                     }
                     alt="pet profile"
                   />
-                  <div className="bg-secondary/60 absolute bottom-3 mt-2 flex flex-col items-center rounded-lg p-3 py-1 text-center">
+                  <div className="absolute bottom-3 mt-2 flex flex-col items-center rounded-lg bg-secondary/60 p-3 py-1 text-center">
                     <div className="text-sm font-semibold">
                       {titleCase(pet.name)}
                     </div>
