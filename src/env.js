@@ -41,7 +41,7 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
-    NEXT_PUBLIC_SERVER_URL: process.env.SERVER_URL?.replace(/\/$/, ""),
+    NEXT_PUBLIC_SERVER_URL: process.env.NEXT_PUBLIC_SERVER_URL?.replace(/\/$/, ""),
     SERVER_URL: process.env.SERVER_URL?.replace(/\/$/, ""),
     NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,

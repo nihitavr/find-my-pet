@@ -14,7 +14,6 @@ export default function PetTagQrCode() {
   const qrLevel = searchParams.get("qrLevel");
 
   const url = `${env.NEXT_PUBLIC_SERVER_URL}/pt/${qrCodeId}`;
-  // const url = `${env.SERVER_URL}/pt/${qrCodeId}`;
 
   const svgContainerRef = useRef<any>();
 

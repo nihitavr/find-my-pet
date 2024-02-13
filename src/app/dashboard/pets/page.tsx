@@ -13,7 +13,7 @@ import { api } from "~/lib/trpc/server";
 import { getServerAuthSession } from "~/lib/auth";
 import { Share } from "~/components/ui/icons";
 import { env } from "~/env";
-import { ArrowUpRight, FileClock, PawPrint, Pencil } from "lucide-react";
+import { FileClock, PawPrint, Pencil } from "lucide-react";
 import { Share as ShareLucid } from "lucide-react";
 
 export default async function Pets() {
