@@ -2,6 +2,7 @@ import Link from "next/link";
 import BuyItemsCarousal from "./buy-items-carousal";
 import { Button } from "../ui/button";
 import { api } from "~/lib/trpc/server";
+import { ArrowUpRight } from "lucide-react";
 
 export default async function OurCollectionSection() {
   const petTagProducts = await api.product.getAllPetTags.query();
@@ -18,9 +19,20 @@ export default async function OurCollectionSection() {
         imageClassName="border-[0.6px] aspect-square rounded-2xl"
         productInfos={petTagProducts}
       />
-      <Link href={"/collections/pet-tags"}>
+      {/* <Link href={"/collections/pet-tags"}>
         <Button className="w-full text-xl font-normal">View All</Button>
-      </Link>
+      </Link> */}
+      <div>
+        <div className="text-xs">
+          This will open a <span className="font-semibold">Google Form</span>{" "}
+          for checkout.*
+        </div>
+        <a href={"https://forms.gle/uQedFpbeEBM2m4NEA"} target="_blank">
+          <Button className="w-full">
+            Buy Now <ArrowUpRight />
+          </Button>
+        </a>
+      </div>{" "}
     </div>
   );
 }
