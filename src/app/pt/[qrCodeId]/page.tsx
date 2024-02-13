@@ -10,8 +10,10 @@ import { api } from "~/lib/trpc/server";
 
 export default async function PetTag({
   params,
+  searchParams,
 }: {
   params: { qrCodeId: string };
+  searchParams: { recordLocation?: string };
 }) {
   const auth = await getServerAuthSession();
   const petTag = await api.petTag.getPetTag.query({
@@ -22,7 +24,7 @@ export default async function PetTag({
 
   if (!petTag.petId) {
     return (
-      <div className="bg-primary/90 flex h-[85vh] w-full flex-col items-center justify-start">
+      <div className="flex h-[85vh] w-full flex-col items-center justify-start bg-primary/90">
         <div className="relative h-96 w-full">
           <Image
             fill
@@ -73,6 +75,11 @@ export default async function PetTag({
   const user = await api.user.getUser.query({ id: petTag.userId! });
 
   return (
-    <PetProfile id={petTag.petId} user={user} qrCodeId={petTag.qrCodeId} />
+    <PetProfile
+      id={petTag.petId}
+      user={user}
+      qrCodeId={petTag.qrCodeId}
+      recordLocation={searchParams.recordLocation != "false"}
+    />
   );
 }

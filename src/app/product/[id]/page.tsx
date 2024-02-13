@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import PhotoCasousel from "~/components/product-images-carousel";
 import { Button } from "~/components/ui/button";
 import NotFound from "~/components/ui/errors/not-found";
@@ -39,11 +40,23 @@ export default async function Product({
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
+        {/* <div className="flex flex-col gap-2">
           <Button className="md:w-52" variant="outline">
             Add to cart
           </Button>
           <Button className="md:w-52">Buy Now</Button>
+        </div> */}
+
+        <div>
+          <div className="text-xs">
+            This will open a <span className="font-semibold">Google Form</span>{" "}
+            for checkout.*
+          </div>
+          <a href={"https://forms.gle/uQedFpbeEBM2m4NEA"} target="_blank">
+            <Button className="w-full">
+              Buy Now <ArrowUpRight />
+            </Button>
+          </a>
         </div>
       </div>
     </main>

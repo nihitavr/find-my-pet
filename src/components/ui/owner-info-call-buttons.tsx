@@ -20,10 +20,12 @@ export default function OwnerInfoButtons({
   phoneNumber,
   petId,
   qrCodeId,
+  recordLocation,
 }: {
   phoneNumber?: string;
   petId: string;
   qrCodeId: string;
+  recordLocation?: boolean;
 }) {
   const [whatsappLink, setWhatsappLink] = useState<string>("");
   const [fetchingGeoLocation, setFetchingGeoLocation] =
@@ -46,7 +48,7 @@ export default function OwnerInfoButtons({
             `${WHATSAPP_URL}${phoneNumber}?text=Hi, I found your pet! I am currently at this location. %0A%0Ahttps://www.google.com/maps/search/${latitude},${longitude}`,
           );
 
-          if (searchParams.get("recordLocation") != "false") {
+          if (recordLocation) {
             petTagMutate.mutate({
               petId,
               qrCodeId,

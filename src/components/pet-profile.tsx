@@ -6,6 +6,7 @@ import { getTimePassed, titleCase } from "~/lib/utils";
 import OwnerInfoButtons from "./ui/owner-info-call-buttons";
 import PhotoCasousel from "./photo-carousel";
 import { PetBehaviourTagsOptions } from "~/lib/constants";
+import { sendPetTagScanEmail } from "~/lib/mail";
 
 type Props = {
   id: string;
@@ -18,12 +19,21 @@ type Props = {
   recordLocation?: boolean;
 };
 
-export default async function PetProfile({ id, user, qrCodeId }: Props) {
+export default async function PetProfile({
+  id,
+  user,
+  qrCodeId,
+  recordLocation,
+}: Props) {
   const pet = await api.pet.getPet.query({ id });
 
   if (!pet) return <NotFound />;
 
   if (pet.profileImages.length === 0) pet.profileImages.push("");
+
+  if (user?.email && recordLocation) {
+    void sendPetTagScanEmail(user.email, user.name!, pet.name, pet.id);
+  }
 
   return (
     <div className="flex w-full flex-col items-center">
@@ -100,6 +110,7 @@ export default async function PetProfile({ id, user, qrCodeId }: Props) {
               phoneNumber={user.phoneNumber}
               petId={id}
               qrCodeId={qrCodeId!}
+              recordLocation={recordLocation}
             />
           )}
         </div>
