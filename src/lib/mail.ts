@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 import fs from "fs";
-import { SERVER_URL } from "./constants";
+import { env } from "~/env";
 
 // Create a transporter using Hostinger's SMTP server info
 const transporter = nodemailer.createTransport({
@@ -30,7 +30,7 @@ export async function sendPetTagScanEmail(
     .replace(/{Owner Name}/g, ownerName)
     .replace(
       /{Scan History Link}/g,
-      `${SERVER_URL}/dashboard/pets/${petId}/scan-history`,
+      `${env.SERVER_URL}/dashboard/pets/${petId}/scan-history`,
     );
 
   const mailOptions = {
