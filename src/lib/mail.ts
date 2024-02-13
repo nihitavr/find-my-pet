@@ -14,10 +14,10 @@ const transporter = nodemailer.createTransport({
 });
 
 // Read the email template from a file
-const emailTemplate = fs.readFileSync(
-  "public/fmp-pet-tag-scan-template.html",
-  "utf8",
-);
+// const emailTemplate = fs.readFileSync(
+//   "src/email-templates/fmp-pet-tag-scan-template.html",
+//   "utf8",
+// );
 
 export async function sendPetTagScanEmail(
   to: string,
@@ -25,19 +25,20 @@ export async function sendPetTagScanEmail(
   petName: string,
   petId: string,
 ) {
-  const emailTemplateCopy = emailTemplate
-    .replace(/{Pet Name}/g, petName)
-    .replace(/{Owner Name}/g, ownerName)
-    .replace(
-      /{Scan History Link}/g,
-      `${SERVER_URL}/dashboard/pets/${petId}/scan-history`,
-    );
+  // const emailTemplateCopy = emailTemplate
+  //   .replace(/{Pet Name}/g, petName)
+  //   .replace(/{Owner Name}/g, ownerName)
+  //   .replace(
+  //     /{Scan History Link}/g,
+  //     `${SERVER_URL}/dashboard/pets/${petId}/scan-history`,
+  //   );
 
   const mailOptions = {
     from: '"Find My Pet" <contact@findmypet.in>', // sender address
     to: to,
     subject: `Find My Pet - ${petName}'s pet tag scanned`, // Subject line
-    html: emailTemplateCopy, // HTML body content
+    // html: emailTemplateCopy, // HTML body content
+    html: "Pet Tag has been scanned", // HTML body content
   };
 
   try {

@@ -1,6 +1,7 @@
 import { nanoid } from "nanoid";
 import { z } from "zod";
 import { QR_CODE_ID_LENGTH } from "~/lib/constants";
+import { sendPetTagScanEmail } from "~/lib/mail";
 
 import {
   createTRPCRouter,
@@ -66,10 +67,24 @@ export const petTagRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const petTag = await ctx.db.petTag.findUnique({
         where: { qrCodeId: input.qrCodeId },
+        include: {
+          pet: true,
+          user: true,
+        },
       });
 
       if (!petTag) {
         return {};
+      }
+
+      // Send email to pet owner
+      if (petTag?.user?.email) {
+        void sendPetTagScanEmail(
+          petTag.user.email,
+          petTag.user.name!,
+          petTag.pet!.name,
+          petTag.pet!.id,
+        );
       }
 
       return ctx.db.scanHistory.create({

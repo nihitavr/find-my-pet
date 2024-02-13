@@ -12,9 +12,9 @@ import { Button } from "~/components/ui/button";
 import { api } from "~/lib/trpc/server";
 import { getServerAuthSession } from "~/lib/auth";
 import { Share } from "~/components/ui/icons";
-import { env } from "~/env";
-import { ArrowUpRight, FileClock, PawPrint, Pencil } from "lucide-react";
+import { FileClock, PawPrint, Pencil } from "lucide-react";
 import { Share as ShareLucid } from "lucide-react";
+import { SERVER_URL } from "~/lib/constants";
 
 export default async function Pets() {
   const session = await getServerAuthSession();
@@ -58,7 +58,7 @@ export default async function Pets() {
                 shareInfo={{
                   title: "My Pet Family",
                   text: `${session?.user.name}'s pet family!`,
-                  url: `${env.SERVER_URL}/user/${session?.user.id}/pets`,
+                  url: `${SERVER_URL}/user/${session?.user.id}/pets`,
                 }}
               >
                 <Button className="flex items-center justify-center gap-1">
