@@ -4,7 +4,7 @@ import { useParams, useSearchParams } from "next/navigation";
 import { QRCodeSVG } from "qrcode.react";
 import { useRef } from "react";
 import { Button } from "~/components/ui/button";
-import { env } from "~/env";
+import { SERVER_URL } from "~/lib/constants";
 
 export default function PetTagQrCode() {
   const params = useParams();
@@ -13,7 +13,7 @@ export default function PetTagQrCode() {
   const qrCodeId = params.qrCodeId as string;
   const qrLevel = searchParams.get("qrLevel");
 
-  const url = `${env.NEXT_PUBLIC_SERVER_URL}/pt/${qrCodeId}`;
+  const url = `${SERVER_URL}/pt/${qrCodeId}`;
 
   const svgContainerRef = useRef<any>();
 

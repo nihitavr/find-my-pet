@@ -1,5 +1,7 @@
 export const QR_CODE_ID_LENGTH = 12;
 
+export const SERVER_URL = "https://findmypet.in";
+
 export const WHATSAPP_URL = "https://wa.me/";
 
 export const DEFAULT_MAX_PET_PROFILE_IMAGES = 5;
