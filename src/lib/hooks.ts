@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
-const useMediaQuery = (query: string) => {
+export const useMediaQuery = (query: string) => {
   const [matches, setMatches] = useState(false);
 
   useEffect(() => {
@@ -16,4 +16,32 @@ const useMediaQuery = (query: string) => {
   return matches;
 };
 
-export default useMediaQuery;
+interface UseOnScreenOptions {
+  root?: Element | null;
+  rootMargin?: string;
+  threshold?: number | number[];
+}
+
+export const useOnScreen = (options: UseOnScreenOptions) => {
+  const ref = useRef<Element | null>(null);
+  const [isIntersecting, setIntersecting] = useState<boolean>(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry!.isIntersecting) {
+        setIntersecting(true);
+        observer.unobserve(entry!.target); // Stop observing after first intersection
+      }
+    }, options);
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [options]); // Dependency array includes options to re-initialize observer if options change
+
+  return [ref, isIntersecting] as const;
+};
