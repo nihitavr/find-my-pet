@@ -1,6 +1,8 @@
+import { env } from "~/env";
+
 export const QR_CODE_ID_LENGTH = 12;
 
-export const SERVER_URL = process.env.SERVER_URL;
+export const SERVER_URL = env.SERVER_URL;
 
 export const WHATSAPP_URL = "https://wa.me/";
 
