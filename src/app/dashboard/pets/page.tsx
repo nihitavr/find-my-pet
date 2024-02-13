@@ -58,7 +58,7 @@ export default async function Pets() {
                 shareInfo={{
                   title: "My Pet Family",
                   text: `${session?.user.name}'s pet family!`,
-                  url: `${env.SERVER_URL}/user/${session?.user.id}/pets`,
+                  url: `${env.NEXT_PUBLIC_SERVER_URL}/user/${session?.user.id}/pets`,
                 }}
               >
                 <Button className="flex items-center justify-center gap-1">
