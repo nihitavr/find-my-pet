@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
 
 // Read the email template from a file
 const emailTemplate = fs.readFileSync(
-  "public/fmp-pet-tag-scan-template.html",
+  "src/email-templates/fmp-pet-tag-scan-template.html",
   "utf8",
 );
 
