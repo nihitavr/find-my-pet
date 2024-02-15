@@ -9,7 +9,7 @@ import {
 } from "~/components/ui/table";
 import Link from "next/link";
 import { api } from "~/lib/trpc/server";
-import { ArrowUpRight, Pencil } from "lucide-react";
+import { Pencil } from "lucide-react";
 
 export default async function PetTags() {
   const petTags = await api.petTag.getPetTags.query();
@@ -25,7 +25,7 @@ export default async function PetTags() {
       <Table className="mt-3">
         <TableCaption>
           {petTags?.length
-            ? "A list of all qr collar tags."
+            ? "A list of all pet tags."
             : "No QR collar tags added yet. Scan the QR code on the collar tag to register your pet."}
         </TableCaption>
         <TableHeader>

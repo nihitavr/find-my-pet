@@ -42,12 +42,17 @@ export default async function Dashboard() {
       <div>
         <div className="flex w-full items-center justify-start gap-4 font-semibold">
           <span>Your Pets</span>
-          <Link href="/dashboard/pets">
-            <Pencil strokeWidth={3} size={18} />
-          </Link>
+          {pets.length > 0 && (
+            <Link href="/dashboard/pets">
+              <Pencil strokeWidth={3} size={18} />
+            </Link>
+          )}
           <div className="flex-grow">
             <Link className="float-right" href={"/dashboard/pets/add"}>
-              <Button className="flex items-center justify-center gap-1">
+              <Button
+                variant="secondary"
+                className="flex items-center justify-center gap-1"
+              >
                 Add Pet
                 <PawPrint strokeWidth={2.5} className="h-4 w-4" />
               </Button>
@@ -101,11 +106,11 @@ export default async function Dashboard() {
               );
             })
           ) : (
-            <span>
+            <div className="col-span-2 px-2 text-sm text-foreground/80">
               No pets added. Click{" "}
               <span className="font-semibold">Add Pet </span> to create a new
               pet.
-            </span>
+            </div>
           )}
         </div>
       </div>
