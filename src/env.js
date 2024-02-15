@@ -7,6 +7,7 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
+    SERVER_URL: z.string().url(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
@@ -23,6 +24,11 @@ export const env = createEnv({
     ),
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
+    SMPT_HOST: z.string(),
+    // @ts-expect-error This is js file where we dont want to check types.
+    SMPT_PORT: z.preprocess((str) => parseInt(str, 10), z.number()),
+    SMPT_USER: z.string(),
+    SMPT_PASS: z.string(),
   },
 
   /**
@@ -32,6 +38,7 @@ export const env = createEnv({
    */
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    NEXT_PUBLIC_SERVER_URL: z.string().url(),
   },
 
   /**
@@ -39,11 +46,17 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
+    SERVER_URL: process.env.SERVER_URL?.replace(/\/$/, ""),
+    NEXT_PUBLIC_SERVER_URL: process.env.SERVER_URL?.replace(/\/$/, ""),
     NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    SMPT_HOST: process.env.SMPT_HOST,
+    SMPT_PORT: process.env.SMPT_PORT,
+    SMPT_USER: process.env.SMPT_USER,
+    SMPT_PASS: process.env.SMPT_PASS,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

@@ -77,9 +77,9 @@ export const petTagRouter = createTRPCRouter({
         return {};
       }
 
-      // Send email to pet owner
+      // Send email to pet owner. This will await the email to be sent.
       if (petTag?.user?.email) {
-        void sendPetTagScanEmail(
+        await sendPetTagScanEmail(
           petTag.user.email,
           petTag.user.name!,
           petTag.pet!.name,

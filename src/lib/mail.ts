@@ -1,23 +1,17 @@
 import nodemailer from "nodemailer";
-import fs from "fs";
-import { SERVER_URL } from "./constants";
+import { emailTemplates } from "../email-templates/email-templates";
+import { env } from "~/env";
 
 // Create a transporter using Hostinger's SMTP server info
 const transporter = nodemailer.createTransport({
-  host: "smtp.hostinger.com", // Use the actual SMTP server host from Hostinger
-  port: 465, // Commonly used port for SMTP
+  host: env.SMPT_HOST,
+  port: env.SMPT_PORT,
   secure: true, // True for 465, false for other ports
   auth: {
-    user: "contact@findmypet.in", // Your full email address
-    pass: "Minimush.12", // Your email account password
+    user: env.SMPT_USER,
+    pass: env.SMPT_PASS,
   },
 });
-
-// Read the email template from a file
-// const emailTemplate = fs.readFileSync(
-//   "src/email-templates/fmp-pet-tag-scan-template.html",
-//   "utf8",
-// );
 
 export async function sendPetTagScanEmail(
   to: string,
@@ -25,20 +19,19 @@ export async function sendPetTagScanEmail(
   petName: string,
   petId: string,
 ) {
-  // const emailTemplateCopy = emailTemplate
-  //   .replace(/{Pet Name}/g, petName)
-  //   .replace(/{Owner Name}/g, ownerName)
-  //   .replace(
-  //     /{Scan History Link}/g,
-  //     `${SERVER_URL}/dashboard/pets/${petId}/scan-history`,
-  //   );
+  const emailTemplateCopy = emailTemplates.petTagScan
+    .replace(/{Pet Name}/g, petName)
+    .replace(/{Owner Name}/g, ownerName)
+    .replace(
+      /{Scan History Link}/g,
+      `${env.SERVER_URL}/dashboard/pets/${petId}/scan-history`,
+    );
 
   const mailOptions = {
-    from: '"Find My Pet" <contact@findmypet.in>', // sender address
+    from: `"Find My Pet" <${env.SMPT_USER}>`, // sender address
     to: to,
     subject: `Find My Pet - ${petName}'s pet tag scanned`, // Subject line
-    // html: emailTemplateCopy, // HTML body content
-    html: "Pet Tag has been scanned", // HTML body content
+    html: emailTemplateCopy, // HTML body content
   };
 
   try {
