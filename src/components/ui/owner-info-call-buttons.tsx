@@ -73,7 +73,7 @@ export default function OwnerInfoButtons({
 
   return (
     <div className="pt-2">
-      <span className="text-xs font-semibold leading-3">
+      <span className="text-sm font-semibold leading-3 text-red-600">
         Found Pet? Share your location or Call Owner.*
       </span>
       <div className="grid grid-cols-12 gap-2">

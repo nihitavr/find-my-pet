@@ -1,3 +1,7 @@
+// TODO: This is done because when building the app, it throws Dynamic server usage exception.
+// This is a workaround to fix it. In future we should fix it properly.
+export const dynamic = "force-dynamic";
+
 import "~/styles/globals.css";
 
 import { Inter } from "next/font/google";

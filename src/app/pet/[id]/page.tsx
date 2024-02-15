@@ -1,5 +1,4 @@
 import PetProfile from "~/components/pet-profile";
-import { z } from "zod";
 import NotFound from "~/components/ui/errors/not-found";
 import { isValidCuid } from "~/lib/utils";
 

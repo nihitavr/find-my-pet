@@ -1,5 +1,5 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { UserRole } from "@prisma/client";
+import { type UserRole } from "@prisma/client";
 import {
   getServerSession,
   type DefaultSession,

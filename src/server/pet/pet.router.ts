@@ -1,7 +1,6 @@
 import { type Gender } from "@prisma/client";
 import { z } from "zod";
 import { REGEX } from "~/lib/constants";
-import { api } from "~/lib/trpc/server";
 
 import {
   createTRPCRouter,

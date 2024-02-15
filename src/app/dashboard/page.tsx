@@ -47,17 +47,19 @@ export default async function Dashboard() {
               <Pencil strokeWidth={3} size={18} />
             </Link>
           )}
-          <div className="flex-grow">
-            <Link className="float-right" href={"/dashboard/pets/add"}>
-              <Button
-                variant="secondary"
-                className="flex items-center justify-center gap-1"
-              >
-                Add Pet
-                <PawPrint strokeWidth={2.5} className="h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
+          {pets.length > 0 && (
+            <div className="flex-grow">
+              <Link className="float-right" href={"/dashboard/pets/add"}>
+                <Button
+                  variant="secondary"
+                  className="flex items-center justify-center gap-1"
+                >
+                  Add Pet
+                  <PawPrint strokeWidth={2.5} className="h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
         <div className="mt-4 grid grid-cols-2 gap-5 md:grid-cols-4">
           {pets.length ? (
@@ -106,10 +108,22 @@ export default async function Dashboard() {
               );
             })
           ) : (
-            <div className="col-span-2 px-2 text-sm text-foreground/80">
-              No pets added. Click{" "}
-              <span className="font-semibold">Add Pet </span> to create a new
-              pet.
+            <div className="col-span-2 flex h-[20vh] flex-col items-center justify-center gap-2 text-center text-foreground/80 md:col-span-4">
+              <span>
+                No pets added yet. Click{" "}
+                <span className="font-semibold">Add Pet </span> to create a new
+                pet profile.
+              </span>
+
+              <Link href={"/dashboard/pets/add"}>
+                <Button
+                  variant="secondary"
+                  className="flex items-center justify-center gap-1"
+                >
+                  Add Pet
+                  <PawPrint strokeWidth={2.5} className="h-4 w-4" />
+                </Button>
+              </Link>
             </div>
           )}
         </div>

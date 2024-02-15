@@ -1,4 +1,3 @@
-import Link from "next/link";
 import BuyItemsCarousal from "./buy-items-carousal";
 import { Button } from "../ui/button";
 import { api } from "~/lib/trpc/server";

@@ -24,57 +24,51 @@ export default async function Pets() {
     <div>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <h1 className="text-xl font-semibold">All Pets</h1>
+          <h1 className="text-xl font-semibold">Pets</h1>
         </div>
-        <Link href={"/dashboard/pets/add"}>
-          <Button
-            variant="secondary"
-            className="flex items-center justify-center gap-1"
-          >
-            Add Pet
-            <PawPrint strokeWidth={2.5} className="h-4 w-4" />
-          </Button>
-        </Link>
+        {pets.length > 0 && (
+          <Link href={"/dashboard/pets/add"}>
+            <Button
+              variant="secondary"
+              className="flex items-center justify-center gap-1"
+            >
+              Add Pet
+              <PawPrint strokeWidth={2.5} className="h-4 w-4" />
+            </Button>
+          </Link>
+        )}
       </div>
 
       {pets.length ? (
         <Table className="mt-3">
           <TableCaption>
-            {pets.length ? (
-              <div className="flex items-center justify-center gap-3">
-                <Link
-                  className="flex items-center text-sm "
-                  href={`/user/${session?.user.id}/pets`}
+            <div className="flex items-center justify-center gap-3">
+              <Link
+                className="flex items-center text-sm "
+                href={`/user/${session?.user.id}/pets`}
+              >
+                <Button
+                  className="flex items-center justify-center gap-1"
+                  variant="outline"
                 >
-                  <Button
-                    className="flex items-center justify-center gap-1"
-                    variant="outline"
-                  >
-                    <span>View Pets</span>
-                  </Button>
-                </Link>
+                  <span>View Pets</span>
+                </Button>
+              </Link>
 
-                <Share
-                  className="h-5 w-5"
-                  shareInfo={{
-                    title: "My Pet Family",
-                    text: `${session?.user.name}'s pet family!`,
-                    url: `${env.SERVER_URL}/user/${session?.user.id}/pets`,
-                  }}
-                >
-                  <Button className="flex items-center justify-center gap-1">
-                    <span>Share Pets</span>
-                    <ShareLucid strokeWidth={2.5} className="h-4 w-4" />
-                  </Button>
-                </Share>
-              </div>
-            ) : (
-              <span>
-                No pets added. Click{" "}
-                <span className="font-semibold">Add Pet </span> to create a new
-                pet.
-              </span>
-            )}
+              <Share
+                className="h-5 w-5"
+                shareInfo={{
+                  title: "My Pet Family",
+                  text: `${session?.user.name}'s pet family!`,
+                  url: `${env.SERVER_URL}/user/${session?.user.id}/pets`,
+                }}
+              >
+                <Button className="flex items-center justify-center gap-1">
+                  <span>Share Pets</span>
+                  <ShareLucid strokeWidth={2.5} className="h-4 w-4" />
+                </Button>
+              </Share>
+            </div>
           </TableCaption>
           <TableHeader>
             <TableRow>
@@ -119,9 +113,22 @@ export default async function Pets() {
           </TableBody>
         </Table>
       ) : (
-        <div className="p-2 text-sm text-foreground/80">
-          No pets added. Click <span className="font-semibold">Add Pet </span>{" "}
-          to create a new pet.
+        <div className="flex h-[80vh] w-full flex-col items-center justify-center gap-2 py-2 text-center text-lg text-foreground/80">
+          <span>
+            No pets added yet. Click{" "}
+            <span className="font-semibold">Add Pet </span> to create a new pet
+            profile.
+          </span>
+
+          <Link href={"/dashboard/pets/add"}>
+            <Button
+              variant="secondary"
+              className="flex items-center justify-center gap-1"
+            >
+              Add Pet
+              <PawPrint strokeWidth={2.5} className="h-4 w-4" />
+            </Button>
+          </Link>
         </div>
       )}
     </div>
