@@ -44,7 +44,7 @@ export default async function HeroSection() {
           <Image
             fill
             style={{ objectFit: "contain" }}
-            src={"/hero-image-dog-cat.png"}
+            src={"/hero-image-dog-cat.jpg"}
             alt="image of cat and dog"
           />
         </div>
