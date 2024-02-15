@@ -109,11 +109,11 @@ export default async function PetProfile({
 
           <div className="text-foreground/80">{pet?.description}</div>
 
-          {user?.phoneNumber && (
+          {user?.phoneNumber && qrCodeId && (
             <OwnerInfoButtons
               phoneNumber={user.phoneNumber}
               petId={id}
-              qrCodeId={qrCodeId!}
+              qrCodeId={qrCodeId}
               recordLocation={recordLocation}
             />
           )}
