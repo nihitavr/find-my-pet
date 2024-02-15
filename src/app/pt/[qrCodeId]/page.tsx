@@ -72,12 +72,9 @@ export default async function PetTag({
     );
   }
 
-  const user = await api.user.getUser.query({ id: petTag.userId! });
-
   return (
     <PetProfile
       id={petTag.petId}
-      user={user}
       qrCodeId={petTag.qrCodeId}
       recordLocation={searchParams.recordLocation != "false"}
     />

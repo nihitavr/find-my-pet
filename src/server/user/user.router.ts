@@ -22,7 +22,7 @@ export const userProfileRouter = createTRPCRouter({
     .query(({ ctx, input: { id } }) => {
       return ctx.db.user.findFirst({
         where: { id: id },
-        select: { name: true, phoneNumber: true, email: true },
+        select: { id: true, name: true, phoneNumber: true, email: true },
       });
     }),
   getUserProfile: protectedProcedure.query(({ ctx }) => {

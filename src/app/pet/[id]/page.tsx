@@ -1,5 +1,6 @@
 import PetProfile from "~/components/pet-profile";
 import NotFound from "~/components/ui/errors/not-found";
+import { api } from "~/lib/trpc/server";
 import { isValidCuid } from "~/lib/utils";
 
 export const generateMetadata = () => {
