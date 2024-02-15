@@ -24,22 +24,24 @@ export default async function Pets() {
     <div>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <h1 className="text-xl font-semibold">All Pets</h1>
+          <h1 className="text-xl font-semibold">Pets</h1>
         </div>
-        <Link href={"/dashboard/pets/add"}>
-          <Button
-            variant="secondary"
-            className="flex items-center justify-center gap-1"
-          >
-            Add Pet
-            <PawPrint strokeWidth={2.5} className="h-4 w-4" />
-          </Button>
-        </Link>
+        {pets.length > 0 && (
+          <Link href={"/dashboard/pets/add"}>
+            <Button
+              variant="secondary"
+              className="flex items-center justify-center gap-1"
+            >
+              Add Pet
+              <PawPrint strokeWidth={2.5} className="h-4 w-4" />
+            </Button>
+          </Link>
+        )}
       </div>
 
-      <Table className="mt-3">
-        <TableCaption>
-          {pets.length ? (
+      {pets.length ? (
+        <Table className="mt-3">
+          <TableCaption>
             <div className="flex items-center justify-center gap-3">
               <Link
                 className="flex items-center text-sm "
@@ -67,54 +69,68 @@ export default async function Pets() {
                 </Button>
               </Share>
             </div>
-          ) : (
-            <span>
-              No pets added. Click{" "}
-              <span className="font-semibold">Add Pet </span> to create a new
-              pet.
-            </span>
-          )}
-        </TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[20px]"></TableHead>
-            <TableHead className="min-w-[100px]">Profile</TableHead>
-            <TableHead>Scan History</TableHead>
-            <TableHead className="cursor-pointer text-right">Edit</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {pets?.map((pet, idx) => (
-            <TableRow key={idx}>
-              <TableCell className="w-[20px] font-medium">{idx + 1}</TableCell>
-              <TableCell className="font-medium">
-                <Link
-                  href={`/pet/${pet.id}`}
-                  className="flex items-center justify-start text-sm text-blue-700 hover:underline"
-                >
-                  <span>{pet.name}</span>
-                </Link>
-              </TableCell>
-              <TableCell>
-                <Link
-                  href={`/dashboard/pets/${pet.id}/scan-history`}
-                  className="flex  opacity-70 hover:opacity-50"
-                >
-                  <FileClock />
-                </Link>
-              </TableCell>
-              <TableCell>
-                <Link
-                  href={`/dashboard/pets/${pet.id}`}
-                  className="flex justify-end opacity-70 hover:opacity-50"
-                >
-                  <Pencil strokeWidth={3} size={18} />
-                </Link>
-              </TableCell>
+          </TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[20px]"></TableHead>
+              <TableHead className="min-w-[100px]">Profile</TableHead>
+              <TableHead>Scan History</TableHead>
+              <TableHead className="cursor-pointer text-right">Edit</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {pets?.map((pet, idx) => (
+              <TableRow key={idx}>
+                <TableCell className="w-[20px] font-medium">
+                  {idx + 1}
+                </TableCell>
+                <TableCell className="font-medium">
+                  <Link
+                    href={`/pet/${pet.id}`}
+                    className="flex items-center justify-start text-sm text-blue-700 hover:underline"
+                  >
+                    <span>{pet.name}</span>
+                  </Link>
+                </TableCell>
+                <TableCell>
+                  <Link
+                    href={`/dashboard/pets/${pet.id}/scan-history`}
+                    className="flex  opacity-70 hover:opacity-50"
+                  >
+                    <FileClock />
+                  </Link>
+                </TableCell>
+                <TableCell>
+                  <Link
+                    href={`/dashboard/pets/${pet.id}`}
+                    className="flex justify-end opacity-70 hover:opacity-50"
+                  >
+                    <Pencil strokeWidth={3} size={18} />
+                  </Link>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      ) : (
+        <div className="flex h-[80vh] w-full flex-col items-center justify-center gap-2 py-2 text-center text-lg text-foreground/80">
+          <span>
+            No pets added yet. Click{" "}
+            <span className="font-semibold">Add Pet </span> to create a new pet
+            profile.
+          </span>
+
+          <Link href={"/dashboard/pets/add"}>
+            <Button
+              variant="secondary"
+              className="flex items-center justify-center gap-1"
+            >
+              Add Pet
+              <PawPrint strokeWidth={2.5} className="h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

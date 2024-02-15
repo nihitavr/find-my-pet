@@ -7,7 +7,6 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
-import { Label } from "~/components/ui/label";
 import { api } from "~/lib/trpc/server";
 import { MapPin } from "lucide-react";
 import { dateToISTString } from "~/lib/utils";

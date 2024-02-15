@@ -40,6 +40,7 @@ import { useRouter } from "next/navigation";
 import ProfileFormLoadingSkeleton from "../ui/profile-form-loading-skeleton";
 import Link from "next/link";
 import MultipleSelector from "~/components/ui/multiple-selector";
+import { Label } from "../ui/label";
 
 const petProfileFormSchema = z.object({
   profileImages: z.array(z.string().url()),
@@ -386,7 +387,7 @@ export function PetProfileForm({ id, qrCodeId }: Props) {
             name="birthdate"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel>Date of birth</FormLabel>
+                <Label>Date of birth</Label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <FormControl>

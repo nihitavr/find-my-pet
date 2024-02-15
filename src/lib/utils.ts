@@ -9,18 +9,37 @@ export function cn(...inputs: ClassValue[]) {
 // Get time passed in years and months(eg 2 Years 5 Months) given datetime.
 export function getTimePassed(startDate: Date) {
   const currentDate = new Date();
+
   const start = new Date(startDate);
+  const end = new Date(currentDate);
 
-  let years = currentDate.getFullYear() - start.getFullYear();
-  let months = currentDate.getMonth() - start.getMonth();
+  let years = end.getFullYear() - start.getFullYear();
+  let months = end.getMonth() - start.getMonth();
+  let days = end.getDate() - start.getDate();
 
-  // Adjust years and months if the month difference is negative
-  if (months < 0) {
-    years--;
-    months += 12; // Adding 12 months as we decreased a year
+  if (days < 0) {
+    months--;
+    days += new Date(end.getFullYear(), end.getMonth(), 0).getDate();
   }
 
-  return `${years} Years ${months} Months`;
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  let result = "";
+
+  if (years > 0) {
+    result += years + (years === 1 ? " Year " : " Years ");
+  }
+
+  if (months > 0) {
+    result += months + (months === 1 ? " Month" : " Months");
+  } else if (years === 0 && days > 0) {
+    result += days + (days === 1 ? " Day" : " Days");
+  }
+
+  return result.trim();
 }
 
 export function titleCase(str: string) {
