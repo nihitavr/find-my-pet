@@ -4,12 +4,12 @@ import { env } from "~/env";
 
 // Create a transporter using Hostinger's SMTP server info
 const transporter = nodemailer.createTransport({
-  host: "smtp.hostinger.com", // Use the actual SMTP server host from Hostinger
-  port: 465, // Commonly used port for SMTP
+  host: env.SMPT_HOST,
+  port: env.SMPT_PORT,
   secure: true, // True for 465, false for other ports
   auth: {
-    user: "contact@findmypet.in", // Your full email address
-    pass: "Minimush.12", // Your email account password
+    user: env.SMPT_USER,
+    pass: env.SMPT_PASS,
   },
 });
 
@@ -28,7 +28,7 @@ export async function sendPetTagScanEmail(
     );
 
   const mailOptions = {
-    from: '"Find My Pet" <contact@findmypet.in>', // sender address
+    from: `"Find My Pet" <${env.SMPT_USER}>`, // sender address
     to: to,
     subject: `Find My Pet - ${petName}'s pet tag scanned`, // Subject line
     html: emailTemplateCopy, // HTML body content

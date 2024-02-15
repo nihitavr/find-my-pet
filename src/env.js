@@ -24,6 +24,11 @@ export const env = createEnv({
     ),
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
+    SMPT_HOST: z.string(),
+    // @ts-expect-error This is js file where we dont want to check types.
+    SMPT_PORT: z.preprocess((str) => parseInt(str, 10), z.number()),
+    SMPT_USER: z.string(),
+    SMPT_PASS: z.string(),
   },
 
   /**
@@ -48,6 +53,10 @@ export const env = createEnv({
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    SMPT_HOST: process.env.SMPT_HOST,
+    SMPT_PORT: process.env.SMPT_PORT,
+    SMPT_USER: process.env.SMPT_USER,
+    SMPT_PASS: process.env.SMPT_PASS,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
