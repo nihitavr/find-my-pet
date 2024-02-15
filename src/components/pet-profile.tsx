@@ -6,27 +6,25 @@ import { getTimePassed, titleCase } from "~/lib/utils";
 import OwnerInfoButtons from "./ui/owner-info-call-buttons";
 import PhotoCasousel from "./photo-carousel";
 import { PetBehaviourTagsOptions } from "~/lib/constants";
+import Image from "next/image";
+import Link from "next/link";
 
 type Props = {
   id: string;
-  user?: {
-    name: string | null;
-    email: string | null;
-    phoneNumber: string | null;
-  } | null;
   qrCodeId?: string | null;
   recordLocation?: boolean;
 };
 
 export default async function PetProfile({
   id,
-  user,
   qrCodeId,
   recordLocation,
 }: Props) {
   const pet = await api.pet.getPet.query({ id });
 
   if (!pet) return <NotFound />;
+
+  const user = await api.user.getUser.query({ id: pet.userId });
 
   if (pet.profileImages.length === 0) pet.profileImages.push("");
 
@@ -62,7 +60,18 @@ export default async function PetProfile({
             </div>
 
             {/* Insta and Share button */}
-            <div className="flex items-center gap-2">
+            <div className="flex h-full items-center gap-3">
+              <Link href={`/user/${user?.id}/pets`}>
+                <div className="relative aspect-square h-[22px] opacity-60 hover:opacity-90">
+                  <Image
+                    fill
+                    className="aspect-square h-full"
+                    style={{ objectFit: "cover" }}
+                    src="/pet-family-icon.svg"
+                    alt="pet profile family icon"
+                  />
+                </div>
+              </Link>
               {(pet.socialMediaLinks as any).instagram && (
                 <a
                   href={(pet.socialMediaLinks as any).instagram}
