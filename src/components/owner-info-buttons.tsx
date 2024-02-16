@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "./button";
+import { Button } from "./ui/button";
 import { Copy, PhoneOutgoing } from "lucide-react";
 import {
   Popover,
@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { api } from "~/lib/trpc/react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { cn } from "~/lib/utils";
-import { toast } from "./use-toast";
+import { toast } from "./ui/use-toast";
 
 export default function OwnerInfoButtons({
   phoneNumber,
@@ -72,10 +72,11 @@ export default function OwnerInfoButtons({
   }, []);
 
   return (
-    <div className="pt-2">
-      <span className="text-sm font-semibold text-red-600">
-        Found Pet? Share your location or Call Owner.*
-      </span>
+    <div className="sticky bottom-0 bg-white py-2">
+      <div className="pb-2 text-center text-sm font-semibold text-red-600">
+        Found Pet? <br />
+        Share your location or Call Owner.*
+      </div>
       <div className="grid grid-cols-12 gap-2">
         <a
           onClick={(e) => {

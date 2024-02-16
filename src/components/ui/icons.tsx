@@ -10,7 +10,7 @@ interface ShareInfo {
 }
 
 interface Props {
-  className: string;
+  className?: string;
   shareInfo: ShareInfo;
   children?: React.ReactNode;
 }
