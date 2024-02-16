@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "./button";
+import { Button } from "./ui/button";
 import { Copy, PhoneOutgoing } from "lucide-react";
 import {
   Popover,
@@ -14,16 +14,18 @@ import { useEffect, useState } from "react";
 import { api } from "~/lib/trpc/react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { cn } from "~/lib/utils";
-import { toast } from "./use-toast";
+import { toast } from "./ui/use-toast";
 
 export default function OwnerInfoButtons({
   phoneNumber,
   petId,
+  petName,
   qrCodeId,
   recordLocation,
 }: {
   phoneNumber?: string;
   petId: string;
+  petName: string;
   qrCodeId: string;
   recordLocation?: boolean;
 }) {
@@ -45,7 +47,7 @@ export default function OwnerInfoButtons({
           const { latitude, longitude } = position.coords;
 
           setWhatsappLink(
-            `${WHATSAPP_URL}${phoneNumber}?text=Hi, I found your pet! I am currently at this location. %0A%0Ahttps://www.google.com/maps/search/${latitude},${longitude}`,
+            `${WHATSAPP_URL}${phoneNumber}?text=Hi, I found ${petName}! I am currently at this location. %0A%0Ahttps://www.google.com/maps/search/${latitude},${longitude}`,
           );
 
           if (recordLocation) {
@@ -72,10 +74,11 @@ export default function OwnerInfoButtons({
   }, []);
 
   return (
-    <div className="pt-2">
-      <span className="text-sm font-semibold text-red-600">
-        Found Pet? Share your location or Call Owner.*
-      </span>
+    <div className="sticky bottom-0 border-t bg-white pb-2 pt-1">
+      <div className="pb-2 text-center text-sm font-semibold text-red-600">
+        Found Pet? <br />
+        Share your location or Call Owner.*
+      </div>
       <div className="grid grid-cols-12 gap-2">
         <a
           onClick={(e) => {

@@ -1,13 +1,19 @@
-import { Instagram } from "lucide-react";
+import { Instagram, MoreVertical, ShareIcon } from "lucide-react";
 import { Share } from "~/components/ui/icons";
 import NotFound from "~/components/ui/errors/not-found";
 import { api } from "~/lib/trpc/server";
 import { getTimePassed, titleCase } from "~/lib/utils";
-import OwnerInfoButtons from "./ui/owner-info-call-buttons";
+import OwnerInfoButtons from "./owner-info-buttons";
 import PhotoCasousel from "./photo-carousel";
 import { PetBehaviourTagsOptions } from "~/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 type Props = {
   id: string;
@@ -42,7 +48,7 @@ export default async function PetProfile({
         />
 
         {/* Details Section */}
-        <div className="-mt-5 flex w-full -translate-y-0 flex-col gap-4 rounded-t-3xl bg-white p-6">
+        <div className="-mt-5 flex w-full -translate-y-0 flex-col gap-4 rounded-t-3xl bg-white p-5">
           {/* Breed, Type, Name, Gender, Birthdate */}
           <div className="flex items-start justify-between">
             <div className="flex flex-col gap-1">
@@ -60,35 +66,55 @@ export default async function PetProfile({
             </div>
 
             {/* Insta and Share button */}
-            <div className="flex h-full items-center gap-3">
-              <Link href={`/user/${user?.id}/pets`}>
-                <div className="relative aspect-square h-[22px] opacity-60 hover:opacity-90">
-                  <Image
-                    fill
-                    className="aspect-square h-full"
-                    style={{ objectFit: "cover" }}
-                    src="/pet-family-icon.svg"
-                    alt="pet profile family icon"
-                  />
-                </div>
-              </Link>
-              {(pet.socialMediaLinks as any).instagram && (
-                <a
-                  href={(pet.socialMediaLinks as any).instagram}
-                  target="_blank"
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <MoreVertical className="cursor-pointer text-foreground/50 hover:text-foreground" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                {/* Pet Family Link */}
+                <Link href={`/user/${user?.id}/pets`}>
+                  <DropdownMenuItem className="group flex h-full w-full cursor-pointer items-center justify-start gap-2 text-foreground/80 hover:text-foreground">
+                    <div className="relative aspect-square h-[20px] opacity-60 group-hover:opacity-90">
+                      <Image
+                        fill
+                        className="aspect-square h-full"
+                        style={{ objectFit: "cover" }}
+                        src="/pet-family-icon.svg"
+                        alt="pet profile family icon"
+                      />
+                    </div>
+                    <span>{pet.name}&apos;s pet family</span>
+                  </DropdownMenuItem>
+                </Link>
+
+                {/* Instagram Link */}
+                {(pet.socialMediaLinks as any).instagram && (
+                  <a
+                    href={(pet.socialMediaLinks as any).instagram}
+                    target="_blank"
+                  >
+                    <DropdownMenuItem className="group flex h-full w-full cursor-pointer items-center justify-start gap-2 text-foreground/80 hover:text-foreground">
+                      <Instagram className="h-[20px] w-[20px] cursor-pointer text-foreground/50 group-hover:text-foreground" />
+                      <span>{pet.name}&apos;s Instagram</span>
+                    </DropdownMenuItem>
+                  </a>
+                )}
+
+                {/* Share Pet Profile*/}
+                <Share
+                  shareInfo={{
+                    title: `${pet.name}: A Furry Friend to Love!`,
+                    text: `Ready to meet your new adorable four-legged family member? Checkout ${pet.name}'s profile here!`,
+                    url: `https://findmypet.in/pet/${pet.id}`,
+                  }}
                 >
-                  <Instagram className="cursor-pointer text-foreground/50 hover:text-foreground" />
-                </a>
-              )}
-              <Share
-                className="cursor-pointer text-foreground/50 hover:text-foreground"
-                shareInfo={{
-                  title: `${pet.name}: A Furry Friend to Love!`,
-                  text: `Ready to meet your new adorable four-legged family member? Checkout ${pet.name}'s profile here!`,
-                  url: `https://findmypet.in/pet/${pet.id}`,
-                }}
-              />
-            </div>
+                  <DropdownMenuItem className="group flex h-full w-full cursor-pointer items-center justify-start gap-2 text-foreground/80 hover:text-foreground">
+                    <ShareIcon className="h-[20px] w-[20px] text-foreground/50 group-hover:text-foreground" />
+                    <span>Share Profile</span>
+                  </DropdownMenuItem>
+                </Share>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           <div className="flex flex-wrap gap-2">
@@ -113,6 +139,7 @@ export default async function PetProfile({
             <OwnerInfoButtons
               phoneNumber={user.phoneNumber}
               petId={id}
+              petName={pet.name}
               qrCodeId={qrCodeId}
               recordLocation={recordLocation}
             />
