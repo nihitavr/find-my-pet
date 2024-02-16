@@ -139,6 +139,7 @@ export default async function PetProfile({
             <OwnerInfoButtons
               phoneNumber={user.phoneNumber}
               petId={id}
+              petName={pet.name}
               qrCodeId={qrCodeId}
               recordLocation={recordLocation}
             />

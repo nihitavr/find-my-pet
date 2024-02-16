@@ -19,11 +19,13 @@ import { toast } from "./ui/use-toast";
 export default function OwnerInfoButtons({
   phoneNumber,
   petId,
+  petName,
   qrCodeId,
   recordLocation,
 }: {
   phoneNumber?: string;
   petId: string;
+  petName: string;
   qrCodeId: string;
   recordLocation?: boolean;
 }) {
@@ -45,7 +47,7 @@ export default function OwnerInfoButtons({
           const { latitude, longitude } = position.coords;
 
           setWhatsappLink(
-            `${WHATSAPP_URL}${phoneNumber}?text=Hi, I found your pet! I am currently at this location. %0A%0Ahttps://www.google.com/maps/search/${latitude},${longitude}`,
+            `${WHATSAPP_URL}${phoneNumber}?text=Hi, I found ${petName}! I am currently at this location. %0A%0Ahttps://www.google.com/maps/search/${latitude},${longitude}`,
           );
 
           if (recordLocation) {
@@ -72,7 +74,7 @@ export default function OwnerInfoButtons({
   }, []);
 
   return (
-    <div className="sticky bottom-0 bg-white py-2">
+    <div className="sticky bottom-0 border-t bg-white pb-2 pt-1">
       <div className="pb-2 text-center text-sm font-semibold text-red-600">
         Found Pet? <br />
         Share your location or Call Owner.*
