@@ -1,9 +1,10 @@
 import { ArrowUpRight } from "lucide-react";
-import PhotoCasousel from "~/components/product-images-carousel";
+import ProductImageCasousel from "~/components/product-images-carousel";
 import { Button } from "~/components/ui/button";
 import NotFound from "~/components/ui/errors/not-found";
 import { Label } from "~/components/ui/label";
 import { api } from "~/lib/trpc/server";
+import { getDiscountedPrice } from "~/lib/utils";
 
 export default async function Product({
   params: { id },
@@ -18,12 +19,10 @@ export default async function Product({
     return <NotFound />;
   }
 
-  console.log("product.varients", product.variants);
-
   return (
-    <main className="flex flex-col gap-2 p-3 md:flex-row md:py-10">
+    <main className="flex flex-col gap-2 p-3 pt-0 md:flex-row md:py-10">
       <div className="w-full">
-        <PhotoCasousel
+        <ProductImageCasousel
           images={product.images}
           className="aspect-[6/5] w-full"
           imageClassName="rounded-none border-none"
@@ -31,8 +30,8 @@ export default async function Product({
       </div>
 
       {/* Varients */}
-      <div className="flex flex-col gap-2">
-        <div className="flex flex-col gap-2 px-1 pb-3 pt-0">
+      <div className="flex flex-col gap-3 px-1">
+        <div className="flex flex-col gap-2  pt-0">
           <h1 className="text-xl font-semibold">{product?.name}</h1>
           <div>
             <Label>Description</Label>
@@ -47,6 +46,12 @@ export default async function Product({
           <Button className="md:w-52">Buy Now</Button>
         </div> */}
 
+        <div className="flex items-center gap-2 text-xl font-semibold text-foreground/90">
+          <span className="line-through">&#8377; {product.price}</span>
+          <span className="text-primary">
+            &#8377; {getDiscountedPrice(product.price, product.discount)}
+          </span>
+        </div>
         <div>
           <div className="text-xs">
             This will open a <span className="font-semibold">Google Form</span>{" "}
