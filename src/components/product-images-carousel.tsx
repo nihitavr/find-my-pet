@@ -8,18 +8,14 @@ import {
   CarouselItem,
 } from "~/components/ui/carousel";
 
-import { Card, CardContent } from "~/components/ui/card";
 import Image from "next/image";
 import { cn } from "~/lib/utils";
-import Autoplay from "embla-carousel-autoplay";
 
 export default function ProductImageCasousel({
   images,
   defaultImage = "",
   className,
   imageClassName,
-  autoplay = false,
-  autoPlayDelay = 4000,
 }: {
   images: string[];
   defaultImage?: string;
@@ -29,6 +25,8 @@ export default function ProductImageCasousel({
   autoPlayDelay?: number;
 }) {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const [thumbnailsCarouselApi, setThumbnailsCarouselApi] =
+    useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
@@ -36,27 +34,16 @@ export default function ProductImageCasousel({
       return;
     }
 
-    setCurrent(carouselApi.selectedScrollSnap() + 1);
+    setCurrent(carouselApi.selectedScrollSnap());
 
     carouselApi.on("select", () => {
-      setCurrent(carouselApi.selectedScrollSnap() + 1);
+      setCurrent(carouselApi.selectedScrollSnap());
+      thumbnailsCarouselApi?.scrollTo(carouselApi.selectedScrollSnap());
     });
   }, [carouselApi]);
 
   return (
-    <Carousel
-      plugins={
-        autoplay
-          ? [
-              Autoplay({
-                delay: autoPlayDelay,
-              }),
-            ]
-          : []
-      }
-      className="h-full w-full"
-      setApi={setCarouselApi}
-    >
+    <Carousel className="h-full w-full" setApi={setCarouselApi}>
       <CarouselContent>
         {images.map((imageUrl, index) => (
           <CarouselItem className={cn("relative", className)} key={index}>
@@ -65,28 +52,51 @@ export default function ProductImageCasousel({
               alt="Profile Image"
               fill
               style={{ objectFit: "contain" }}
-              className={cn(imageClassName)}
+              className={cn("p-5", imageClassName)}
               loading="lazy"
             />
           </CarouselItem>
         ))}
       </CarouselContent>
 
-      <div className="flex h-8 items-center justify-center gap-2">
-        {images.length > 1 &&
-          images.map((_, idx) => {
-            return (
-              <div
-                className={`h-2 w-2 rounded-full ${
-                  idx + 1 === current
-                    ? "bg-primary"
-                    : "border border-gray-400 bg-gray-300"
-                }`}
-                key={idx}
-              />
-            );
-          })}
-      </div>
+      {images.length > 1 && (
+        <Carousel
+          className="h-full w-full"
+          setApi={setThumbnailsCarouselApi}
+          opts={{
+            dragFree: true,
+          }}
+        >
+          <CarouselContent className="ml-0">
+            {images.map((imageUrl, index) => (
+              <CarouselItem
+                className={`aspect-square basis-1/4 p-1`}
+                key={index}
+                onClick={() => {
+                  carouselApi?.scrollTo(index);
+                }}
+              >
+                <div
+                  className={`${
+                    current == index
+                      ? "rounded-lg border-2 border-primary"
+                      : "rounded-lg border-2"
+                  } relative flex aspect-square items-center justify-center`}
+                >
+                  <Image
+                    fill
+                    style={{ objectFit: "contain" }}
+                    src={imageUrl ? imageUrl : defaultImage}
+                    alt="Profile Image"
+                    loading="lazy"
+                    className="p-2"
+                  />
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+      )}
     </Carousel>
   );
 }

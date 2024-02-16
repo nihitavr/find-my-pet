@@ -40,12 +40,7 @@ export default function BuyItemsCarousal({
         dragFree: true,
       }}
     >
-      <CarouselContent
-        className={cn("-ml-1", className)}
-        onDrag={(e) => {
-          console.log("dragging");
-        }}
-      >
+      <CarouselContent className={cn("-ml-1", className)}>
         {productInfos.map((product, index) => (
           <CarouselItem
             key={index}
