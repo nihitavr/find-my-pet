@@ -44,8 +44,6 @@ export default function OwnerInfoButtons({
       setFetchingGeoLocation(true);
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          console.log("Position", position);
-
           const { latitude, longitude } = position.coords;
 
           setWhatsappLink(
@@ -80,8 +78,6 @@ export default function OwnerInfoButtons({
       <div className="pb-2 text-center text-sm font-semibold text-red-600">
         Found Pet? <br />
         Share your location or Call Owner.*
-        <br />
-        {whatsappLink}
       </div>
       <div className="grid grid-cols-12 gap-2">
         <a
