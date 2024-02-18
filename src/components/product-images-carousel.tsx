@@ -10,6 +10,8 @@ import {
 
 import Image from "next/image";
 import { cn } from "~/lib/utils";
+import { useMediaQuery } from "~/lib/hooks";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function ProductImageCasousel({
   images,
@@ -24,6 +26,8 @@ export default function ProductImageCasousel({
   autoplay?: boolean;
   autoPlayDelay?: number;
 }) {
+  const isMobile = useMediaQuery("(max-width: 600px)");
+
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [thumbnailsCarouselApi, setThumbnailsCarouselApi] =
     useState<CarouselApi>();
@@ -34,12 +38,22 @@ export default function ProductImageCasousel({
       return;
     }
 
-    setCurrent(carouselApi.selectedScrollSnap());
-
     carouselApi.on("select", () => {
       setCurrent(carouselApi.selectedScrollSnap());
-      thumbnailsCarouselApi?.scrollTo(carouselApi.selectedScrollSnap());
+
+      if (
+        !thumbnailsCarouselApi
+          ?.slidesInView()
+          .includes(carouselApi.selectedScrollSnap())
+      )
+        thumbnailsCarouselApi?.scrollTo(carouselApi.selectedScrollSnap());
     });
+
+    return () => {
+      carouselApi.off("select", () => {
+        return;
+      });
+    };
   }, [carouselApi]);
 
   return (
@@ -61,19 +75,25 @@ export default function ProductImageCasousel({
 
       {images.length > 1 && (
         <Carousel
-          className="h-full w-full"
+          className="relative w-full"
           setApi={setThumbnailsCarouselApi}
           opts={{
             dragFree: true,
+            inViewThreshold: 0.5,
           }}
         >
           <CarouselContent className="ml-0">
             {images.map((imageUrl, index) => (
               <CarouselItem
-                className={`aspect-square basis-1/4 p-1`}
+                className={`aspect-square basis-1/4 p-1 md:basis-1/5`}
                 key={index}
                 onClick={() => {
                   carouselApi?.scrollTo(index);
+                }}
+                onMouseEnter={() => {
+                  if (!isMobile.current) {
+                    carouselApi?.scrollTo(index, true);
+                  }
                 }}
               >
                 <div
@@ -95,6 +115,28 @@ export default function ProductImageCasousel({
               </CarouselItem>
             ))}
           </CarouselContent>
+          {!isMobile.current && (
+            <>
+              {
+                <div
+                  onClick={() => carouselApi?.scrollPrev()}
+                  className={cn(
+                    "absolute top-1/2 ml-1 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-lg border bg-gray-200 hover:bg-gray-100",
+                  )}
+                >
+                  <ChevronLeft />
+                </div>
+              }
+              <div
+                onClick={() => carouselApi?.scrollNext()}
+                className={cn(
+                  "absolute right-0 top-1/2 mr-1 flex h-8 w-8 -translate-y-1/2 translate-x-1/2 cursor-pointer items-center justify-center rounded-lg border bg-gray-200 hover:bg-gray-100",
+                )}
+              >
+                <ChevronRight />
+              </div>
+            </>
+          )}
         </Carousel>
       )}
     </Carousel>
