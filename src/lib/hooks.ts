@@ -1,19 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 
 export const useMediaQuery = (query: string) => {
-  const [matches, setMatches] = useState(false);
+  const isMobile = useRef(false);
 
   useEffect(() => {
     const media = window.matchMedia(query);
-    if (media.matches !== matches) {
-      setMatches(media.matches);
-    }
-    const listener = () => setMatches(media.matches);
+    isMobile.current = media.matches;
+    const listener = () => {
+      isMobile.current = media.matches;
+    };
     window.addEventListener("resize", listener);
     return () => window.removeEventListener("resize", listener);
-  }, [matches, query]);
+  }, [query]);
 
-  return matches;
+  return isMobile;
 };
 
 interface UseOnScreenOptions {

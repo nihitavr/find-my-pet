@@ -30,16 +30,6 @@ export const metadata: Metadata = {
   },
   icons: [{ rel: "icon", url: APP_LOGO }],
   description: APP_DESCRIPTION,
-  manifest: "/manifest.json",
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "default",
-    title: APP_DEFAULT_TITLE,
-    startupImage: APP_LOGO,
-  },
-  formatDetection: {
-    telephone: false,
-  },
   openGraph: {
     type: "website",
     siteName: APP_NAME,
