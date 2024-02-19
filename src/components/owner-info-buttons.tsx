@@ -39,8 +39,16 @@ export default function OwnerInfoButtons({
 
   const petTagMutate = api.petTag.recordScan.useMutation();
 
-  useEffect(() => {
-    if (navigator.geolocation && qrCodeId) {
+  const fetchGeoLocation = () => {
+    if (!navigator.geolocation) {
+      toast({
+        title: "Geolocation is not supported by your browser",
+        variant: "failure",
+      });
+      return;
+    }
+
+    if (qrCodeId) {
       setFetchingGeoLocation(true);
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -64,17 +72,27 @@ export default function OwnerInfoButtons({
           }
           setFetchingGeoLocation(false);
         },
-        () => {
+        (error) => {
           setFetchingGeoLocation(false);
+
+          toast({
+            title: `Error fetching geolocation on this browser. Error: ${error.message}`,
+            variant: "failure",
+          });
+
           return;
         },
         { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 },
       );
     }
+  };
+
+  useEffect(() => {
+    fetchGeoLocation();
   }, []);
 
   return (
-    <div className="sticky bottom-0 border-t bg-white pb-2 pt-1">
+    <div className="sticky bottom-0 border-t bg-white pb-3 pt-1">
       <div className="pb-2 text-center text-sm font-semibold text-red-600">
         Found Pet? <br />
         Share your location or Call Owner.*
@@ -83,6 +101,14 @@ export default function OwnerInfoButtons({
         <a
           onClick={(e) => {
             if (fetchingGeoLocation) {
+              toast({
+                title: "Please wait for your current location to be fetched.",
+                variant: "default",
+              });
+              e.preventDefault();
+              e.stopPropagation();
+            } else if (!fetchingGeoLocation && !whatsappLink) {
+              fetchGeoLocation();
               toast({
                 title: "Please wait for your current location to be fetched.",
                 variant: "default",
