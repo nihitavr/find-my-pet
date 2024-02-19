@@ -17,8 +17,8 @@ import { cn } from "~/lib/utils";
 import { toast } from "./ui/use-toast";
 
 // In Milliseconds
-const GEOLOCATION_TIMEOUT = 20000;
-const GEOLOCATION_MAX_AGE = 0;
+const GEOLOCATION_TIMEOUT = 10000;
+const GEOLOCATION_MAX_AGE = 2000;
 
 export default function OwnerInfoButtons({
   phoneNumber,
@@ -74,17 +74,30 @@ export default function OwnerInfoButtons({
             newSearchParams.set("recordLocation", "false");
             router.replace(`${pathname}?${newSearchParams.toString()}`);
           }
+
           setFetchingGeoLocation(false);
         },
         (error) => {
           setFetchingGeoLocation(false);
 
+          let message = "";
+
+          if (error.code === error.PERMISSION_DENIED)
+            message =
+              "Permission for geo location is not granted. Please grant permission and try again.";
+          else if (error.code === error.POSITION_UNAVAILABLE)
+            message = "Geo Location information is unavailabl. Try again later";
+          else if (error.code === error.TIMEOUT)
+            message =
+              "The request to get user geo location timed out. Try again later.";
+          else
+            message =
+              "Error fetching current location on this browser. Try again later.";
+
           toast({
-            title: `Error fetching geolocation on this browser. Error: ${error.message}`,
+            title: message,
             variant: "failure",
           });
-
-          return;
         },
         {
           enableHighAccuracy: true,
@@ -110,7 +123,7 @@ export default function OwnerInfoButtons({
           onClick={(e) => {
             if (fetchingGeoLocation) {
               toast({
-                title: "Please wait for your current location to be fetched.",
+                title: "Please wait while we fetch your current location.",
                 variant: "default",
               });
               e.preventDefault();
@@ -118,7 +131,7 @@ export default function OwnerInfoButtons({
             } else if (!fetchingGeoLocation && !whatsappLink) {
               fetchGeoLocation();
               toast({
-                title: "Please wait for your current location to be fetched.",
+                title: "Please wait while we fetch your current location.",
                 variant: "default",
               });
               e.preventDefault();
@@ -130,7 +143,9 @@ export default function OwnerInfoButtons({
           rel="noopener noreferrer"
           className={cn(
             "col-span-5 inline-block",
-            fetchingGeoLocation ? "pointer-events-none1 opacity-80" : "",
+            fetchingGeoLocation || !whatsappLink
+              ? "pointer-events-none1 opacity-50"
+              : "",
           )}
         >
           <Button
