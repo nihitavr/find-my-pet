@@ -16,6 +16,10 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { cn } from "~/lib/utils";
 import { toast } from "./ui/use-toast";
 
+// In Milliseconds
+const GEOLOCATION_TIMEOUT = 20000;
+const GEOLOCATION_MAX_AGE = 0;
+
 export default function OwnerInfoButtons({
   phoneNumber,
   petId,
@@ -82,7 +86,11 @@ export default function OwnerInfoButtons({
 
           return;
         },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 },
+        {
+          enableHighAccuracy: true,
+          timeout: GEOLOCATION_TIMEOUT,
+          maximumAge: GEOLOCATION_MAX_AGE,
+        },
       );
     }
   };
