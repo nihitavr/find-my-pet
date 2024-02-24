@@ -21,7 +21,7 @@ export default async function OurCollectionSection() {
       {/* <Link href={"/collections/pet-tags"}>
         <Button className="w-full text-xl font-normal">View All</Button>
       </Link> */}
-      <div>
+      <div className="w-full flex-col items-center justify-center md:flex">
         <div className="text-xs">
           This will open a <span className="font-semibold">Google Form</span>{" "}
           for checkout.*

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Price } from "~/components/ui/price";
 import { api } from "~/lib/trpc/server";
-import { getDiscountedPrice } from "~/lib/utils";
 
 export default async function PetTagCollections() {
   const petTagProducts = await api.product.getAllPetTags.query();
@@ -28,18 +28,10 @@ export default async function PetTagCollections() {
               <span className="text-xs font-semibold">
                 {petTagProduct.name}
               </span>
-              <div className="flex items-center gap-3 text-foreground/90">
-                <span className="line-through">
-                  &#8377; {petTagProduct.price}
-                </span>
-                <span className="font-semibold text-primary">
-                  &#8377;{" "}
-                  {getDiscountedPrice(
-                    petTagProduct.price,
-                    petTagProduct.discount,
-                  )}
-                </span>
-              </div>
+              <Price
+                price={petTagProduct.price}
+                discount={petTagProduct.discount}
+              />
             </div>
           </Link>
         ))}

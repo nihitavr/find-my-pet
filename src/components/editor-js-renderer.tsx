@@ -11,7 +11,7 @@ export function EditorJsRender({ data, title }: EditorJsRenderProps) {
   if (!data) return <div></div>;
 
   const html = data.blocks?.map((block, idx) => {
-    const blockClasses = "p-0";
+    const blockClasses = "p-0 text-sm md:text-base";
 
     switch (block.type) {
       case "paragraph":
@@ -40,7 +40,7 @@ export function EditorJsRender({ data, title }: EditorJsRenderProps) {
           case "ordered":
             return (
               <div key={idx} className={blockClasses}>
-                <ol className="z-10 list-outside list-decimal px-8">
+                <ol className="z-10 flex list-outside list-decimal flex-col gap-1.5 px-8">
                   {block.data.items.map((item: string, idx: number) => {
                     return <li key={idx}>{parse(item)}</li>;
                   })}
@@ -50,7 +50,7 @@ export function EditorJsRender({ data, title }: EditorJsRenderProps) {
           case "unordered":
             return (
               <div key={idx} className={blockClasses}>
-                <ul className="z-10 list-outside list-disc px-8">
+                <ul className="z-10 flex list-outside list-disc flex-col gap-1.5 px-8">
                   {block.data.items.map((item: string, idx: number) => {
                     return <li key={idx}>{parse(item)}</li>;
                   })}

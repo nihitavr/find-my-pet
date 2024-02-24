@@ -14,6 +14,7 @@ import { Toaster } from "~/components/ui/toaster";
 import { getServerAuthSession } from "~/lib/auth";
 
 import type { Metadata, Viewport } from "next";
+import { CartProvider } from "~/lib/storage/cart-storage";
 
 const APP_NAME = "Find My Pet";
 const APP_DEFAULT_TITLE = "Find My Pet - QR Code Collar Tags for Pets";
@@ -72,8 +73,10 @@ export default async function RootLayout({
         className={`font-sans ${inter.variable} bg-background text-foreground`}
       >
         <TRPCReactProvider cookies={cookies().toString()}>
-          <Header session={session} />
-          <main className="mt-14">{children}</main>
+          <CartProvider>
+            <Header session={session} />
+            <main className="mt-14">{children}</main>
+          </CartProvider>
         </TRPCReactProvider>
         <SpeedInsights />
         <Toaster />

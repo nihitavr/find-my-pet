@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { FadeInAnimation } from "../ui/animation/fade-in-animation";
 
 export default async function PawsomeProfilesSection() {
   return (
@@ -11,46 +12,57 @@ export default async function PawsomeProfilesSection() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 md:pt-5">
-        <div className="w-full px-5 md:translate-x-5 md:px-0">
-          <div className="relative h-96 w-full">
-            <Image
-              fill
-              src={"/pawsome-profiles-image-1.png"}
-              alt="pawsome profiles image 1"
-              className="max-w-min object-contain"
-            />
+        <FadeInAnimation animateOnVisible={true} duration={1}>
+          <div className="w-full px-5 md:translate-x-5 md:px-0">
+            <div className="relative h-96 w-full">
+              <Image
+                fill
+                src={"/pawsome-profiles-image-1.png"}
+                alt="pawsome profiles image 1"
+                className="max-w-min object-contain"
+              />
+            </div>
           </div>
-        </div>
-        <div className="-mt-24 px-5 md:mt-0 md:-translate-x-6 md:px-0">
-          <div className="relative h-96 w-full">
-            <Image
-              fill
-              src={"/pawsome-profiles-image-2.png"}
-              alt="pawsome profiles image 2"
-              className="max-w-min object-contain"
-            />
+        </FadeInAnimation>
+
+        <FadeInAnimation animateOnVisible={true} duration={1}>
+          <div className="-mt-24 px-5 md:mt-0 md:-translate-x-6 md:px-0">
+            <div className="relative h-96 w-full">
+              <Image
+                fill
+                src={"/pawsome-profiles-image-2.png"}
+                alt="pawsome profiles image 2"
+                className="max-w-min object-contain"
+              />
+            </div>
           </div>
-        </div>
-        <div className="-mt-24 px-5 md:mt-0 md:translate-x-6 md:px-0">
-          <div className="relative h-96 w-full">
-            <Image
-              fill
-              src={"/pawsome-profiles-image-3.png"}
-              alt="pawsome profiles image 3"
-              className="max-w-min object-contain"
-            />
+        </FadeInAnimation>
+
+        <FadeInAnimation animateOnVisible={true} duration={1}>
+          <div className="-mt-24 px-5 md:mt-0 md:translate-x-6 md:px-0">
+            <div className="relative h-96 w-full">
+              <Image
+                fill
+                src={"/pawsome-profiles-image-3.png"}
+                alt="pawsome profiles image 3"
+                className="max-w-min object-contain"
+              />
+            </div>
           </div>
-        </div>
-        <div className="-mt-24 px-5 md:mt-0 md:-translate-x-5 md:px-0">
-          <div className="relative h-96 w-full">
-            <Image
-              fill
-              src={"/pawsome-profiles-image-4.png"}
-              alt="pawsome profiles image 4"
-              className="max-w-min object-contain"
-            />
+        </FadeInAnimation>
+
+        <FadeInAnimation animateOnVisible={true} duration={1}>
+          <div className="-mt-24 px-5 md:mt-0 md:-translate-x-5 md:px-0">
+            <div className="relative h-96 w-full">
+              <Image
+                fill
+                src={"/pawsome-profiles-image-4.png"}
+                alt="pawsome profiles image 4"
+                className="max-w-min object-contain"
+              />
+            </div>
           </div>
-        </div>
+        </FadeInAnimation>
       </div>
     </div>
   );

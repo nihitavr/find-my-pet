@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { FadeInAnimation } from "../ui/animation/fade-in-animation";
 
 export default async function HeroSection() {
   return (
@@ -41,12 +42,22 @@ export default async function HeroSection() {
           />
         </div>
         <div className="relative flex aspect-[7/5] w-full flex-1 flex-shrink-0 justify-end rounded-3xl">
-          <Image
-            fill
-            style={{ objectFit: "contain" }}
-            src={"/hero-image-dog-cat.jpg"}
-            alt="image of cat and dog"
-          />
+          <FadeInAnimation duration={0.5}>
+            <Image
+              fill
+              style={{ objectFit: "contain" }}
+              src={"/hero-image-dog-cat.jpg"}
+              alt="image of cat and dog"
+            />
+          </FadeInAnimation>
+          <FadeInAnimation delay={0.5} duration={0.5}>
+            <Image
+              fill
+              style={{ objectFit: "contain" }}
+              src={"/hero-image-dog-cat-1.jpg"}
+              alt="image of cat and dog"
+            />
+          </FadeInAnimation>
         </div>
       </div>
     </div>
