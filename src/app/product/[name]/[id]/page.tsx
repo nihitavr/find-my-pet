@@ -11,6 +11,7 @@ import {
 } from "~/components/ui/accordion";
 import NotFound from "~/components/ui/errors/not-found";
 import { Label } from "~/components/ui/label";
+import ScrollToTop from "~/components/ui/scroll-top";
 import { api } from "~/lib/trpc/server";
 
 export default async function Product({
@@ -32,27 +33,33 @@ export default async function Product({
 
   return (
     <main className="flex flex-col gap-2 p-3 pt-0 md:px-6 md:py-10">
+      <ScrollToTop />
       <div className="flex grid-cols-12 flex-col gap-2 md:grid md:gap-5">
         {/* Product Images */}
         <div className="col-span-5 w-full">
           <ProductImageCasousel
             images={product.images}
-            className="col-span-5 aspect-[6/5] w-full"
+            className="col-span-5 aspect-square w-full"
             imageClassName="rounded-none border-none"
           />
         </div>
 
         {/* Product Info */}
-        <div className="col-span-7 flex flex-col gap-3 px-1">
-          <div className="flex flex-col gap-2  overflow-y-auto pt-0">
+        <div className="col-span-7 flex flex-col gap-5 px-1">
+          <div className="flex flex-col gap-3 overflow-y-auto pt-0">
+            {/* Product name */}
             <h1 className="text-xl font-semibold">{product?.name}</h1>
+
+            {/* ATC and Buy Now buttons */}
+            <ProductShoppingButtons product={product} />
+
+            {/* Description */}
             <div>
               <Label>Description</Label>
               <p>{product?.description}</p>
             </div>
           </div>
 
-          <ProductShoppingButtons product={product} />
           {/* <div>
             <div className="text-xs">
               This will open a{" "}
@@ -73,7 +80,7 @@ export default async function Product({
         <Accordion
           defaultValue={accordianDefaultValues}
           type="multiple"
-          className="flex flex-col"
+          className="flex flex-col pb-16"
         >
           {(product?.details as JsonArray).map((detail, idx) => {
             return (

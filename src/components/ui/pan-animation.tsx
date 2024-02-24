@@ -11,7 +11,6 @@ export default function PanAnimation({
   children: ReactNode;
 }) {
   const [ref, isVisible] = useOnScreen({ threshold: 0.1 });
-  console.log("isVisible", isVisible);
 
   // Determine which CSS class to use based on the animation direction
   let animationClass = "";

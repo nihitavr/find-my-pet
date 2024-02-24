@@ -8,7 +8,6 @@ import {
   CarouselItem,
 } from "~/components/ui/carousel";
 
-import { Card, CardContent } from "~/components/ui/card";
 import Image from "next/image";
 import { cn } from "~/lib/utils";
 import Autoplay from "embla-carousel-autoplay";
@@ -59,20 +58,16 @@ export default function PhotoCasousel({
     >
       <CarouselContent>
         {images.map((imageUrl, index) => (
-          <CarouselItem key={index}>
-            <div>
-              <Card className="rounded-xl">
-                <CardContent className={cn("relative w-full", className)}>
-                  <Image
-                    src={imageUrl ? imageUrl : defaultImage}
-                    alt="Profile Image"
-                    fill
-                    style={{ objectFit: "cover" }}
-                    className={cn("rounded-xl", imageClassName)}
-                    loading="lazy"
-                  />
-                </CardContent>
-              </Card>
+          <CarouselItem key={index} className="bg-blue-500">
+            <div className={cn("relative w-full rounded-xl", className)}>
+              <Image
+                src={imageUrl ? imageUrl : defaultImage}
+                alt="Profile Image"
+                fill
+                style={{ objectFit: "cover" }}
+                className={cn("rounded-xl", imageClassName)}
+                loading="lazy"
+              />
             </div>
           </CarouselItem>
         ))}

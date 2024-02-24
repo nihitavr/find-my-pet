@@ -43,11 +43,6 @@ export default function ProductPage({ product }: { product: Product }) {
 
     setWidth(leftSectionRef.current.getBoundingClientRect().width);
 
-    // console.log(
-    //   "topSectionRef: ",
-    //   topSectionRef.current.getBoundingClientRect().bottom,
-    // );
-
     if (rightSectionBottom - 40 <= topSectionHeight) {
       setIsFixed(true);
     } else {
@@ -65,17 +60,8 @@ export default function ProductPage({ product }: { product: Product }) {
         topSectionRef.current.getBoundingClientRect().bottom >=
       0
     ) {
-      console.log(
-        "bottom: ",
-        window.innerHeight -
-          topSectionRef.current.getBoundingClientRect().bottom,
-      );
-
       setIsScrollBottom(true);
     }
-
-    console.log("currentScrollPos: ", currentScrollPos);
-    console.log("lastScrollTop: ", lastScrollTop);
 
     setLastScrollTop(currentScrollPos);
   };
@@ -112,7 +98,7 @@ export default function ProductPage({ product }: { product: Product }) {
           >
             <ProductImageCasousel
               images={product.images}
-              className="col-span-5 aspect-[6/5] w-full"
+              className="aspect-[6/5] w-full"
               imageClassName="rounded-none border-none"
             />
           </div>
