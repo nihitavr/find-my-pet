@@ -12,12 +12,10 @@ import { ShoppingCart } from "lucide-react";
 import { type CartItem, useCart } from "~/lib/storage/cart-storage";
 import { getDiscountedPrice } from "~/lib/utils";
 import { Button } from "./ui/button";
-import { useEffect, useState } from "react";
 import { Price } from "./ui/price";
 
 export function CartSideSheet() {
   const { cart, addItem, removeItem } = useCart();
-  const [isOpen, setIsOpen] = useState(false);
 
   const cartSize = cart.reduce((size, item) => size + item.quantity, 0);
   const cartTotal = cart.reduce(
@@ -26,17 +24,8 @@ export function CartSideSheet() {
     0,
   );
 
-  useEffect(() => {
-    if (cart.length > 0 && !isOpen) setIsOpen(true);
-  }, [cartSize]);
-
   return (
-    <Sheet
-      open={isOpen}
-      onOpenChange={(open) => {
-        setIsOpen(open);
-      }}
-    >
+    <Sheet>
       <SheetTrigger
         onClick={(e) => {
           if (cartSize == 0) {

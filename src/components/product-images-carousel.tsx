@@ -66,7 +66,7 @@ export default function ProductImageCasousel({
                 alt="Profile Image"
                 fill
                 style={{ objectFit: "contain" }}
-                className={cn("p-2", imageClassName)}
+                className={cn("p-2 md:p-0", imageClassName)}
                 loading="lazy"
               />
             </CarouselItem>

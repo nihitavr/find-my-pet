@@ -96,7 +96,7 @@ export function ProductShoppingButtons({ product }: { product: Product }) {
             addItem(product, quantity);
           }}
           className={cn(
-            "!mr-3 w-full rounded-lg px-3 py-6 text-lg font-normal",
+            "!mr-3 w-full rounded-lg px-3 py-6 text-lg font-normal md:float-right md:w-44",
           )}
           variant="secondary"
         >

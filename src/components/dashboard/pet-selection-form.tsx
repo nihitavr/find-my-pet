@@ -53,8 +53,6 @@ export function PetSelectionForm({
     setIsSubmitting(false);
   };
 
-  console.log(pets);
-
   return (
     <div className="flex w-full flex-col">
       <RadioGroup
