@@ -32,7 +32,7 @@ export const FadeInAnimation = ({
 
       const rect = ref.current?.getBoundingClientRect();
 
-      if (rect && rect.top < window.innerHeight && !isVisible) {
+      if (rect && rect.top < window.innerHeight - 10 && !isVisible) {
         setIfVisible(true);
         window.removeEventListener("scroll", handleScroll);
       }
@@ -45,7 +45,6 @@ export const FadeInAnimation = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   if (scroll && !isScrolled) {
     return <></>;
   }
@@ -57,7 +56,7 @@ export const FadeInAnimation = ({
         animation:
           animateOnVisible && !isVisible
             ? ""
-            : `fadeIn ${duration}s linear ${delay}s forwards`,
+            : `fade-in ${duration}s linear ${delay}s forwards`,
         opacity: 0,
 
         // We need to set the height and width to some value otherwise all the elements will be come into visibility at once.

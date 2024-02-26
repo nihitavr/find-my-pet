@@ -1,5 +1,5 @@
-import BuyItemsCarousal from "./buy-items-carousal";
-import { Button } from "../ui/button";
+import BuyItemsCarousal from "../buy-items-carousal";
+import { Button } from "../../ui/button";
 import { api } from "~/lib/trpc/server";
 import { ArrowUpRight } from "lucide-react";
 
@@ -7,7 +7,7 @@ export default async function OurCollectionSection() {
   const petTagProducts = await api.product.getAllPetTags.query();
 
   return (
-    <div className="justify flex flex-col items-center gap-5 bg-slate-50 p-5 py-8 md:gap-10 md:px-28 md:py-10">
+    <section className="justify flex flex-col items-center gap-5 bg-slate-50 p-5 py-8 md:gap-10 md:px-28 md:py-10">
       {/* Buy Now */}
       <h1 className="bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-center text-3xl font-semibold text-transparent md:text-5xl ">
         {/* <h1 className="text-center text-3xl font-semibold md:text-5xl"> */}
@@ -33,6 +33,6 @@ export default async function OurCollectionSection() {
           </Button>
         </a>
       </div>{" "}
-    </div>
+    </section>
   );
 }

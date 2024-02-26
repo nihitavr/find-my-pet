@@ -40,12 +40,17 @@ const config = {
             backgroundPosition: "100% 50%",
           },
         },
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "wipe-left-right": "wipe-left-right 1s linear",
         "text-color-gradient": "text-color-gradient",
+        "fade-in": "fade-in 0.5s linear",
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],

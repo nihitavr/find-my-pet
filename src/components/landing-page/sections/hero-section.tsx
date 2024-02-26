@@ -1,11 +1,11 @@
 import React from "react";
 import Image from "next/image";
-import { FadeInAnimation } from "../ui/animation/fade-in-animation";
-import WipeAnimation from "../ui/animation/wipe-animation";
+import { FadeInAnimation } from "../../ui/animation/fade-in-animation";
+import WipeAnimation from "../../ui/animation/wipe-animation";
 
 export default async function HeroSection() {
   return (
-    <div className="justify relative flex flex-col-reverse items-center gap-2 p-5 md:flex-row md:gap-10 md:px-28 md:pb-5 md:pt-10">
+    <section className="justify relative flex flex-col-reverse items-center gap-2 p-5 md:flex-row md:gap-10 md:px-28 md:pb-5 md:pt-10">
       {/* Left Text */}
       <div className="flex w-full flex-1 flex-col items-center justify-center gap-3 md:gap-6">
         <div className="w-min">
@@ -73,6 +73,6 @@ export default async function HeroSection() {
           </FadeInAnimation>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

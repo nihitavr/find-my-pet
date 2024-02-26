@@ -13,15 +13,6 @@
   animation: rainbow-text 3s linear infinite;
 }
 
-/* Fadein animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
 
 /* ScaleUp animation */
 @keyframes scaleUp {
