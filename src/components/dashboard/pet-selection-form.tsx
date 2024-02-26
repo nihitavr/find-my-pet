@@ -44,7 +44,7 @@ export function PetSelectionForm({
             description: "Pet Tag has been registered successfully.",
           });
 
-          router.push(`/pt/${qrCodeId}`);
+          router.push(`/pt/${qrCodeId}?recordLocation=false`);
           router.refresh();
         },
       },

@@ -1,23 +1,25 @@
 import Image from "next/image";
 import React from "react";
+import { FadeInAnimation } from "../ui/animation/fade-in-animation";
 
 export default async function Features() {
   return (
-    <div className="flex flex-col items-center justify-center gap-5 bg-white px-5 py-16 md:gap-10 md:px-40">
+    <div className="flex flex-col items-center justify-center gap-10 bg-white px-5 py-8 md:gap-10 md:px-28 md:py-10">
       {/* Left Text */}
-      <h1 className="text-center text-4xl font-bold tracking-tight sm:text-[4rem]">
-        Features
+      <h1 className="bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-center text-3xl font-semibold text-transparent md:text-5xl ">
+        Pawsome Features
       </h1>
-      <div className="flex w-full flex-col justify-between gap-10 md:flex-row md:gap-20">
-        <div className="flex flex-col items-center gap-2">
-          <Image
-            className="rounded-lg"
-            src="/howitworks-scan-qrcode.png"
-            alt="how it works scan qr code"
-            width={300}
-            height={300}
-          />
-          <span className="text-center text-xl font-semibold">
+      <div className="grid w-full grid-cols-1 gap-14 md:grid-cols-3">
+        <div className="col-span-1 flex flex-col items-center gap-3">
+          <FadeInAnimation animateOnVisible duration={1} delay={0.3}>
+            <Image
+              src="/howitworks-pet-profile.png"
+              alt="how it works scan qr code"
+              width={350}
+              height={350}
+            />
+          </FadeInAnimation>
+          <span className="mt-2 text-center text-2xl font-semibold">
             Pet Collar tag
           </span>
           <span className="text-center">
@@ -26,15 +28,16 @@ export default async function Features() {
           </span>
         </div>
 
-        <div className="flex flex-col items-center gap-2">
-          <Image
-            className="rounded-lg"
-            src="/howitworks-create-profile.png"
-            alt="how it works create profile"
-            width={300}
-            height={300}
-          />
-          <span className="text-center text-xl font-semibold">
+        <div className="col-span-1 flex flex-col items-center gap-3">
+          <FadeInAnimation animateOnVisible duration={1} delay={0.3}>
+            <Image
+              src="/howitworks-gps-alerts.png"
+              alt="how it works create profile"
+              width={350}
+              height={350}
+            />
+          </FadeInAnimation>
+          <span className="mt-2 text-center text-2xl font-semibold">
             Online Pet Profile
           </span>
           <span className="text-center">
@@ -43,15 +46,16 @@ export default async function Features() {
           </span>
         </div>
 
-        <div className="flex flex-col items-center gap-2">
-          <Image
-            className="rounded-lg"
-            src="/howitworks-attach-collar.png"
-            alt="how it works attach collar"
-            width={300}
-            height={300}
-          />
-          <span className="text-center text-xl font-semibold">
+        <div className="col-span-1 flex flex-col items-center gap-3">
+          <FadeInAnimation animateOnVisible duration={1} delay={0.3}>
+            <Image
+              src="/howitworks-pet-family.png"
+              alt="how it works attach collar"
+              width={350}
+              height={350}
+            />
+          </FadeInAnimation>
+          <span className="mt-2 text-center text-2xl font-semibold">
             Notifications
           </span>
           <span className="text-center">

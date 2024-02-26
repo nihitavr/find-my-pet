@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "./ui/button";
 import { type Product } from "@prisma/client";
 import { useCart } from "~/lib/storage/cart-storage";
-import { Price } from "./ui/price";
+import Price from "./ui/price";
 import { cn } from "~/lib/utils";
 
 export function ProductShoppingButtons({ product }: { product: Product }) {

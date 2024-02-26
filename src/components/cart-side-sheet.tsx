@@ -12,7 +12,7 @@ import { ShoppingCart } from "lucide-react";
 import { type CartItem, useCart } from "~/lib/storage/cart-storage";
 import { getDiscountedPrice } from "~/lib/utils";
 import { Button } from "./ui/button";
-import { Price } from "./ui/price";
+import Price from "./ui/price";
 
 export function CartSideSheet() {
   const { cart, addItem, removeItem } = useCart();

@@ -9,7 +9,7 @@ import {
 } from "~/components/ui/table";
 import { api } from "~/lib/trpc/server";
 import { MapPin } from "lucide-react";
-import { dateToISTString } from "~/lib/utils";
+import { dateToISTString, getGoogleLocationLink } from "~/lib/utils";
 
 export default async function PetScanHistory({
   params: { id },
@@ -43,9 +43,9 @@ export default async function PetScanHistory({
               </TableCell>
               <TableCell className="col-span-5 pl-12">
                 <a
-                  href={`https://www.google.com/maps/search/${(
-                    scan?.geoCode as any
-                  )?.latitude},${(scan?.geoCode as any)?.longitude}`}
+                  href={getGoogleLocationLink(
+                    scan.geoCode as { latitude: number; longitude: number },
+                  )}
                   target="_blank"
                 >
                   <MapPin />

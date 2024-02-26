@@ -13,7 +13,7 @@ import { cn } from "~/lib/utils";
 import Link from "next/link";
 import { type Product } from "@prisma/client";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
-import { Price } from "../ui/price";
+import Price from "../ui/price";
 import { getProductRelativeUrl } from "~/lib/utils/product.utils";
 
 export default function BuyItemsCarousal({
@@ -68,7 +68,7 @@ export default function BuyItemsCarousal({
               />
             </Link>
             <div className="= w-full">
-              <span className="break-words text-sm font-semibold">
+              <span className="line-clamp-2 break-words text-sm font-semibold">
                 {product.name}
               </span>
 

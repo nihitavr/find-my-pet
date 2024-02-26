@@ -9,9 +9,9 @@ export default async function Home() {
     <main className="flex min-h-screen flex-col">
       <HeroSection />
       <OurCollectionSection />
+      <Features />
       <PawsomeProfilesSection />
       <HowToGetStarted />
-      <Features />
     </main>
   );
 }

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Price } from "~/components/ui/price";
+import Price from "~/components/ui/price";
 import { api } from "~/lib/trpc/server";
 
 export default async function PetTagCollections() {

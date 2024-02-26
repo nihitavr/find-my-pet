@@ -66,7 +66,7 @@ export default function ProductImageCasousel({
                 alt="Profile Image"
                 fill
                 style={{ objectFit: "contain" }}
-                className={cn("p-2 md:p-0", imageClassName)}
+                className={imageClassName}
                 loading="lazy"
               />
             </CarouselItem>
@@ -75,7 +75,7 @@ export default function ProductImageCasousel({
       </Carousel>
 
       {images.length > 1 && (
-        <div className="px-1 md:px-0">
+        <div>
           <Carousel
             className="relative w-full"
             setApi={setThumbnailsCarouselApi}

@@ -28,10 +28,24 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "wipe-left-right": {
+          "0%": { width: "0", opacity: "100%" },
+          "100%": { width: "100%", opacity: "100%" },
+        },
+        "text-color-gradient": {
+          "0% 100%": {
+            backgroundPosition: "0% 50%",
+          },
+          "50%": {
+            backgroundPosition: "100% 50%",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "wipe-left-right": "wipe-left-right 1s linear",
+        "text-color-gradient": "text-color-gradient",
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
