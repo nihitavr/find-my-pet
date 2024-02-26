@@ -58,7 +58,7 @@ export default function PhotoCasousel({
     >
       <CarouselContent>
         {images.map((imageUrl, index) => (
-          <CarouselItem key={index} className="bg-blue-500">
+          <CarouselItem key={index}>
             <div className={cn("relative w-full rounded-xl", className)}>
               <Image
                 src={imageUrl ? imageUrl : defaultImage}

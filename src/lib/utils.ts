@@ -105,3 +105,11 @@ export function getNRandomCuteImage() {
 
   return randomImages;
 }
+
+export function getGoogleLocationLink(geoCode: {
+  latitude: number;
+  longitude: number;
+}) {
+  if (!geoCode) return "";
+  return `https://www.google.com/maps/search/${geoCode?.latitude},${geoCode?.longitude}`;
+}

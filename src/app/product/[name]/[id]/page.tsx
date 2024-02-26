@@ -36,11 +36,11 @@ export default async function Product({
       <ScrollToTop />
       <div className="flex grid-cols-12 flex-col gap-2 md:grid md:gap-5">
         {/* Product Images */}
-        <div className="col-span-5 w-full">
+        <div className="col-span-5 w-full p-2">
           <ProductImageCasousel
             images={product.images}
             className="col-span-5 aspect-square w-full"
-            imageClassName="rounded-none border-none"
+            imageClassName="rounded-md border-none"
           />
         </div>
 

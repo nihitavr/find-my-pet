@@ -18,6 +18,7 @@ export async function sendPetTagScanEmail(
   ownerName: string,
   petName: string,
   petId: string,
+  locationLink: string,
 ) {
   const emailTemplateCopy = emailTemplates.petTagScan
     .replace(/{Pet Name}/g, petName)
@@ -25,12 +26,13 @@ export async function sendPetTagScanEmail(
     .replace(
       /{Scan History Link}/g,
       `${env.SERVER_URL}/dashboard/pets/${petId}/scan-history`,
-    );
+    )
+    .replace(/{Google Maps Link}/g, locationLink);
 
   const mailOptions = {
     from: `"Find My Pet" <${env.SMPT_USER}>`, // sender address
     to: to,
-    subject: `Find My Pet - ${petName}'s pet tag scanned`, // Subject line
+    subject: `GPS Alert! ${petName}'s pet tag has been scanned.`, // Subject line
     html: emailTemplateCopy, // HTML body content
   };
 

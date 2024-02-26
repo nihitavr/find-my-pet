@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 export const FadeInAnimation = ({
   children,
+  className,
   scroll,
   duration = 1,
   delay = 0,
@@ -11,6 +12,7 @@ export const FadeInAnimation = ({
   props,
 }: {
   children: React.ReactNode;
+  className?: string;
   scroll?: number;
   duration?: number;
   delay?: number;
@@ -36,6 +38,8 @@ export const FadeInAnimation = ({
       }
     };
 
+    handleScroll();
+
     window.addEventListener("scroll", handleScroll);
 
     return () => window.removeEventListener("scroll", handleScroll);
@@ -48,6 +52,7 @@ export const FadeInAnimation = ({
 
   return (
     <div
+      className={className}
       style={{
         animation:
           animateOnVisible && !isVisible

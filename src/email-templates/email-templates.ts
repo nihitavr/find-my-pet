@@ -615,13 +615,16 @@ export const emailTemplates = {
                                   </p>
                                   <p style="line-height: 160%"> </p>
                                   <p style="line-height: 160%">
-                                    {Pet Name}'s Pet tag has been scanned, click
+                                    FindMyPet GPS Alert! {Pet Name}'s pet tag has been scanned at location: {Google Maps Link}
+                                  </p>
+                                  <p style="line-height: 160%"> </p>
+                                  <p style="line-height: 160%">
+                                  To view {Pet Name}'s complete scan history, please click
                                     <a
                                       href="{Scan History Link}"
                                       target="_blank"
                                       >here</a
-                                    >
-                                    to view scan history.
+                                    >.
                                   </p>
                                 </div>
                               </td>
