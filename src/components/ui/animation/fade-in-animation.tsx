@@ -56,7 +56,7 @@ export const FadeInAnimation = ({
         animation:
           animateOnVisible && !isVisible
             ? ""
-            : `fade-in ${duration}s linear ${delay}s forwards`,
+            : `fade-in ${duration}s ease-in-out ${delay}s forwards`,
         opacity: 0,
 
         // We need to set the height and width to some value otherwise all the elements will be come into visibility at once.

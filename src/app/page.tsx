@@ -1,8 +1,8 @@
-import HeroSection from "../components/landing-page/sections/hero-section";
-import PawsomeFeatures from "../components/landing-page/sections/pawsome-features-section";
-import OurCollectionSection from "~/components/landing-page/sections/our-collection-section";
-import HowToGetStarted from "~/components/landing-page/how-to-get-started";
+import HeroSection from "../components/landing-page/sections/hero";
+import OurCollectionSection from "~/components/landing-page/sections/our-collection";
+import HowToGetStarted from "~/components/landing-page/sections/how-to-get-started";
 import WhatsAppButton from "~/components/landing-page/whats-app-contact-button";
+import PawsomeFeatures from "~/components/landing-page/sections/pawsome-features";
 
 export default async function Home() {
   return (
@@ -11,6 +11,7 @@ export default async function Home() {
       <OurCollectionSection />
       <PawsomeFeatures />
       <HowToGetStarted />
+      <div className="h-32" />
       <WhatsAppButton />
     </main>
   );

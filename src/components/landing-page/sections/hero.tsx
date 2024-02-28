@@ -12,7 +12,6 @@ export default async function HeroSection() {
           <WipeAnimation
             animationDuration={0.5}
             animationDelay={0.5}
-            // className="text-4xl font-semibold text-primary opacity-0 md:text-6xl lg:text-7xl"
             className="bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-4xl font-semibold text-transparent opacity-0 md:text-6xl lg:text-7xl"
           >
             Lost Pet?
