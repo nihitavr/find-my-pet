@@ -36,7 +36,8 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.js",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "src/components/landing-page/sections/pawsome-features.tsx"
   ],
   "exclude": [
     "node_modules",

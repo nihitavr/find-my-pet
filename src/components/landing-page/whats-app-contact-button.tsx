@@ -48,7 +48,6 @@ const WhatsAppButton = () => {
           style={{ objectFit: "contain" }}
           src="/whatsapp-icon-home-page.svg"
           alt="whatsapp logo"
-          // className="z-10 h-10 w-10 md:h-12 md:w-12"
         />
       </div>
     </a>

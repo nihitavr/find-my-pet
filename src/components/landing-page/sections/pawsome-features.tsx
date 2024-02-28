@@ -9,9 +9,9 @@ export default async function PawsomeFeatures() {
       <h1 className="bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-center text-3xl font-semibold text-transparent md:text-5xl ">
         Pawsome Features
       </h1>
-      <div className="grid w-full grid-cols-1 gap-14 md:grid-cols-3">
+      <div className="grid w-full grid-cols-1 gap-10 md:grid-cols-3 md:gap-14">
         <FadeInAnimation
-          className="col-span-1 flex flex-col items-center gap-3"
+          className="col-span-1 flex flex-col items-center gap-3 rounded-xl border p-4 shadow-md"
           animateOnVisible
           duration={1}
         >
@@ -32,7 +32,7 @@ export default async function PawsomeFeatures() {
         </FadeInAnimation>
 
         <FadeInAnimation
-          className="col-span-1 flex flex-col items-center gap-3"
+          className="col-span-1 flex flex-col items-center gap-3 rounded-xl border p-4 shadow-md"
           animateOnVisible
           duration={1}
         >
@@ -53,7 +53,7 @@ export default async function PawsomeFeatures() {
         </FadeInAnimation>
 
         <FadeInAnimation
-          className="col-span-1 flex flex-col items-center gap-3"
+          className="col-span-1 flex flex-col items-center gap-3 rounded-xl border p-4 shadow-md"
           animateOnVisible
           duration={1}
         >

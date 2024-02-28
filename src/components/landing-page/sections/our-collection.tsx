@@ -9,14 +9,13 @@ export default async function OurCollectionSection() {
   return (
     <section className="justify flex flex-col items-center gap-5 bg-slate-50 p-5 py-8 md:gap-10 md:px-28 md:py-10">
       {/* Buy Now */}
-      <h1 className="bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-center text-3xl font-semibold text-transparent md:text-5xl ">
-        {/* <h1 className="text-center text-3xl font-semibold md:text-5xl"> */}
+      <h1 className="animate-[text-color-gradient_2s_ease-in-out_2s] bg-gradient-to-r from-foreground via-primary to-foreground bg-[length:200%_200%] bg-clip-text text-center text-3xl font-semibold text-transparent repeat-[2] md:text-5xl">
         Our Collections
       </h1>
       <BuyItemsCarousal
         className="h-full w-full"
         // imageClassName="shadow aspect-square rounded-2xl"
-        imageClassName="border-[0.6px] aspect-square rounded-2xl"
+        imageClassName="border-[0.6px] aspect-square rounded-2xl shadow-md"
         productInfos={petTagProducts}
       />
       {/* <Link href={"/collections/pet-tags"}>
