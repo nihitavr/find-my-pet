@@ -5,6 +5,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { SideNavSheet } from "./side-nav-sheet";
 import { cn } from "~/lib/utils";
+import { CartSideSheet } from "./cart-side-sheet";
 
 export default function Header({ session }: { session: any }) {
   const [lastScrollTop, setLastScrollTop] = useState(0);
@@ -14,10 +15,10 @@ export default function Header({ session }: { session: any }) {
     const currentScrollPos = window.scrollY;
 
     if (currentScrollPos > lastScrollTop && currentScrollPos > 50) {
-      // Scroll Down
+      // Scroll Up
       setHeaderVisible(false);
     } else {
-      // Scroll Up
+      // Scroll Down
       setHeaderVisible(true);
     }
 
@@ -56,12 +57,15 @@ export default function Header({ session }: { session: any }) {
             </div>
           </Link>
         </div>
-        <div className="flex items-center space-x-5">
-          <SideNavSheet
-            isSignedIn={!!session?.user}
-            image={session?.user?.image}
-            fallbackLetter={session?.user?.name?.[0] ?? "A"}
-          />
+        <div className="flex items-center gap-5">
+          <CartSideSheet />
+          <div className="flex items-center space-x-5">
+            <SideNavSheet
+              isSignedIn={!!session?.user}
+              image={session?.user?.image}
+              fallbackLetter={session?.user?.name?.[0] ?? "A"}
+            />
+          </div>
         </div>
       </nav>
     </header>

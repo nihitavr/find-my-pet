@@ -8,6 +8,7 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "~/lib/trpc/trpc";
+import { getGoogleLocationLink } from "~/lib/utils";
 
 export const petTagRouter = createTRPCRouter({
   getPetTag: publicProcedure
@@ -57,7 +58,7 @@ export const petTagRouter = createTRPCRouter({
     .input(
       z.object({
         petId: z.string().cuid(),
-        qrCodeId: z.string().cuid(),
+        qrCodeId: z.string(),
         geoCode: z.object({
           latitude: z.number(),
           longitude: z.number(),
@@ -78,12 +79,13 @@ export const petTagRouter = createTRPCRouter({
       }
 
       // Send email to pet owner. This will await the email to be sent.
-      if (petTag?.user?.email) {
+      if (petTag?.user?.email && petTag?.pet?.alertsEnabled) {
         await sendPetTagScanEmail(
           petTag.user.email,
           petTag.user.name!,
           petTag.pet!.name,
           petTag.pet!.id,
+          getGoogleLocationLink(input.geoCode),
         );
       }
 

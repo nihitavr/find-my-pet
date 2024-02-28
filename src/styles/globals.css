@@ -2,15 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* Rainbow animation */
 @keyframes rainbow-text {
   0%,100% { color: white; }
   33% { color: rgb(255, 219, 142); }
   66% { color: rgb(255, 179, 37); }
 }
-
 .rainbow-text-animation {
   animation: rainbow-text 3s linear infinite;
 }
+
+
+/* ScaleUp animation */
+@keyframes scaleUp {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* PanLeft animation */
+@keyframes panLeft {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+/* PanLeft animation */
+@keyframes panRight {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+
+.animate-wipe-left-right {
+  animation: wipe-left-right 1s linear;
+  
+}
+
 
 input[type="file"] {
   display: none;

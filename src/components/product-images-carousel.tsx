@@ -6,12 +6,13 @@ import {
   type CarouselApi,
   CarouselContent,
   CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
 } from "~/components/ui/carousel";
 
 import Image from "next/image";
 import { cn } from "~/lib/utils";
-import { useMediaQuery } from "~/lib/hooks";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 
 export default function ProductImageCasousel({
   images,
@@ -26,8 +27,6 @@ export default function ProductImageCasousel({
   autoplay?: boolean;
   autoPlayDelay?: number;
 }) {
-  const isMobile = useMediaQuery("(max-width: 600px)");
-
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [thumbnailsCarouselApi, setThumbnailsCarouselApi] =
     useState<CarouselApi>();
@@ -39,14 +38,14 @@ export default function ProductImageCasousel({
     }
 
     carouselApi.on("select", () => {
-      setCurrent(carouselApi.selectedScrollSnap());
+      const mainSnappedIndex = carouselApi.selectedScrollSnap();
+      const thumbnailsInViewIndexes = thumbnailsCarouselApi?.slidesInView();
 
-      if (
-        !thumbnailsCarouselApi
-          ?.slidesInView()
-          .includes(carouselApi.selectedScrollSnap())
-      )
-        thumbnailsCarouselApi?.scrollTo(carouselApi.selectedScrollSnap());
+      setCurrent(mainSnappedIndex);
+
+      if (!thumbnailsInViewIndexes?.includes(mainSnappedIndex)) {
+        thumbnailsCarouselApi?.scrollTo(mainSnappedIndex);
+      }
     });
 
     return () => {
@@ -57,88 +56,78 @@ export default function ProductImageCasousel({
   }, [carouselApi]);
 
   return (
-    <Carousel className="h-full w-full" setApi={setCarouselApi}>
-      <CarouselContent>
-        {images.map((imageUrl, index) => (
-          <CarouselItem className={cn("relative", className)} key={index}>
-            <Image
-              src={imageUrl ? imageUrl : defaultImage}
-              alt="Profile Image"
-              fill
-              style={{ objectFit: "contain" }}
-              className={cn("p-5", imageClassName)}
-              loading="lazy"
-            />
-          </CarouselItem>
-        ))}
-      </CarouselContent>
+    <div className="flex w-full flex-col gap-3">
+      <Carousel setApi={setCarouselApi}>
+        <CarouselContent>
+          {images.map((imageUrl, index) => (
+            <CarouselItem className={cn("relative", className)} key={index}>
+              <Image
+                src={imageUrl ? imageUrl : defaultImage}
+                alt="Profile Image"
+                fill
+                style={{ objectFit: "contain" }}
+                className={imageClassName}
+                loading="lazy"
+              />
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
 
       {images.length > 1 && (
-        <Carousel
-          className="relative w-full"
-          setApi={setThumbnailsCarouselApi}
-          opts={{
-            dragFree: true,
-            inViewThreshold: 0.5,
-          }}
-        >
-          <CarouselContent className="ml-0">
-            {images.map((imageUrl, index) => (
-              <CarouselItem
-                className={`aspect-square basis-1/4 p-1 md:basis-1/5`}
-                key={index}
-                onClick={() => {
-                  carouselApi?.scrollTo(index);
-                }}
-                onMouseEnter={() => {
-                  if (!isMobile.current) {
-                    carouselApi?.scrollTo(index, true);
-                  }
-                }}
-              >
-                <div
-                  className={`${
-                    current == index
-                      ? "rounded-lg border-2 border-primary"
-                      : "rounded-lg border-2"
-                  } relative flex aspect-square items-center justify-center`}
+        <div>
+          <Carousel
+            className="relative w-full"
+            setApi={setThumbnailsCarouselApi}
+            opts={{
+              dragFree: true,
+              inViewThreshold: 0.5,
+              containScroll: "trimSnaps",
+            }}
+            plugins={[WheelGesturesPlugin()]}
+          >
+            <CarouselContent>
+              {images.map((imageUrl, index) => (
+                <CarouselItem
+                  className={`aspect-square basis-1/4 p-1 md:basis-1/6`}
+                  key={index}
+                  onClick={() => {
+                    carouselApi?.scrollTo(index);
+                  }}
                 >
-                  <Image
-                    fill
-                    style={{ objectFit: "contain" }}
-                    src={imageUrl ? imageUrl : defaultImage}
-                    alt="Profile Image"
-                    loading="lazy"
-                    className="p-2"
-                  />
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          {!isMobile.current && (
+                  <div
+                    className={`${
+                      current == index
+                        ? "rounded-md border-2 border-primary"
+                        : "rounded-md border hover:border-slate-400"
+                    } relative flex aspect-square cursor-pointer items-center justify-center`}
+                  >
+                    <Image
+                      fill
+                      style={{ objectFit: "contain" }}
+                      src={imageUrl ? imageUrl : defaultImage}
+                      alt="Profile Image"
+                      loading="lazy"
+                      className="rounded-md p-0.5"
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+
             <>
-              {
-                <div
-                  onClick={() => carouselApi?.scrollPrev()}
-                  className={cn(
-                    "absolute top-1/2 ml-1 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-lg border bg-gray-200 hover:bg-gray-100",
-                  )}
-                >
-                  <ChevronLeft />
-                </div>
-              }
-              <div
-                onClick={() => carouselApi?.scrollNext()}
-                className={cn(
-                  "absolute right-0 top-1/2 mr-1 flex h-8 w-8 -translate-y-1/2 translate-x-1/2 cursor-pointer items-center justify-center rounded-lg border bg-gray-200 hover:bg-gray-100",
-                )}
-              >
-                <ChevronRight />
-              </div>
+              <CarouselPrevious
+                canScrollPrev={carouselApi?.canScrollPrev()}
+                scrollPrev={() => carouselApi?.scrollPrev()}
+              />
+              <CarouselNext
+                canScrollNext={carouselApi?.canScrollNext()}
+                scrollNext={() => carouselApi?.scrollNext()}
+              />
             </>
-          )}
-        </Carousel>
+          </Carousel>
+        </div>
       )}
-    </Carousel>
+    </div>
   );
 }
