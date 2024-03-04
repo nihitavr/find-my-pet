@@ -86,10 +86,10 @@ export default function ProductImageCasousel({
             }}
             plugins={[WheelGesturesPlugin()]}
           >
-            <CarouselContent>
+            <CarouselContent className="justify-center">
               {images.map((imageUrl, index) => (
                 <CarouselItem
-                  className={`aspect-square basis-1/4 p-1 md:basis-1/6`}
+                  className={`aspect-square basis-1/4 p-1 md:basis-1/5`}
                   key={index}
                   onClick={() => {
                     carouselApi?.scrollTo(index);

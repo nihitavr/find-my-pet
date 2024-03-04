@@ -40,7 +40,9 @@ export const FadeInAnimation = ({
 
     handleScroll();
 
-    window.addEventListener("scroll", handleScroll);
+    if (animateOnVisible) {
+      window.addEventListener("scroll", handleScroll);
+    }
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
