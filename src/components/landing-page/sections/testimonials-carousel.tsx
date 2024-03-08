@@ -2,7 +2,6 @@
 
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import Image from "next/image";
-import { useState } from "react";
 import {
   Carousel,
   CarouselContent,
@@ -39,7 +38,7 @@ const TestimonialCarousel = ({
         {testimonials.map((testimonial, index) => (
           <CarouselItem key={index} className="p-2 md:basis-1/3">
             <div className="flex h-full flex-col items-center gap-3  rounded-xl border bg-white px-5 py-10 shadow-md">
-              <div className="relative h-20 w-20 rounded-full bg-accent">
+              <div className="relative h-24 w-24 rounded-full bg-accent">
                 <Image
                   fill
                   src={testimonial.image}

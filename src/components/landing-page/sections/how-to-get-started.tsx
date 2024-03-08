@@ -8,7 +8,7 @@ import { useMediaQuery } from "~/lib/hooks/screen.hooks";
 export default function HowToGetStarted() {
   const isMobile = useMediaQuery("(max-width: 640px)");
   return (
-    <section className="flex flex-col items-center justify-center gap-10 bg-accent px-5 py-8 md:gap-10 md:px-28 md:py-10">
+    <section className="flex flex-col items-center justify-center gap-10 bg-accent px-5 py-8 md:gap-10 md:px-28 md:py-14">
       <h1 className="bg-gradient-to-r from-foreground via-primary to-foreground bg-clip-text text-center text-3xl font-semibold text-transparent md:min-h-14 md:text-5xl">
         How to get started?
       </h1>
