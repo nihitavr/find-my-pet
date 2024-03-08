@@ -3,6 +3,9 @@ import OurCollectionSection from "~/components/landing-page/sections/our-collect
 import HowToGetStarted from "~/components/landing-page/sections/how-to-get-started";
 import WhatsAppButton from "~/components/landing-page/whats-app-contact-button";
 import PawsomeFeatures from "~/components/landing-page/sections/pawsome-features";
+import OurInspirationSection from "~/components/landing-page/sections/our-inspiration";
+import Testimonials from "~/components/landing-page/sections/testimonials";
+import Footer from "~/components/landing-page/sections/footer";
 
 export default async function Home() {
   return (
@@ -11,7 +14,10 @@ export default async function Home() {
       <OurCollectionSection />
       <PawsomeFeatures />
       <HowToGetStarted />
-      <div className="h-32" />
+      <OurInspirationSection />
+      <Testimonials />
+      <Footer />
+      <div className="h-20 md:h-0" />
       <WhatsAppButton />
     </main>
   );

@@ -49,6 +49,8 @@ export const PanAnimation = ({
   let animation = "";
   if (direction === "from-left") {
     animation = `panLeft ${duration}s ease-out ${delay}s forwards`;
+  } else {
+    animation = `panRight ${duration}s ease-out ${delay}s forwards`;
   }
 
   return (

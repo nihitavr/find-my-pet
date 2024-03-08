@@ -42,7 +42,7 @@ export default function Header({ session }: { session: any }) {
           : "-translate-y-full transition-transform duration-300 ease-in-out",
       )}
     >
-      <nav className="flex items-center justify-between border-b bg-header bg-white px-2 py-1 shadow-sm md:px-10 md:py-2">
+      <nav className="flex items-center justify-between border-b bg-header px-2 py-1 shadow-sm md:px-10 md:py-2">
         <div className="flex flex-row items-center space-x-0 md:flex-row">
           <Link href="/">
             <div className="relative h-12 w-52">

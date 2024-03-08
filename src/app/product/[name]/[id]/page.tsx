@@ -34,12 +34,12 @@ export default async function Product({
   return (
     <main className="flex flex-col gap-2 p-3 pt-0 md:px-6 md:py-10">
       <ScrollToTop />
-      <div className="flex grid-cols-12 flex-col gap-2 md:grid md:gap-5">
+      <div className="flex grid-cols-11 flex-col gap-2 md:grid md:gap-5">
         {/* Product Images */}
-        <div className="col-span-5 w-full p-2">
+        <div className="col-span-4 w-full p-2">
           <ProductImageCasousel
             images={product.images}
-            className="col-span-5 aspect-square w-full"
+            className="aspect-square w-full"
             imageClassName="rounded-md border-none"
           />
         </div>

@@ -66,6 +66,14 @@ export default async function HeroSection() {
             <Image
               fill
               style={{ objectFit: "contain" }}
+              src={"/hero-image-dog-cat.jpg"}
+              alt="image of cat and dog"
+            />
+          </FadeInAnimation>
+          <FadeInAnimation delay={2} duration={0.5}>
+            <Image
+              fill
+              style={{ objectFit: "contain" }}
               src={"/hero-image-dog-cat-1.jpg"}
               alt="image of cat and dog"
             />
