@@ -2,7 +2,7 @@ import { type OutputData } from "@editorjs/editorjs";
 import { type JsonArray } from "@prisma/client/runtime/library";
 import { EditorJsRender } from "~/components/editor-js-renderer";
 import ProductImageCasousel from "~/components/product-images-carousel";
-import { ProductShoppingButtons } from "~/components/product-shopping-buttons";
+import ProductShoppingButtons from "~/components/product-shopping-buttons";
 import {
   Accordion,
   AccordionContent,

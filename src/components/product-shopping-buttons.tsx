@@ -7,10 +7,24 @@ import { useCart } from "~/lib/storage/cart-storage";
 import Price from "./ui/price";
 import { cn } from "~/lib/utils";
 
-export function ProductShoppingButtons({ product }: { product: Product }) {
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "~/components/ui/dialog";
+import PetTagCustomizer from "./product-tag-customizer";
+
+export default function ProductShoppingButtons({
+  product,
+}: {
+  product: Product;
+}) {
   const addToCartRef = useRef<HTMLButtonElement>(null);
   const [fixedATC, setFixedATC] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const { addItem } = useCart();
 
   useEffect(() => {
@@ -72,14 +86,21 @@ export function ProductShoppingButtons({ product }: { product: Product }) {
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            addItem(product, quantity);
+            setDialogOpen(true);
           }}
           className={cn("rounded-lg py-6 text-lg font-normal md:w-full")}
           variant="secondary"
         >
           Add to cart
         </Button>
-        <Button className="rounded-lg py-6 text-lg font-normal md:w-full">
+        <Button
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setDialogOpen(true);
+          }}
+          className="rounded-lg py-6 text-lg font-normal md:w-full"
+        >
           Buy Now
         </Button>
       </div>
@@ -93,6 +114,7 @@ export function ProductShoppingButtons({ product }: { product: Product }) {
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
+            setDialogOpen(true);
             addItem(product, quantity);
           }}
           className={cn(
@@ -103,6 +125,26 @@ export function ProductShoppingButtons({ product }: { product: Product }) {
           Add to cart
         </Button>
       </div>
+
+      <Dialog open={dialogOpen} onOpenChange={(o) => setDialogOpen(o)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Customisation (Pet Tag)</DialogTitle>
+            <DialogDescription>
+              <PetTagCustomizer
+                product={product}
+                quantity={quantity}
+                imageSrc={"/bone-tag-front-skeleton.jpg"}
+                setDialogOpen={setDialogOpen}
+                startXRatio={0.2885} // Adjust these values based on your image
+                startYRatio={0.635}
+                stopXRatio={0.748} // Adjust these values based on your image
+                stopYRatio={0.8}
+              />
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

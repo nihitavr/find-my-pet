@@ -55,6 +55,7 @@ const config = {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
         cedarville: ["Alex Brush", "cursive"],
+        "next-bro": ["Next Bro", "sans-serif"], // Add the custom font
       },
       colors: {
         border: "hsl(var(--border))",

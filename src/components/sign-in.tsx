@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { useState } from "react";
 import Loader from "./ui/loader";
 import { cn } from "~/lib/utils";
+import Image from "next/image";
 
 export default function SignIn({
   callbackUrl,
@@ -26,13 +27,20 @@ export default function SignIn({
 
   return (
     <Button
-      className={cn("flex items-center justify-center gap-2", className)}
+      className={cn("flex items-center justify-center gap-2 px-4", className)}
       variant="default"
       disabled={isSigningIn}
       onClick={handleSignIn}
       {...props}
     >
       <span>Sign In</span>
+      <Image
+        className="text-white"
+        src={"/icons/google.svg"}
+        width={15}
+        height={15}
+        alt="google logo"
+      />
       <Loader className="h-5 w-5 border-2" show={isSigningIn} />
     </Button>
   );
