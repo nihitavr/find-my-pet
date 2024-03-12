@@ -17,7 +17,7 @@ export default function Header({ session }: { session: any }) {
     if (currentScrollPos > lastScrollTop && currentScrollPos > 50) {
       // Scroll Up
       setHeaderVisible(false);
-    } else {
+    } else if (lastScrollTop - currentScrollPos > 5 || currentScrollPos < 100) {
       // Scroll Down
       setHeaderVisible(true);
     }

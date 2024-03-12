@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Next Bro';
+  src: url('/next-bro-font/Next Bro.otf') format('opentype'),
+       url('/next-bro-font/Next Bro.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* Rainbow animation */
 @keyframes rainbow-text {
