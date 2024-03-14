@@ -45,7 +45,7 @@ export default async function HeroSection() {
               alt="tagline support image"
               loading="lazy"
               fill
-              objectFit="contain"
+              style={{ objectFit: "contain" }}
             />
           </div>
           <span className="font-semibold md:text-2xl">
@@ -57,7 +57,7 @@ export default async function HeroSection() {
               alt="tagline support image"
               loading="lazy"
               fill
-              objectFit="contain"
+              style={{ objectFit: "contain" }}
             />
           </div>
         </div>

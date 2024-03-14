@@ -59,7 +59,9 @@ export function CartSideSheet() {
                     src={item.images[0]!}
                     alt={item.name}
                     layout="fill"
-                    objectFit="contain"
+                    style={{
+                      objectFit: "contain",
+                    }}
                   />
                 </div>
                 <div className="col-span-3 flex w-full flex-col justify-center gap-2">

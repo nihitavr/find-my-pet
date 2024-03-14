@@ -6,32 +6,32 @@ import { Label } from "./ui/label";
 import { cn } from "~/lib/utils";
 import { useCart } from "~/lib/storage/cart-storage";
 import { type Product } from "@prisma/client";
+import { JsonArray } from "@prisma/client/runtime/library";
 
 const PetTagCustomizer = ({
   product,
   quantity,
   setDialogOpen,
-  imageSrc,
-  startXRatio,
-  startYRatio,
-  stopXRatio,
-  stopYRatio,
 }: {
   product: Product;
   quantity: number;
   setDialogOpen: (open: boolean) => void;
-  imageSrc: string;
-  startXRatio: number;
-  startYRatio: number;
-  stopXRatio: number;
-  stopYRatio: number;
 }) => {
+  const productCustomization = (product?.customisations as JsonArray as any)[0];
+  const attributeName = productCustomization.attributes[0].name;
+  const startXRatio: number = productCustomization.attributes[0].startXRatio;
+  const startYRatio: number = productCustomization.attributes[0].startYRatio;
+  const endXRatio: number = productCustomization.attributes[0].endXRatio;
+  const endYRatio: number = productCustomization.attributes[0].endYRatio;
+
   const [name, setName] = useState("");
 
   const nameRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
   const { addItem } = useCart();
+
+  const imageUrl = productCustomization.imageUrl;
 
   useEffect(() => {
     adjustFontSize();
@@ -43,9 +43,9 @@ const PetTagCustomizer = ({
     const nameWidth = nameRef.current.offsetWidth;
     const nameHeight = nameRef.current.offsetHeight;
     const maxBoxWidth =
-      (stopXRatio - startXRatio) * imageRef.current.offsetWidth;
+      (endXRatio - startXRatio) * imageRef.current.offsetWidth;
     const maxBoxHeight =
-      (stopYRatio - startYRatio) * imageRef.current.offsetHeight;
+      (endYRatio - startYRatio) * imageRef.current.offsetHeight;
 
     if (nameHeight && maxBoxHeight && nameHeight != maxBoxHeight) {
       const scaleFactor = maxBoxHeight / nameHeight;
@@ -74,21 +74,21 @@ const PetTagCustomizer = ({
           <Image
             fill
             style={{ objectFit: "cover" }}
-            src={imageSrc}
+            src={imageUrl}
             alt="Pet Tag"
             ref={imageRef}
           />
           <div
-            className="absolute z-50 flex -translate-y-1/2 flex-row items-center justify-center text-foreground"
+            className="absolute z-50 flex flex-row items-center justify-center text-foreground/90"
             style={{
               left: `${startXRatio * 100}%`,
               top: `${startYRatio * 100}%`,
-              width: `${(stopXRatio - startXRatio) * 100}%`,
-              height: `${(stopYRatio - startYRatio) * 100}%`,
+              width: `${(endXRatio - startXRatio) * 100}%`,
+              height: `${(endYRatio - startYRatio) * 100}%`,
             }}
           >
             <span
-              className="font-next-bro p-0 text-center text-3xl"
+              className="font-next-bro p-0 text-center text-3xl tracking-wider"
               ref={nameRef}
             >
               {name}
@@ -97,7 +97,7 @@ const PetTagCustomizer = ({
         </div>
       </div>
 
-      <Label className="float-left">Name</Label>
+      <Label className="float-left">{attributeName}</Label>
       <Input
         type="text"
         value={name}
