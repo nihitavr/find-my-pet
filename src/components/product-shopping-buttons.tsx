@@ -15,6 +15,7 @@ import {
   DialogTitle,
 } from "~/components/ui/dialog";
 import PetTagCustomizer from "./product-tag-customizer";
+import { Label } from "./ui/label";
 
 export default function ProductShoppingButtons({
   product,
@@ -52,7 +53,7 @@ export default function ProductShoppingButtons({
     <div className="flex flex-col gap-5">
       <div>
         {/* Quantity */}
-        <span className="text-sm font-semibold">Quantity</span>
+        <Label>Quantity</Label>
         <div className="flex items-center gap-5">
           <div className="flex w-min items-center justify-between gap-4 rounded-md border px-2 py-0.5 text-lg">
             <span
@@ -134,12 +135,7 @@ export default function ProductShoppingButtons({
               <PetTagCustomizer
                 product={product}
                 quantity={quantity}
-                imageSrc={"/bone-tag-front-skeleton.jpg"}
                 setDialogOpen={setDialogOpen}
-                startXRatio={0.2885} // Adjust these values based on your image
-                startYRatio={0.635}
-                stopXRatio={0.748} // Adjust these values based on your image
-                stopYRatio={0.8}
               />
             </DialogDescription>
           </DialogHeader>

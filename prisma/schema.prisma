@@ -116,6 +116,7 @@ model Product {
   images          String[]
   attributes      Json? // JSON field to store variant-specific attributes like size, color, etc. [{name: "color", value: "red"}, {name: "size", value: "10 CM * 10 CM * 20 CM"  }]
   details         Json? // JSON field to store arbitrary details about the product. [{title: TITIE, data: EDITOR_JS_DATA}]
+  customisations   Json? // JSON field to store customisation details of the product. [{imageUrl: IMAGE_URL, attributes: [{name: "Name", startXRatio: 0, startYRatio: 0, endXRatio: 100, endYRatio: 100}]}]
 
   parentProduct Product?  @relation("ProductToProductParent", fields: [parentProductId], references: [id]) // Relation to itself (parent product).
   variants      Product[] @relation("ProductToProductParent") // Relation to itself (variants of the product).

@@ -43,7 +43,7 @@ const TestimonialCarousel = ({
                   fill
                   src={testimonial.image}
                   alt="user image"
-                  objectFit="cover"
+                  style={{ objectFit: "cover" }}
                   className="rounded-full"
                 />
               </div>

@@ -12,7 +12,9 @@ import {
 import NotFound from "~/components/ui/errors/not-found";
 import { Label } from "~/components/ui/label";
 import ScrollToTop from "~/components/ui/scroll-top";
+import { Table, TableBody, TableCell, TableRow } from "~/components/ui/table";
 import { api } from "~/lib/trpc/server";
+import { titleCase } from "~/lib/utils";
 
 export default async function Product({
   params: { id },
@@ -55,8 +57,30 @@ export default async function Product({
 
             {/* Description */}
             <div>
-              <Label>Description</Label>
+              <Label className="text-foreground">Description</Label>
               <p>{product?.description}</p>
+            </div>
+
+            <div>
+              <Label className="text-foreground">Product Details</Label>
+              <Table>
+                <TableBody>
+                  {(product.attributes as JsonArray as any[])?.map(
+                    (attr, idx) => {
+                      return (
+                        <TableRow key={`product-detail-${idx}`}>
+                          <TableCell className="border">
+                            {titleCase(attr?.name)}
+                          </TableCell>
+                          <TableCell className="border">
+                            {attr?.value}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    },
+                  )}
+                </TableBody>
+              </Table>
             </div>
           </div>
 
