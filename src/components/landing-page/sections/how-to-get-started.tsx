@@ -28,17 +28,25 @@ export default function HowToGetStarted() {
             </span>
           </div>
         </FadeInAnimation>
-        <div className="flex items-center justify-center">
+
+        <FadeInAnimation
+          className="flex items-center justify-center"
+          animateOnVisible={true}
+          duration={0.5}
+          delay={isMobile ? 0 : 0.25}
+        >
+          {" "}
           <MoveRight
-            size={80}
+            size={60}
             strokeWidth={1}
             className="rotate-90 scale-75 text-foreground/70 md:rotate-0 md:scale-100"
           />
-        </div>
+        </FadeInAnimation>
+
         <FadeInAnimation
           animateOnVisible={true}
           duration={0.5}
-          delay={isMobile ? 0 : 0.4}
+          delay={isMobile ? 0 : 0.5}
         >
           <div className="grid grid-cols-2 items-center md:grid-cols-1">
             <div className="relative h-72 md:h-80">
@@ -55,18 +63,23 @@ export default function HowToGetStarted() {
           </div>
         </FadeInAnimation>
 
-        <div className="flex items-center justify-center">
+        <FadeInAnimation
+          className="flex items-center justify-center"
+          animateOnVisible={true}
+          duration={0.5}
+          delay={isMobile ? 0 : 0.75}
+        >
           <MoveRight
-            size={80}
+            size={60}
             strokeWidth={1}
             className="rotate-90 scale-75 text-foreground/70 md:rotate-0 md:scale-100"
           />
-        </div>
+        </FadeInAnimation>
 
         <FadeInAnimation
           animateOnVisible={true}
           duration={0.5}
-          delay={isMobile ? 0 : 0.8}
+          delay={isMobile ? 0 : 1}
         >
           <div className="grid grid-cols-2 items-center md:grid-cols-1">
             <div className="relative h-72 md:h-80">

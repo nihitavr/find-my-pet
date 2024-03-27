@@ -4,20 +4,29 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="justify relative flex flex-col-reverse items-start justify-between gap-5 p-5 md:flex-row md:gap-10 md:px-28 md:py-10">
-      <div>
-        <a href="https://instagram.com/findmypet.qr" target="_blank">
-          <Instagram className="cursor-pointer hover:opacity-70" />
+      <div className="flex flex-col gap-2">
+        {/* Instagram */}
+        <a
+          className="flex w-min items-center justify-start gap-2  text-foreground hover:text-foreground/80"
+          href="https://instagram.com/findmypet.qr"
+          target="_blank"
+        >
+          <Instagram className="h-4 cursor-pointer" />
+          <span>findmypet.qr</span>
         </a>
-        <div className="mt-2 flex items-center py-2">
-          <Mail className="h-4 pr-2" />
-          <p className="m-0 pr-4">findmypet.in@gmail.com</p>
+
+        {/* Email */}
+        <div className="flex items-center gap-2">
+          <Mail className="h-4" />
+          <span>findmypet.in@gmail.com</span>
         </div>
 
-        {/* phone num */}
-        <div className="flex items-center">
-          <Phone className="h-4 pr-2" />
-          <p className="m-0 pr-4">+91 6363822930</p>
+        {/* Phone num */}
+        <div className="flex items-center gap-2">
+          <Phone className="h-4" />
+          <span>+91 6363822930</span>
         </div>
+
         <p className="mt-5 font-semibold">Find My Pet</p>
         <p>Copyright &copy; 2024 Find My Pet</p>
       </div>

@@ -46,7 +46,7 @@ export default async function PawsomeFeatures() {
             GPS Alerts & Location sharing
           </span>
           <span className="text-center">
-            Receive an email alert when your pet&apos;s tag is scanned. The
+            Receive an GPS email alert when your pet&apos;s tag is scanned. The
             finder can also easily send their location via WhatsApp with just a
             click.
           </span>
