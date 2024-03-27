@@ -22,7 +22,9 @@ export default function SignOut() {
       onClick={handleSignIn}
     >
       <span>Sign Out</span>
-      <Loader className="h-5 w-5 border-2" show={isSigningIn} />
+      <div>
+        <Loader className="h-5 w-5 border-2" show={isSigningIn} />
+      </div>
     </Button>
   );
 }

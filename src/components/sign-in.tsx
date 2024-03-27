@@ -41,7 +41,9 @@ export default function SignIn({
         height={15}
         alt="google logo"
       />
-      <Loader className="h-5 w-5 border-2" show={true} />
+      <div>
+        <Loader className="h-5 w-5 border-2" show={isSigningIn} />
+      </div>
     </Button>
   );
 }
