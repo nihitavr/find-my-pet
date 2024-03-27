@@ -19,6 +19,7 @@ import { toast } from "./ui/use-toast";
 // In Milliseconds
 const GEOLOCATION_TIMEOUT = 10000;
 const GEOLOCATION_MAX_AGE = 2000;
+const INDIA_COUNTRY_CODE = "+91";
 
 export default function OwnerInfoButtons({
   phoneNumber,
@@ -59,7 +60,7 @@ export default function OwnerInfoButtons({
           const { latitude, longitude } = position.coords;
 
           setWhatsappLink(
-            `${WHATSAPP_URL}${phoneNumber}?text=Hi, I found ${petName}! I am currently at this location. %0A%0Ahttps://www.google.com/maps/search/${latitude},${longitude}`,
+            `${WHATSAPP_URL}/${INDIA_COUNTRY_CODE}${phoneNumber}?text=Hi, I found ${petName}! I am currently at this location. %0A%0Ahttps://www.google.com/maps/search/${latitude},${longitude}`,
           );
 
           if (recordLocation) {

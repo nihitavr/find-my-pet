@@ -25,9 +25,10 @@ const userProfileFormSchema = z.object({
     message: "Pet name must be at least 1 characters.",
   }),
   email: z.string().email("Email must be a valid."),
-  phoneNumber: z
-    .string()
-    .regex(/^[0]?[6789]\d{9}$/, { message: "Invalid Phone Number" }),
+  phoneNumber: z.string().regex(/^[56789]\d{9}$/, {
+    message:
+      "Invalid Phone Number. Please provide a valid 10 digits number eg. (9999999999)",
+  }),
 });
 
 export function UserProfileForm() {
@@ -147,7 +148,7 @@ export function UserProfileForm() {
               <FormControl>
                 <Input
                   className="placeholder:text-secondary-foreground/40"
-                  placeholder="Phone Number (9999999999)"
+                  placeholder="Phone Number - 10 digits eg. (9999999999)"
                   {...field}
                 />
               </FormControl>
