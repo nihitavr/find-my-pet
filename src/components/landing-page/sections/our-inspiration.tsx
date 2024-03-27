@@ -17,17 +17,15 @@ export default async function OurInspirationSection() {
           duration={1}
         >
           <span className="text-center">
-            Welcome to{" "}
-            <span className="font-semibold">&apos;Find My Pet,&apos;</span>{" "}
-            inspired by two clever cats, Mini and Mush. Our journey started with
-            a simple goal: to keep pets safe with just a quick scan. Mini and
-            Mush, more than cute faces, sparked the idea for our Pet QR tags.
-            They showed us how pets make life better, with a dash of cat
-            attitude. Our aim is to keep them close, safe, and happy. We&apos;re
-            dedicated to creating solutions for pets and their owners. Join us
-            in making sure every pet adventure ends safely. Let&apos;s turn the
-            world into a playground where every pet is just a scan away from
-            home.
+            <span className="font-semibold">Find My Pet</span> is inspired by
+            two clever cats, Mini and Mush. Our journey started with a simple
+            goal: to keep pets safe with just a quick scan. Mini and Mush, more
+            than cute faces, sparked the idea for our Pet QR tags. They also
+            showed us how pets make life better, with a dash of cat attitude.
+            Our aim is to keep them close, safe, and happy. We&apos;re dedicated
+            to creating solutions for pets and their owners. Join us in making
+            sure every pet adventure ends safely. Let&apos;s turn the world into
+            a playground where every pet is just a scan away from home.
           </span>
         </FadeInAnimation>
 
@@ -37,7 +35,7 @@ export default async function OurInspirationSection() {
           duration={1}
         >
           <Image
-            src="/howitworks-pet-family.png"
+            src="/mini-mush-inspiration.jpg"
             alt="how it works attach collar"
             width={450}
             height={450}
